@@ -1,9 +1,15 @@
-import React from 'react';
+// Dependencies
+import React, { Component } from 'react';
+
+// HOC
+import Layout from './hoc/Layout/Layout';
 
 function App() {
   return (
-    <div >
-
+    <div>
+      <Layout>
+        {routes}
+      </Layout>
     </div>
   );
 }
