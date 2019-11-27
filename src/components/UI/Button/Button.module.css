@@ -1,0 +1,27 @@
+.Button {
+    border: none;
+    border-radius: 2px;
+    transition: background-color .2s ease-in;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.Button:hover {
+    background-color: #4286f4;
+}
+
+.Button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.Danger {
+    background-color: #f64f59;
+}
+
+.Success {
+    background-color: #608aad;
+}
