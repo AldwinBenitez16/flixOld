@@ -10,7 +10,7 @@ import logoSvg from '../../../assets/images/svgs/logo.svg'
 
 const logo = () => (
     <div className={styles.Logo}>
-        <Link to="/">
+        <Link to="/home">
             <img src={logoSvg} alt='Flix app logo'/>
         </Link>
     </div>

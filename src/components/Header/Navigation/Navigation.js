@@ -2,11 +2,8 @@
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 
-// CSS
-import styles from './Navigation.module.css';
-
-const navigation = () => (
-    <nav className={styles.Navigation}>
+const navigation = (props) => (
+    <nav className={props.navStyles}>
         <ul>
             <NavigationItem path="/home">Home</NavigationItem>
             <NavigationItem path="/movies">Movies</NavigationItem>

@@ -10,12 +10,12 @@ import Search from './Search/Search';
 // CSS
 import styles from './Header.module.css';
 
-const navigation = () => {
+const navigation = (props) => {
     return (
         <div className={styles.Header}>
-            <Dropdown />
+            <Dropdown clicked={props.toggleMenu}/>
             <Logo />
-            <Navigation />
+            <Navigation navStyles={styles.NavigationDesk}/>
             <Search />
         </div>
     );
