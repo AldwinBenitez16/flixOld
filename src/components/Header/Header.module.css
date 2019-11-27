@@ -3,4 +3,6 @@
     background-color: black;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    background-image: linear-gradient(to right, #000000, #434343);
 }
