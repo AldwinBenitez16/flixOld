@@ -1,0 +1,57 @@
+.Sidedrawer {
+    position: absolute;
+    top: 0;
+    left: -70vw;
+    width: 70vw;
+    height: 100vh;
+    background-color: #c2c2c2;
+    z-index: 200;
+}
+
+.Sidedrawer button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0;
+    height: 25px;
+    width: 25px;
+}
+
+.Open {
+    left: 0;
+}
+
+.Close {
+    left: -70vw;
+}
+
+.NavigationMob {
+    display: flex;
+}
+
+.NavigationMob {
+    margin: 10px 0 0 50px;
+}
+
+.NavigationMob ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    list-style-type: none; 
+    padding: 0;
+}
+
+.NavigationMob ul li {
+    margin: 0 0 10px 0;
+}
+
+@media (min-width: 750px) {
+    .Sidedrawer {
+        display: none;
+    }
+
+    .NavigationMob {
+        display: none;
+    }
+}
