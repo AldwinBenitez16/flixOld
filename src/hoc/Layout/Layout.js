@@ -11,11 +11,29 @@ import Sidedrawer from '../../components/Header/Sidedrawer/Sidedrawer';
 import styles from './Layout.module.css';
 
 class Layout extends Component {
+    state = {
+        showSideDrawer: false
+    }
+
+    toggleMenuHandler = () => {
+        this.setState( prev => {
+            return {
+                showSideDrawer: !prev.showSideDrawer
+            };
+        });
+    }
+
+    closeMenuHandler = () => {
+        this.setState({ showSideDrawer: false });
+    }
+
     render() {
         return(
             <Fragment>
-                <Header />
-                <Sidedrawer />
+                <Sidedrawer
+                    show={this.state.showSideDrawer}
+                    close={this.closeMenuHandler}/>
+                <Header toggleMenu={this.toggleMenuHandler} />
                 <main className={styles.Content}>
                     {this.props.children}
                 </main>
