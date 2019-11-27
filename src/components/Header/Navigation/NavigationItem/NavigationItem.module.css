@@ -1,0 +1,20 @@
+.NavigationItem {
+    box-sizing: border-box;
+    display: block;
+    font-size: 1.4rem;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.NavigationItem a {
+    color: #FFFDE4;
+    text-decoration: none; 
+    transition: color .2s ease-in; 
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active,
+.NavigationItem a.active {
+    color: #468cc7;
+}
+
