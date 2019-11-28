@@ -2,11 +2,11 @@
 import React from 'react';
 
 // CSS
-import styles from './Dropdown.module.css';
+import styles from './DropdownDrawer.module.css';
 
 const dropdown = (props) => (
     <div 
-        className={styles.Dropdown}
+        className={styles.DropdownDrawer}
         onClick={props.clicked}>
         <div></div>
         <div></div>
