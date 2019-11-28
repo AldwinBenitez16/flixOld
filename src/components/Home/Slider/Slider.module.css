@@ -1,0 +1,15 @@
+.Slider {
+    width: 90vw;
+    margin: 20px auto;
+}
+
+.Item {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 225px;
+}
+
+.Item img {
+    height: 100%;
+}
