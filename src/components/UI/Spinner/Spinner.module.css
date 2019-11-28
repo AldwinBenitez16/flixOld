@@ -1,0 +1,26 @@
+.ldsSpinner {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.ldsSpinner:after {
+    content: " ";
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    border-color: #4286f4 transparent #4286f4 transparent;
+    animation: ldsSpinner 1.2s linear infinite;
+}
+
+@keyframes ldsSpinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+  
