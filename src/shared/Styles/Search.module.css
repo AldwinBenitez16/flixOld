@@ -1,0 +1,87 @@
+/* Search */
+
+.SearchDesk {
+    display: none;
+}
+
+.SearchMob {
+    background-color: #ccc;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.SearchMob input,
+.SearchDesk input {
+    border: none;
+    border-radius: 2px;
+    color: white;
+    outline: none;
+    cursor: text;
+    padding: 0;
+    display: initial;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    color: black;
+    padding-left: 5px;
+}
+
+.SearchMob input {
+    height: 60%;
+    width: 80%;
+}
+
+.SearchMob button,
+.SearchDesk button {
+    box-sizing: border-box;
+    display: initial;
+    margin-right: 10px;
+    font-size: initial;
+    padding: 0;
+    background-color: #608aad;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.SearchMob button {
+    width: 35px;
+    height: 60%;
+}
+
+.SearchMob .button:hover {
+    background-color: #4286f4;
+}
+
+@media (min-width: 750px) {
+    .SearchDesk {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: initial;
+        height: 100%;
+        margin: 0 5px 0 auto;
+        border: none;
+    }
+
+    .SearchDesk input {
+        height: 40%;
+        width: initial;
+    }
+
+    .SearchDesk button {
+        width: 50px;
+        height: 40%;
+    }
+
+    .SearchDesk .button:hover {
+        background-color: #4286f4;
+    }
+
+    .SearchMob {
+        display: none;
+    }
+}
+
