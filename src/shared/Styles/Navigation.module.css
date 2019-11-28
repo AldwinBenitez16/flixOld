@@ -1,0 +1,48 @@
+/* Navigation */
+.NavigationDesk {
+    display: none;
+}
+
+.NavigationMob {
+    display: flex;
+}
+
+.NavigationMob {
+    margin: 10px 0 0 50px;
+}
+
+.NavigationMob ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    list-style-type: none; 
+    padding: 0;
+}
+
+.NavigationMob ul li {
+    margin: 0 0 10px 0;
+}
+
+@media (min-width: 750px) {
+    .NavigationDesk {
+        display: flex;
+    }
+
+    .NavigationDesk {
+        margin-left: 10px;
+    }
+    
+    .NavigationDesk ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .NavigationMob {
+        display: none;
+    }
+}

@@ -8,6 +8,7 @@ import Button from '../../UI/Button/Button';
 
 // CSS
 import styles from './Sidedrawer.module.css';
+import navStyles from '../../../shared/Styles/Navigation.module.css';
 
 const sidedrawer = (props) => (
     <div>
@@ -16,7 +17,7 @@ const sidedrawer = (props) => (
             <Button
                 type="Danger"
                 clicked={props.close}>X</Button>
-            <Navigation navStyles={styles.NavigationMob}/>
+            <Navigation navStyles={navStyles.NavigationMob}/>
         </div>  
     </div>
 );
