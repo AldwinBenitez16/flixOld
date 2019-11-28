@@ -2,26 +2,33 @@
 import React from 'react';
 
 // Components
-import Dropdown from './Sidedrawer/Dropdown/Dropdown';
+import DropdownDrawer from './Sidedrawer/DropdownDrawer/DropdownDrawer';
 import Logo from './Logo/Logo';
 import Navigation from './Navigation/Navigation';
 import Search from './Search/Search';
+import DropdownSearch from './Search/DropdownSearch/DropdownSearch';
 
 // CSS
 import styles from './Header.module.css';
+import navStyles from '../../shared/Styles/Navigation.module.css';
+import searchStyles from '../../shared/Styles/Search.module.css';
 
-const navigation = (props) => {
+const header = (props) => {
     return (
         <div className={styles.Header}>
-            <Dropdown clicked={props.toggleMenu}/>
+            <DropdownDrawer clicked={props.toggleMenu}/>
             <Logo />
-            <Navigation navStyles={styles.NavigationDesk}/>
-            <Search />
+            <Navigation navStyles={navStyles.NavigationDesk}/>
+            <Search 
+                value={props.searchValue} 
+                changed={props.onSearchChange}
+                searchStyles={searchStyles.SearchDesk}/>
+            <DropdownSearch clicked={props.toggleSearch}/>
         </div>
     );
 };
 
-export default navigation;
+export default header;
 
 /** -- Destop
  * -- Logo
