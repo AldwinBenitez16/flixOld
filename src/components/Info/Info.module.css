@@ -1,0 +1,7 @@
+.Info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    margin: 0 auto;
+}
