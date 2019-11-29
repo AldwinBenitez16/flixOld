@@ -1,0 +1,52 @@
+.Banner {
+    display: none;
+}
+
+@media (min-width: 750px) {
+    .Banner {
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+        width: 70vw;
+        margin: 0 auto;
+        height: 300px;
+        overflow: hidden;
+        box-shadow: 3px 3px 10px #637899;
+        margin-top: 10px;
+    }
+
+    .Banner img {
+        width: 100%;
+        z-index: 50;
+    }
+
+    .UpdatedMini {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .MiniInfo {
+       right: 45px; 
+    }
+
+    .MiniOpenOverlay {
+        right: unset;
+        left: 10px;
+    }
+
+    .Overlay {
+        box-sizing: border-box;
+        max-width: 30%;
+        height: 100%;
+        padding: 20px;
+        background-color: rgba(138, 183, 255, .6);
+        border: 1px solid #608aad;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+    }
+}
