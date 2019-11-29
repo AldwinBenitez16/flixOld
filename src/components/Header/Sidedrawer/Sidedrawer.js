@@ -15,7 +15,8 @@ const sidedrawer = (props) => (
         <Backdrop show={props.show} clicked={props.close}/>
         <div className={[styles.Sidedrawer, ( props.show ? styles.Open : styles.Close)].join(' ')}>
             <Button
-                type="Danger"
+                action="Exit"
+                type="Mini"
                 clicked={props.close}>X</Button>
             <Navigation navStyles={navStyles.NavigationMob}/>
         </div>  

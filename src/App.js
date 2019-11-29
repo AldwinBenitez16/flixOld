@@ -14,7 +14,7 @@ class App extends Component {
     let routes = (
       <Fragment>
         <Switch>
-          <Route to="/home" component={Home}/>
+          <Route path="/home" component={Home}/>
           <Redirect from="/" exact to="/home" />
         </Switch>
       </Fragment>
