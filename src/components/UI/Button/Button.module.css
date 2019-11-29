@@ -25,3 +25,15 @@
 .Success {
     background-color: #608aad;
 }
+
+.Mini {
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    color: #608aad;
+    transition: color .2s ease-out; 
+}
+
+.Mini:hover {
+    color: #fff;
+}
