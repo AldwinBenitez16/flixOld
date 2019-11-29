@@ -11,13 +11,16 @@ import styles from './Slider.module.css';
 const slider = (props) => {
     const settings = {
         dots: false, 
-        infinite: false,
+        infinite: true,
         speed: 500,
-        slidesToShow: 6,
-        slidesToScroll: 6
+        slidesToShow: 8,
+        slidesToScroll: 8
     }
-    console.log(props.data);
-    let data = <Spinner />;
+    let data = (
+        <div className={styles.SpinnerSlider}>
+            <Spinner />
+        </div>
+    );
     if(!props.loading && props.data !== null) {
         data = (
             <Slider {...settings}>
@@ -36,6 +39,7 @@ const slider = (props) => {
     }
     return(
         <div className={styles.Slider}>
+            <h2>{props.title}</h2>
             {data}
         </div>
     );
