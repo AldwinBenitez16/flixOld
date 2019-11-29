@@ -3,6 +3,27 @@
     margin: 20px auto;
 }
 
+.Slider h2 {
+    margin: 0;
+    padding: 10px 0;
+}
+
+.Slider:nth-child(2) {
+    margin: 0 auto 20px auto;
+    padding-top: 20px;
+}
+
+.Slider:last-child {
+    margin: 20px auto 0 auto;
+    padding-bottom: 20px;
+}
+
+.SpinnerSlider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .Item {
     display: flex !important;
     justify-content: center;
