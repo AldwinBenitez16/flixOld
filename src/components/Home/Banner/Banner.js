@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 // Components
 import Spinner from '../../UI/Spinner/Spinner';
@@ -9,7 +9,7 @@ import Button from '../../UI/Button/Button';
 import styles from './Banner.module.css';
 
 const banner = (props) => {
-    let spinner = <Spinner />;
+    let bannerContainer = <Spinner />;
     if(!props.loading && props.data !== null) {
 
         let counter = 0;
@@ -38,11 +38,11 @@ const banner = (props) => {
                         addClass={[styles.UpdatedMini, styles.MiniInfo]}
                         action="View More"
                         type="Mini" 
-                        clicked={() => {console.log('GIMME MORE')}}>i</Button>
+                        clicked={() => props.viewInfo("movie", latest.original_title,latest.id)}>i</Button>
                 </div>
             );
         }
-        spinner = (
+        bannerContainer = (
             <Fragment>
                 <img 
                     src={`https://image.tmdb.org/t/p/w1280/${latest.backdrop_path}`}
@@ -60,7 +60,7 @@ const banner = (props) => {
 
     return(
         <div className={styles.Banner}>
-            {spinner}
+            {bannerContainer}
         </div>
     );
 };

@@ -11,7 +11,7 @@ class withData extends Component {
 
     componentDidMount() {
         this.setState({loading: true, err: null});
-        axios.get(this.props.path)
+        axios.get(this.props.path) 
             .then(res => {
                 this.setState({loading: false, data: res.data});
             })

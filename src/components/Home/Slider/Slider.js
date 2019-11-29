@@ -25,9 +25,14 @@ const slider = (props) => {
         data = (
             <Slider {...settings}>
                 {props.data.results.map(curr => {
+                    let type = "movie";
+                    if(curr.original_name) {
+                        type = "tv";
+                    }
                     return (
                         <div key={curr.id} className={styles.Item}>
                             <img
+                                onClick={() => props.viewInfo(type, curr.original_title, curr.id)}
                                 src={`https://image.tmdb.org/t/p/w500/${curr.poster_path}`} 
                                 onError={(e) => {e.target.src='https://i.imgur.com/zwpr2vD.jpg'}} 
                                 alt={curr.title}/>

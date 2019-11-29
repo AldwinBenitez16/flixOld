@@ -25,29 +25,44 @@ class Home extends Component {
         this.setState({ showOverlay: true });
     }
 
+    viewInfoHandler = (type, title, movieId) => {
+        this.props.history.push(`/${type}/${title}?movieId=${movieId}`);
+    }
+
     render() {
         return(
             <div className={styles.Home}>
                 <WithData path={`/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`}>
-                    <Banner 
+                    <Banner
+                        viewInfo={this.viewInfoHandler} 
                         show={this.state.showOverlay}
                         closeOverlay={this.closeOverlayHandler}
-                        showOverlay={this.showOverlayHandler}/>
+                        showOverlay={this.showOverlayHandwler}/>
                 </WithData>
                 <WithData path={`/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`}>
-                    <Slider title="Now Playing"/>
+                    <Slider
+                        viewInfo={this.viewInfoHandler}  
+                        title="Now Playing"/>
                 </WithData>
                 <WithData path={`/trending/movie/week?api_key=${apiKey}`}>
-                    <Slider title="Trending Movies"/>
+                    <Slider
+                        viewInfo={this.viewInfoHandler}  
+                        title="Trending Movies"/>
                 </WithData>
                 <WithData path={`/movie/upcoming?api_key=${apiKey}&language=en-US&page=1`}>
-                    <Slider title="Upcoming"/>
+                    <Slider
+                        viewInfo={this.viewInfoHandler}  
+                        title="Upcoming"/>
                 </WithData>
                 <WithData path={`/trending/tv/week?api_key=${apiKey}`}>
-                    <Slider title="Trending TV Shows"/>
+                    <Slider
+                        viewInfo={this.viewInfoHandler}  
+                        title="Trending TV Shows"/>
                 </WithData>
                 <WithData path={`/tv/popular?api_key=${apiKey}&language=en-US&page=1`}>
-                    <Slider title="Popular Tv Shows"/>
+                    <Slider
+                        viewInfo={this.viewInfoHandler}  
+                        title="Popular Tv Shows"/>
                 </WithData>
             </div>
         );
