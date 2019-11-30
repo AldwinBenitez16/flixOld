@@ -11,7 +11,7 @@ const InfoCard = (props) => {
     let infoSummary = <Spinner />;
     if(!props.loading && props.data !== null) {
         let genreList = props.data.genres.map(genre => {
-            return <li>{genre.name}</li>
+            return <li key={genre.id} >{genre.name}</li>
         });
         infoSummary = (
             <Fragment>
@@ -37,7 +37,6 @@ const InfoCard = (props) => {
             </Fragment>
         );
     }
-    console.log(props.data);
     return (
         <div className={styles.InfoCard}>
             {infoSummary}

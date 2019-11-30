@@ -4,7 +4,7 @@ import { apiKey } from '../../shared/Axios/axios';
 
 // Components
 import InfoDisplay from './InfoCard/InfoCard';
-import WithData from '../../hoc/withDataWrapper/withDataWrapper';
+import DataWrapper from '../../hoc/DataWrapper/DataWrapper';
 
 // CSS
 import styles from './Info.module.css';
@@ -15,9 +15,9 @@ const info = (props) => {
     const id = query.substring(query.indexOf('=')+1);
     return (
         <div className={styles.Info}>
-            <WithData path={`/${type}/${id}?api_key=${apiKey}&language=en-US`}>
+            <DataWrapper path={`/${type}/${id}?api_key=${apiKey}&language=en-US`}>
                 <InfoDisplay />
-            </WithData>
+            </DataWrapper>
         </div>
     );
 };
