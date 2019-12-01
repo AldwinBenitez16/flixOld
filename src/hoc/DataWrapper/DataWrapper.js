@@ -10,6 +10,10 @@ class withData extends Component {
     }
 
     componentDidMount() {
+        this.getDataHandler();
+    }
+
+    getDataHandler = () => {
         this.setState({loading: true, err: null});
         axios.get(this.props.path) 
             .then(res => {
@@ -17,7 +21,7 @@ class withData extends Component {
             })
             .catch(err => {
                 this.setState({loading: false, err: err});
-            });
+        });
     }
 
     shouldComponentUpdate(nextProps, nextState) {
