@@ -1,0 +1,31 @@
+.GenreList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 3px 3px 10px #637899;
+    background-color: #ededed;
+    padding: 25px;
+}
+
+.GenreList div {
+    box-sizing: border-box;
+    width: calc(20% - 20px);
+    height: 200px;
+    padding: 10px;
+    margin: 10px;
+    color: #608aad;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #608aad;
+    box-shadow: 2px 2px 5px #637899;
+}
+
+.Hidden {
+    display: none;
+}
