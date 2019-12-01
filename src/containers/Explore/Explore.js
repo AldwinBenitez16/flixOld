@@ -13,22 +13,39 @@ import GenreList from '../../components/Explore/GenreList/GenreList';
 import styles from './Explore.module.css';
 
 class Explore extends Component {
+
+    state = {
+        exploreMovies: true,
+        exploreTvShows: false
+    }
+
+    toggleShowGenres = () => {
+        this.setState(prevState => {
+            return {
+                exploreMovies: !prevState.exploreMovies,
+                exploreTvShows: !prevState.exploreTvShows
+            };
+        });
+    }
+
     render() {
         return(
             <div className={styles.Explore}>
-                <Button
-                    action="Show Movies"
-                    type="Success"
-                    clicked={() => {console.log('Explore Movies')}}>Movies</Button>
-                <Button
-                    action="Show Movies"
-                    type="Success"
-                    clicked={() => {console.log('Explore Tv Shows')}}>Tv Shows</Button>
+                <div className={styles.TypeButtons}>
+                    <Button
+                        action="Explore Movie Genres"
+                        type="Success"
+                        clicked={this.toggleShowGenres}>Movies</Button>
+                    <Button
+                        action="Explore Tv Shows Genres"
+                        type="Success"
+                        clicked={this.toggleShowGenres}>Tv Shows</Button>
+                </div>
                 <DataWrapper path={`/genre/movie/list?api_key=${apiKey}&language=en-US`}>
-                    <GenreList />  
+                    <GenreList show={this.state.exploreMovies}/>  
                 </DataWrapper>
                 <DataWrapper path={`/genre/tv/list?api_key=${apiKey}&language=en-US`}>
-                    <GenreList />  
+                    <GenreList show={this.state.exploreTvShows}/>  
                 </DataWrapper>
             </div>
         );
