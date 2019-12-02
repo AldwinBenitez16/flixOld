@@ -1,0 +1,28 @@
+.GenreInfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 3px 3px 10px #637899;
+    padding: 25px;
+    margin: 25px;
+}
+
+.GenreInfo .GenreTitle {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.GenreInfo h2 {
+    margin: 0;
+    margin: 25px;
+}
+
+.GenreInfo img {
+    width: 150px;
+    padding: 10px;
+}
