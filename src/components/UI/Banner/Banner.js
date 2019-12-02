@@ -26,7 +26,6 @@ const banner = (props) => {
         const latest = props.data.results[counter];
         let overlay = null;
         if(props.show) {
-            console.log(ternary(latest.release_date, backup));
             overlay = (
                 <div className={styles.Overlay}>
                     <h2>{ternary(latest.original_title, latest.original_name)}</h2>
