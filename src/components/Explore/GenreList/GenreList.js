@@ -1,5 +1,6 @@
 // Dependencies
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 // Components
 import Spinner from '../../UI/Spinner/Spinner';
@@ -15,8 +16,10 @@ const genreList = (props) => {
             genres = (
                 props.data.genres.map(genre => {
                     return (
-                        <div key={genre.id}>
-                            <h3>{genre.name}</h3>
+                        <div 
+                            onClick={() => props.viewGenre(genre.name, genre.id, props.type)} 
+                            key={genre.id}>
+                        <h3>{genre.name}</h3>
                         </div>
                     );
                 })
