@@ -1,6 +1,5 @@
 // Dependencies
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 // Components
 import Spinner from '../../UI/Spinner/Spinner';
