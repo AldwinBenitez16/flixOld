@@ -6,8 +6,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Movies from './components/Movies/Movies';
 import TvShows from './components/TvShows/TvShows';
-import Info from './components/Info/Info';
 import Explore from './containers/Explore/Explore';
+import Info from './components/Info/Info';
+import GenrePage from './components/Explore/GenrePage/GenrePage';
 
 // HOC
 import Layout from './hoc/Layout/Layout';
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path="/tvshows" render={(props) => <PageWrapper {...props} ><TvShows /></PageWrapper>}/>
           <Route path="/explore" component={Explore}/>
           <Route path="/:type/:title" component={Info}/>
+          <Route path="/:genre" component={GenrePage}/>
           <Redirect from="/" exact to="/home" />
         </Switch>
       </Fragment>
