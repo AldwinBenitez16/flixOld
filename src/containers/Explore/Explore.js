@@ -28,8 +28,8 @@ class Explore extends Component {
         });
     }
 
-    viewGenreHandler = (name, id, type) => {
-        this.props.history.push(`/${name}?id=${id}&type=${type}`);
+    viewGenreHandler = (name, id, type, max) => {
+        this.props.history.push(`/${name}?id=${id}&type=${type}&page=1`);
     }
 
     render() {
