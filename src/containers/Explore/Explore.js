@@ -28,6 +28,10 @@ class Explore extends Component {
         });
     }
 
+    viewGenreHandler = (name, id, type) => {
+        this.props.history.push(`/${name}?id=${id}&type=${type}`);
+    }
+
     render() {
         return(
             <div className={styles.Explore}>
@@ -42,10 +46,16 @@ class Explore extends Component {
                         clicked={this.toggleShowGenres}>Tv Shows</Button>
                 </div>
                 <DataWrapper path={`/genre/movie/list?api_key=${apiKey}&language=en-US`}>
-                    <GenreList show={this.state.exploreMovies}/>  
+                    <GenreList 
+                        type="movie"
+                        viewGenre={this.viewGenreHandler}
+                        show={this.state.exploreMovies}/>  
                 </DataWrapper>
                 <DataWrapper path={`/genre/tv/list?api_key=${apiKey}&language=en-US`}>
-                    <GenreList show={this.state.exploreTvShows}/>  
+                    <GenreList 
+                        type="tv"
+                        viewGenre={this.viewGenreHandler}
+                        show={this.state.exploreTvShows}/>  
                 </DataWrapper>
             </div>
         );
