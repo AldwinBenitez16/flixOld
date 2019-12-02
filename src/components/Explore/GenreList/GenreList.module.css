@@ -24,6 +24,7 @@
     align-items: center;
     border: 1px solid #608aad;
     box-shadow: 2px 2px 5px #637899;
+    cursor: pointer;
 }
 
 .Hidden {
