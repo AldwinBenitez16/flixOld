@@ -16,10 +16,12 @@ const genrePage = (props) => {
     const queries = queryString.parse(props.location.search);
     const id = queries.id;
     const type = queries.type;
+    const genre = props.match.url.substring(1);
 return(
         <div className={styles.GenrePage}>
             <DataWrapper path={`/discover/${type}?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${id}`}>
-                <GenreInfo />
+                <GenreInfo 
+                    title={genre}/>
             </DataWrapper>
         </div>
     );

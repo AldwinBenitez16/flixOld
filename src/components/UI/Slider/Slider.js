@@ -22,6 +22,7 @@ const slider = (props) => {
             <Spinner />
         </div>
     );
+    console.log(props.data);
     if(!props.loading && props.data !== null) {
         data = (
             <Slider {...settings}>

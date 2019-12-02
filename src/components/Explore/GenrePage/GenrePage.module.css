@@ -1,0 +1,7 @@
+.GenrePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    margin: 0 auto;
+}
