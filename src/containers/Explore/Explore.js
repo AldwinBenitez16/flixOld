@@ -29,7 +29,7 @@ class Explore extends Component {
     }
 
     viewGenreHandler = (name, id, type, max) => {
-        this.props.history.push(`/${name}?id=${id}&type=${type}&page=1`);
+        this.props.history.push(`/genre/${name}?id=${id}&type=${type}&page=1`);
     }
 
     render() {

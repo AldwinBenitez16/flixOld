@@ -15,7 +15,7 @@ class PageWrapper extends Component {
     }
 
     viewInfoHandler = (type, title, movieId) => {
-        this.props.history.push(`/${type}/${title}?movieId=${movieId}`);
+        this.props.history.push(`/info/${type}/${title}?movieId=${movieId}`);
     }
 
     render() {

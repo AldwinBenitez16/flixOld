@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import AuthReducer from './store/reducers/auth';
 
 // Components
 import App from './App';
@@ -17,7 +18,7 @@ import "./slick/slick.css";
 import './index.css';
 
 const rootReducer = combineReducers({
-
+    auth: AuthReducer
 });
 
 const composeEnhancers = process.env.NODE_ENV === 'developement' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
