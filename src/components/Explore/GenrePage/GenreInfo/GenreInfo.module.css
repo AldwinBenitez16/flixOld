@@ -24,5 +24,9 @@
 
 .GenreInfo img {
     width: 150px;
-    padding: 10px;
+}
+
+.GenreInfo .Item {
+    margin: 10px;
+    cursor: pointer;
 }

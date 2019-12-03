@@ -1,20 +1,25 @@
 // Dependencies
 import React from 'react';
+import { ternary } from '../../../../shared/Utillity/Utillity';
 
 // Components
 import Pagination from './Pagination/Pagination';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 // CSS
 import styles from './GenreInfo.module.css';
 
 const genreInfo = (props) => {
-    let genreItems = null;
+    let genreItems = <Spinner />;
     let pagination= null;
 
     if(!props.loading && props.data !== null) {
         genreItems = props.data.results.map(curr => {
             return (
-                <div key={curr.id}>
+                <div 
+                    onClick={() => props.viewInfo(props.type, ternary(curr.original_title, curr.original_name), curr.id)}
+                    key={curr.id} 
+                    className={styles.Item}>
                     <img 
                         src={`https://image.tmdb.org/t/p/w500/${curr.poster_path}`} 
                         onError={(e) => {e.target.src='https://i.imgur.com/zwpr2vD.jpg'}}  
