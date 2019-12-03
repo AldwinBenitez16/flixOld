@@ -24,11 +24,13 @@ class GenrePage extends Component {
 
     componentDidMount() {
         const queries = queryString.parse(this.props.location.search);
+        let path = this.props.match.url.substring(1)
+        let genre = path.substring(path.indexOf('/')+1);
         this.setState({
             id: queries.id,
             type: queries.type,
             page: queries.page,
-            genre: this.props.match.url.substring(1)
+            genre
         });
     }
 
@@ -42,7 +44,6 @@ class GenrePage extends Component {
             this.setState({page});
         }
     }
-
     render() {
         let list = <Spinner />;
         if(this.state.id && this.state.type && this.state.page) {
@@ -51,7 +52,9 @@ class GenrePage extends Component {
                     <GenreInfo 
                         changePage={this.changePageHandler}
                         title={this.state.genre}
-                        page={this.state.page}/>
+                        page={this.state.page}
+                        viewInfo={this.props.viewInfo}
+                        type={this.state.type}/>
                 </DataWrapper>
             );
         }
