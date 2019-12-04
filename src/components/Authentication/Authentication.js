@@ -1,6 +1,9 @@
 // Dependencies
 import React, { Component } from 'react';
 import { updateObject, checkValidity } from '../../shared/Utillity/Utillity';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import * as actions from '../../store/actions/index';
 
 // Components
 import Button from '../UI/Button/Button';
@@ -13,12 +16,11 @@ class Authentication extends Component {
 
     state={
         loginForm: {
-            email: this.createFormElementHandler('input', '', {
+            username: this.createFormElementHandler('input', '', {
                 type: 'text',
-                placeholder: 'Your Email'
+                placeholder: 'Username'
             }, {
-                required: true,
-                isMail: true
+                required: true
             }, false),
             password: this.createFormElementHandler('input', '',{
                 type: 'password',
@@ -30,7 +32,7 @@ class Authentication extends Component {
         },
         formIsValid: false
     }
-
+    
     createFormElementHandler(type, value, config, rules=null, valid=true, touched=false) {
         return {
             elementType: type, 
@@ -45,6 +47,10 @@ class Authentication extends Component {
             touched
         };
     };
+
+    componentDidMount() {
+        this.props.fetchToken();
+    }
 
     inputChangeHandler = (e, id) => {
         const updatedLogin = updateObject(this.state.loginForm, {
@@ -62,7 +68,22 @@ class Authentication extends Component {
         this.setState({loginForm: updatedLogin, formIsValid});
     }
 
+    loginHandler = () => {
+        this.props.fetchSessionId(
+            this.props.auth.tokenData.request_token, 
+            this.state.loginForm.username.value,
+            this.state.loginForm.password.value);
+    }
+
+    cancelLoginHandler = () => {
+        this.props.history.push('/home');
+    };
+
     render() {
+        let redirect = null;
+        if(this.props.isAuth) {
+            redirect = <Redirect to='/user' />;
+        }
         const loginFormArray = [];
         for(let key in this.state.loginForm) {
             loginFormArray.push({
@@ -87,22 +108,44 @@ class Authentication extends Component {
 
         return(
             <div className={styles.Authentication}>
-                <h2>Login</h2>
-                {loginForm}
-                <Button 
-                    addClass={[]}
-                    type="Success"
-                    action="Login"
-                    clicked={() => {}}>Login</Button>
-                <Button 
-                    addClass={[]}
-                    type="Danger"
-                    action="Cancel"
-                    clicked={() => {}}>Cancel</Button>
+                {redirect}
+                <div className={styles.Form}>
+                    <h2>Login</h2>
+                    <div className={styles.Inputs}>
+                        {loginForm}
+                    </div>
+                    <div className={styles.Controls}>
+                        <Button 
+                            addClass={[]}
+                            type="Success"
+                            action="Login"
+                            clicked={this.loginHandler}>Login</Button>
+                        <Button 
+                            addClass={[]}
+                            type="Danger"
+                            action="Cancel"
+                            clicked={this.cancelLoginHandler}>Cancel</Button>
+                    </div>
+                </div>
             </div>
         );
     }
 };
 
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+        isAuth: state.auth.authenticated,
+        loading: state.auth.loading,
+        error: state.auth.error
+    };
+};
 
-export default Authentication;
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchToken: () => dispatch(actions.fetchToken()),
+        fetchSessionId: (token, username, password) => dispatch(actions.fetchSessionId(token, username, password))
+    };
+};
+
+export default connect(mapStateToProps ,mapDispatchToProps)(Authentication);

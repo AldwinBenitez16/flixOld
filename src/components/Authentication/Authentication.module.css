@@ -1,0 +1,60 @@
+.Authentication {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Form {
+    width: 40%;
+    min-height: 500px;
+    background-color: #fff;
+    box-shadow: 3px 3px 10px #637899;
+    padding: 25px;
+}
+
+.Form h2 {
+    text-align: center;
+}
+
+.Inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 70%;
+    margin: 40px auto 20px auto;
+}
+
+.Inputs div {
+    min-height: 40px;
+}
+
+.Inputs label {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 25%;
+}
+
+.Inputs input {
+    box-sizing: border-box;
+    display: inline-block;
+    width: calc(75% - 10px);
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.Form .Controls {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.Controls button {
+    width: 25%;
+    height: 30px;
+}
+
+.Controls button:last-child {
+    margin-left: 10px;
+}
+
