@@ -1,7 +1,8 @@
 .FormElement {
-    
+    margin-left: 10px;
 }
 
 .Invalid {
-    background-color: red;
+    border: 1px solid salmon;
+    outline: none;
 }
