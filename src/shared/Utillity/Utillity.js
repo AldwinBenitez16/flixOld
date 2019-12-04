@@ -38,3 +38,11 @@ export const ternary = (check, backup, alternative) => {
     }
     return backup
 };
+
+export const capitalize = (string) => {
+    const firstLetter = string.charAt(0).toUpperCase();
+    const restOfStringArray = string.split('');
+    const restOfString = restOfStringArray.splice(1, restOfStringArray.length-1);
+    const capitalizedString = firstLetter + restOfString.join('');
+    return capitalizedString;
+};
