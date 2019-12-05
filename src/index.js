@@ -3,10 +3,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+
+
+// Redux
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import AuthReducer from './store/reducers/auth';
+import UserReducer from './store/reducers/user';
+
+// Redux Persist
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
@@ -22,7 +28,8 @@ import "./slick/slick.css";
 import './index.css';
 
 const rootReducer = combineReducers({
-    auth: AuthReducer
+    auth: AuthReducer,
+    user: UserReducer
 });
 
 const persistConfig = {
