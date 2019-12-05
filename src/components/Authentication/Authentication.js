@@ -49,7 +49,9 @@ class Authentication extends Component {
     };
 
     componentDidMount() {
-        this.props.fetchToken();
+        if(this.props.auth.tokenData === null) {
+            this.props.fetchToken();
+        }
     }
 
     inputChangeHandler = (e, id) => {

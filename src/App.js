@@ -3,11 +3,14 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+// Containers
+import Explore from './containers/Explore/Explore';
+import User from './containers/User/User';
+
 // Components
 import Home from './components/Home/Home';
 import Movies from './components/Movies/Movies';
 import TvShows from './components/TvShows/TvShows';
-import Explore from './containers/Explore/Explore';
 import Info from './components/Info/Info';
 import GenrePage from './components/Explore/GenrePage/GenrePage';
 import Authentication from './components/Authentication/Authentication';
@@ -47,7 +50,7 @@ class App extends Component {
             <Route path="/explore" component={Explore}/>
             <Route path="/login" component={Authentication}/>
             <Route path="/logout" component={LogOut}/>
-            <Route path="/user" render={() => <h2>USER AUTHENTICATED!!!</h2>} />
+            <Route path="/user" component={User} />
             <Route path="/genre/:genre" render={(props) => <PageWrapper {...props}  ><GenrePage /></PageWrapper>} />
             <Route path="/info/:type/:title" component={Info}/>
             <Route render={() => <h2>Page Not Found!</h2>}/>
