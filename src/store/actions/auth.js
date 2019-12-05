@@ -99,3 +99,4 @@ export const logout = () => {
         type: actionTypes.LOGOUT
     };
 };
+
