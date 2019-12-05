@@ -43,6 +43,7 @@ const slider = (props) => {
             </Slider>
         );
     }
+    console.log(props);
     return(
         <div className={styles.Slider}>
             <h2>{props.title}</h2>

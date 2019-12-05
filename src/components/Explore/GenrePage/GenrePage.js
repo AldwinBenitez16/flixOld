@@ -40,7 +40,7 @@ class GenrePage extends Component {
 
     changePageHandler = (page, max) => {
         if(page > 0 && page <= max) {
-            this.props.history.push(`/${this.state.genre}?id=${this.state.id}&type=${this.state.type}&page=${page}`);
+            this.props.history.push(`/genre/${this.state.genre}?id=${this.state.id}&type=${this.state.type}&page=${page}`);
             this.setState({page});
         }
     }
