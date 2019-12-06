@@ -11,7 +11,7 @@ import User from './containers/User/User';
 import Home from './components/Home/Home';
 import Movies from './components/Movies/Movies';
 import TvShows from './components/TvShows/TvShows';
-import Info from './components/Info/Info';
+import Info from './containers/Info/Info';
 import GenrePage from './components/Explore/GenrePage/GenrePage';
 import Authentication from './components/Authentication/Authentication';
 import LogOut from './components/Authentication/LogOut/LogOut';
