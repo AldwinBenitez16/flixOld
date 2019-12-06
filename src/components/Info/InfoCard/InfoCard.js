@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 
 // Components 
 import Spinner from '../../UI/Spinner/Spinner';
+import InfoControls from './InfoControls/InfoControls';
 
 // CSS
 import styles from './InfoCard.module.css';
@@ -13,6 +14,18 @@ const InfoCard = (props) => {
         let genreList = props.data.genres.map(genre => {
             return <li key={genre.id} >{genre.name}</li>
         });
+        let controls = null;
+        if(props.isAuth) {
+            controls = (
+                <Fragment>
+                    --- List
+                    --- Rate
+                    <InfoControls
+                        addFavorite={props.addFavorite}
+                        addWatchList={props.addWatchList} />
+                </Fragment>
+            );
+        }
         infoSummary = (
             <Fragment>
                 <img src={`https://image.tmdb.org/t/p/w500/${props.data.poster_path}`}
@@ -34,6 +47,7 @@ const InfoCard = (props) => {
                         <p>Runtime: {props.data.runtime} mins</p>
                     </div>
                 </div>
+                {controls}
             </Fragment>
         );
     }

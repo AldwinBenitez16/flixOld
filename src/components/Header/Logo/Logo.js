@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styles from './Logo.module.css';
 
 // Assets
-import logoSvg from '../../../assets/images/svgs/logo.svg'
+import logoSvg from '../../../assets/images/svgs/logo.svg';
 
 const logo = () => (
     <div className={styles.Logo}>

@@ -34,16 +34,13 @@ class GenrePage extends Component {
         });
     }
 
-    shouldComponentUpdate() {
-        return true;
-    }
-
     changePageHandler = (page, max) => {
         if(page > 0 && page <= max) {
             this.props.history.push(`/genre/${this.state.genre}?id=${this.state.id}&type=${this.state.type}&page=${page}`);
             this.setState({page});
         }
     }
+
     render() {
         let list = <Spinner />;
         if(this.state.id && this.state.type && this.state.page) {
@@ -58,6 +55,7 @@ class GenrePage extends Component {
                 </DataWrapper>
             );
         }
+        
         return(
             <div key={this.state.page} className={styles.GenrePage}>
                 {list}
