@@ -26,7 +26,10 @@ export const fetchToken = () => {
         dispatch(fetchTokenStart());
         axios.get(`/authentication/token/new?api_key=${apiKey}`)
             .then(res => {
-                dispatch(fetchTokenSuccess(res.data));
+                dispatch(fetchTokenSuccess({
+                    expires_at: res.data.expires_at, 
+                    request_token: res.data.request_token
+                }));
             })
             .catch(err => {
                 dispatch(fetchTokenFail(err));
@@ -54,7 +57,7 @@ const fetchSessionIdFail = (error) => {
     };
 };
 
-const fetchSessionIdFinal = (token, username) => {
+export const fetchSessionIdFinal = (token, username) => {
     return dispatch => {
         dispatch(fetchSessionIdStart)
         axios({
@@ -65,7 +68,11 @@ const fetchSessionIdFinal = (token, username) => {
             }
         })
             .then(res => {
-                dispatch(fetchSessionIdSuccess({...res.data, username}));
+                const data = {
+                    session_id: res.data.session_id,
+                    username
+                };
+                dispatch(fetchSessionIdSuccess(data));
             })
             .catch(error => {
                 dispatch(fetchSessionIdFail(error));
