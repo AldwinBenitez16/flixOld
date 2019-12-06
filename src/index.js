@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import AuthReducer from './store/reducers/auth';
 import UserReducer from './store/reducers/user';
+import InfoReducer from './store/reducers/info';
 
 // Redux Persist
 import { PersistGate } from 'redux-persist/integration/react';
@@ -29,6 +30,7 @@ import './index.css';
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
+    info: InfoReducer,
     user: UserReducer
 });
 

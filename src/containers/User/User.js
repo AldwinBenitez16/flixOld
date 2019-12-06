@@ -2,7 +2,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { updateObject } from '../../shared/Utillity/Utillity';
 
 // Components
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -31,11 +30,13 @@ class User extends Component {
     }
 
     showHandler = (type) => {
-        const show = updateObject(this.state, {
-            [`show${type}`]: true,
-            
+        this.setState({
+            showLists: false,
+            showFavorites: false,
+            showWatchList: false,
+            showRated:false,
+            [`show${type}`]: true
         });
-        this.setState({});
     }
 
     render() {
@@ -65,7 +66,7 @@ class User extends Component {
         return(
             <div className={styles.User}>
                 <UserControls 
-                    />
+                   showHandler={this.showHandler} />
                 {user}
             </div>
         );
