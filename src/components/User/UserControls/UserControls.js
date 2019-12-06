@@ -14,22 +14,22 @@ const userControls = (props) => {
                 addClass={[styles.UpdatedButton]}
                 type="Success"
                 action="Show Favorites"
-                clicked={props.showFavorites}>Favorites</Button>
+                clicked={() => props.showHandler('Favorites')}>Favorites</Button>
             <Button
                 addClass={[styles.UpdatedButton]}
                 type="Success"
-                action="Show Favorites"
-                clicked={props.showRated}>Rated</Button>
+                action="Show Rated"
+                clicked={() => props.showHandler('Rated')}>Rated</Button>
             <Button
                 addClass={[styles.UpdatedButton]}
                 type="Success"
-                action="Show Favorites"
-                clicked={props.showWatchlist}>WatchList</Button>
+                action="Show WatchList"
+                clicked={() => props.showHandler('WatchList')}>WatchList</Button>
             <Button
                 addClass={[styles.UpdatedButton]}
                 type="Success"
-                action="Show Favorites"
-                clicked={props.showLists}>Lists</Button>
+                action="Show Lists"
+                clicked={() => props.showHandler('Lists')}>Lists</Button>
         </div>
     );
 };
