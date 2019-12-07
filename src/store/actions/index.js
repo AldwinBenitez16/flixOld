@@ -10,5 +10,8 @@ export {
 } from './user';
 
 export {
-    fetchAccountState
+    fetchAccountState,
+    updateMediaState,
+    updateMediaStateSuccess,
+    updateRating
 } from './info';
