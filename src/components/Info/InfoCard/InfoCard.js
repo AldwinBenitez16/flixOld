@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 // Components 
 import Spinner from '../../UI/Spinner/Spinner';
 import InfoControls from './InfoControls/InfoControls';
+import RatingOverlay from './RatingOverlay/RatingOverlay';
 
 // CSS
 import styles from './InfoCard.module.css';
@@ -15,14 +16,22 @@ const InfoCard = (props) => {
             return <li key={genre.id} >{genre.name}</li>
         });
         let controls = null;
+        let ratingContent = null;
         if(props.isAuth) {
+            if (props.showRatingOverlay) {
+                ratingContent = <RatingOverlay 
+                                    changed={props.changeRatingValue}
+                                    rateValue={props.ratingValue}
+                                    updateRating={props.updateRating}/>;
+            }
             controls = (
                 <Fragment>
-                    --- List
-                    --- Rate
                     <InfoControls
-                        addFavorite={props.addFavorite}
-                        addWatchList={props.addWatchList} />
+                        id={props.mediaID}
+                        toggleMediaState={props.toggleMediaState}
+                        toggleRatingOverlay={props.toggleRatingOverlay}
+                        updateRating={props.updateRating} />
+                    {ratingContent}
                 </Fragment>
             );
         }
