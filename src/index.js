@@ -30,8 +30,8 @@ import './index.css';
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
-    info: InfoReducer,
-    user: UserReducer
+    user: UserReducer,
+    info: InfoReducer
 });
 
 const persistConfig = {

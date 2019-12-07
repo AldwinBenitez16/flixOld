@@ -20,9 +20,9 @@ class Info extends Component {
         type: null,
         id: null,
         loading: false,
-        status: null,
         error: null,
-        accountState: null
+        showRatingOverlay: false,
+        rateValue: 1
     };
 
     componentDidMount() {
@@ -31,51 +31,53 @@ class Info extends Component {
         const id = query.substring(query.indexOf('=')+1);
         this.setState({ type, id });
         if(this.props.isAuth) {
-            this.props.onFetchMediaState(id, this.props.sessionData.session_id);
+            console.log(id);
+            if(!this.props.accountState || !this.props.accountState[`${id}`]) {
+                console.log('fetched');
+                this.props.onFetchMediaState(id, this.props.sessionData.session_id, type); 
+            }
         }
     }
 
-    addFavoritesHandler = () => {
-        axios({
-            url: `/account/${this.props.accountID}/favorite?api_key=${apiKey}&session_id=${this.props.sessionData.session_id}`,
-            data: {
-                media_type: this.state.type,
-                media_id: this.state.id,
-                favorite: true
-            },
-            method: 'post'
-        })
-            .then(res => {
-                this.setState({status: res.data, accountState: {
-                    ...this.state.accountState,
-                    favorite: true
-                }});
-            })
-            .catch(err => {
-                this.setState({ error: err});
-            });
+    toggleMediaStateHandler = (type) => {
+        this.props.onUpdateMediaState(
+            this.props.accountID,
+            this.props.sessionData.session_id,
+            this.state.type,
+            this.state.id,
+            type,
+            this.props.accountState[`${this.state.id}`][`${type}`]
+        );
     };
 
-    addWatchListHandler = () => {
-        axios({
-            url: `/account/${this.props.accountID}/watchlist?api_key=${apiKey}&session_id=${this.props.sessionData.session_id}`,
-            data: {
-                media_type: this.state.type,
-                media_id: this.state.id,
-                watchlist: true
-            },
-            method: 'post'
-        })
-            .then(res => {
-                console.log(res.data);
-                this.setState({status: res.data, accountState: {
-                    ...this.state.accountState,
-                    watchlist: true
-                }});
-            })
-            .catch(err => {
-                this.setState({ error: err});
-            });
+    toggleRatingOverlayHandler = () => {
+        this.setState(prevState => {
+            return {
+                showRatingOverlay: !prevState.showRatingOverlay
+            };
+        });
+    };
+
+    changeRatingValueHandler = (e) => {
+        let value = e.target.value;
+        if(value > 10) {
+            value = 10;
+        } else if(value <= 0) {
+            value = 1;
+        }
+        this.setState({rateValue: value});
+    };
+
+    updateRatingHandler = (type) => {
+        let value = this.state.rateValue;
+        this.props.onUpdateRating(this.state.type, this.state.id, value, this.props.sessionData.session_id, type)
+        if(type === "delete") {
+            value = false;
+        }
+        this.props.onUpdateMediaRating(this.state.id, {
+            rated: parseInt(value)
+        });
+        this.setState({ showRatingOverlay: false });
     };
 
     render() {
@@ -83,10 +85,15 @@ class Info extends Component {
         if(this.state.type && this.state.id) {
             infoContent = (
                 <DataWrapper path={`/${this.state.type}/${this.state.id}?api_key=${apiKey}&language=en-US`}>
-                    <InfoCard 
+                    <InfoCard
+                        mediaID={this.state.id} 
                         isAuth={this.props.isAuth}
-                        addFavorite={this.addFavoritesHandler} 
-                        addWatchList={this.addWatchListHandler}/>
+                        toggleMediaState={this.toggleMediaStateHandler}
+                        toggleRatingOverlay={this.toggleRatingOverlayHandler}
+                        showRatingOverlay={this.state.showRatingOverlay}
+                        ratingValue={this.state.rateValue}
+                        changeRatingValue={this.changeRatingValueHandler}
+                        updateRating={this.updateRatingHandler}/>
                 </DataWrapper>
             );
         }
@@ -102,13 +109,17 @@ const mapStateToProps = state => {
     return {
         isAuth: state.auth.authenticated,
         sessionData: state.auth.sessionIdData,
-        accountID: state.user.accountID
+        accountID: state.user.accountID,
+        accountState: state.info.accountState
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchMediaState: (id, sessionID) => dispatch(actions.fetchAccountState(id, sessionID))
+        onFetchMediaState: (id, sessionID, type) => dispatch(actions.fetchAccountState(id, sessionID, type)),
+        onUpdateMediaState: (accountID, sessionID, mediaType, mediaID, stateType, stateValue) => dispatch(actions.updateMediaState(accountID, sessionID, mediaType, mediaID, stateType, stateValue)),
+        onUpdateRating: (type, id, value, sessionID, requestType) => dispatch(actions.updateRating(type, id, value, sessionID, requestType)),
+        onUpdateMediaRating: (id, data) => dispatch(actions.updateMediaStateSuccess(id, data))
     };
 };
 

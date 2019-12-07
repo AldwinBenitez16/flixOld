@@ -26,7 +26,7 @@ class withData extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if(this.state.data !== nextState.data ||
-            this.props.children.props.show !== nextProps.children.props.show) {
+            this.props.children.props !== nextProps.children.props) {
             return true;
         }
         return false;
