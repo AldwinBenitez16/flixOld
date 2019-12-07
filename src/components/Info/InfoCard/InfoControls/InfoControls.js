@@ -1,5 +1,6 @@
 // Dependencies
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 // Components
 import Button from '../../../UI/Button/Button';
@@ -19,32 +20,50 @@ import { ReactComponent as Watchadd } from '../../../../assets/images/svgs/watch
 import { ReactComponent as Watchrem } from '../../../../assets/images/svgs/watch-.svg';
 
 import { ReactComponent as Rateadd } from '../../../../assets/images/svgs/rate+.svg';
+import { ReactComponent as Raterem } from '../../../../assets/images/svgs/rate-.svg';
 
 const userControls = (props) => {
+    let controlsContent = null;
+    if (props.accountState) {
+        if(props.accountState[`${props.id}`]) {
+            const mediaState = props.accountState[`${props.id}`];
+            controlsContent = (
+                <Fragment>
+                    <Button
+                        addClass={[styles.UpdatedButton]}
+                        type="Success"
+                        action="Add To Lists"
+                        clicked={() => {}}><Listdrop /></Button>
+                    <Button
+                        addClass={[styles.UpdatedButton]}
+                        type="Success"
+                        action="Rate"
+                        clicked={() => mediaState.rated ? props.updateRating("delete") : props.toggleRatingOverlay() }>{mediaState.rated ? <Raterem /> : <Rateadd />}</Button>
+                    <Button
+                        addClass={[styles.UpdatedButton]}
+                        type="Success"
+                        action="Favorite"
+                        clicked={() => props.toggleMediaState('favorite')}>{mediaState.favorite ? <Heartrem /> : <Heartadd />}</Button>
+                    <Button
+                        addClass={[styles.UpdatedButton]}
+                        type="Success"
+                        action="Watchlist"
+                        clicked={() => props.toggleMediaState('watchlist')}>{mediaState.watchlist ? <Watchrem /> : <Watchadd />}</Button>
+                </Fragment>
+            );
+        }
+    }
     return (
         <div className={styles.InfoControls}> 
-            <Button
-                addClass={[styles.UpdatedButton]}
-                type="Success"
-                action="Add To Lists"
-                clicked={() => {}}><Listdrop /></Button>
-            <Button
-                addClass={[styles.UpdatedButton]}
-                type="Success"
-                action="Rate"
-                clicked={() => {}}><Rateadd /></Button>
-            <Button
-                addClass={[styles.UpdatedButton]}
-                type="Success"
-                action="Favorite"
-                clicked={props.addFavorite}><Heartadd /></Button>
-            <Button
-                addClass={[styles.UpdatedButton]}
-                type="Success"
-                action="Watch Later"
-                clicked={props.addWatchList}><Watchadd /></Button>
+            {controlsContent} 
         </div>
     );
 };
 
-export default userControls;
+const mapStateToProps = state => {
+    return {
+        accountState: state.info.accountState
+    };
+};
+
+export default connect(mapStateToProps)(userControls);
