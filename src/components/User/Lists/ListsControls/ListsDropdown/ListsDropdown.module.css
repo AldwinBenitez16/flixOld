@@ -1,0 +1,36 @@
+.ListsDropdown {
+    padding: 0;
+    padding-top: 45px;
+    background-color: #608aad;
+    border-radius: 10px;
+    transition: min-height 1s ease-in;
+}
+
+.ListsDropdown ul {
+    margin: 0;
+    padding: 0;
+}
+
+.ListsDropdown li{
+    list-style: none;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.ListsDropdown li:last-child {
+    padding-bottom: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.ListsDropdown li:hover {
+    background-color: #4286f4;
+}
+
+.Hide {
+    display: none;
+}
+
+.Show {
+    display: block;
+}
