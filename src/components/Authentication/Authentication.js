@@ -49,6 +49,7 @@ class Authentication extends Component {
     };
 
     componentDidMount() {
+        console.log(this.props.auth.tokenData);
         if(this.props.auth.tokenData === null) {
             this.props.fetchToken();
         }
