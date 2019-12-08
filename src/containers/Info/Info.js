@@ -22,6 +22,7 @@ class Info extends Component {
         loading: false,
         error: null,
         showRatingOverlay: false,
+        showListsOverlay: true,
         rateValue: 1
     };
 
@@ -54,6 +55,14 @@ class Info extends Component {
         this.setState(prevState => {
             return {
                 showRatingOverlay: !prevState.showRatingOverlay
+            };
+        });
+    };
+
+    toggleListsOverlayHandler = () => {
+        this.setState(prevState => {
+            return {
+                showListsOverlay: !prevState.showListsOverlay
             };
         });
     };
@@ -93,7 +102,9 @@ class Info extends Component {
                         showRatingOverlay={this.state.showRatingOverlay}
                         ratingValue={this.state.rateValue}
                         changeRatingValue={this.changeRatingValueHandler}
-                        updateRating={this.updateRatingHandler}/>
+                        updateRating={this.updateRatingHandler}
+                        showListsOverlay={this.state.showListsOverlay}
+                        toggleListsOverlay={this.toggleListsOverlayHandler}/>
                 </DataWrapper>
             );
         }

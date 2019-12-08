@@ -8,7 +8,7 @@ import styles from './ListsDropdown.module.css';
 const listsDropdown = (props) => {
     
     let visible = styles.Hide;
-    if(!props.show) {
+    if(props.show) {
         visible = styles.Show;
     }
     let listsContent = props.lists.map(list => (

@@ -33,7 +33,7 @@ const userControls = (props) => {
                         addClass={[styles.UpdatedButton]}
                         type="Success"
                         action="Add To Lists"
-                        clicked={() => {}}><Listdrop /></Button>
+                        clicked={props.toggleListsOverlay}><Listdrop /></Button>
                     <Button
                         addClass={[styles.UpdatedButton]}
                         type="Success"
