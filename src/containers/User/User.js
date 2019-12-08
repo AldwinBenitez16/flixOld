@@ -5,7 +5,7 @@ import * as actions from '../../store/actions/index';
 
 // Components
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Lists from '../../components/User/Lists/Lists';
+import Lists from './Lists/Lists';
 import Favorites from '../../components/User/Favorites/Favorites';
 import Rated from '../../components/User/Rated/Rated';
 import WatchList from '../../components/User/WatchList/WatchList';
@@ -17,7 +17,7 @@ import styles from './User.module.css';
 class User extends Component {
 
     state = {
-        showLists: false,
+        showLists: true,
         showFavorites: false,
         showWatchList: false,
         showRated:false
