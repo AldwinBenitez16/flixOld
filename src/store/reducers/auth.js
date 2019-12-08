@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     authenticated: false,
     loading: false,
-    tokenData: {},
+    tokenData: null,
     sessionIdData: null,
     error: null
 };

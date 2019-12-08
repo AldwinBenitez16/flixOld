@@ -11,6 +11,7 @@ export {
 
 export {
     fetchAccountState,
+    fetchAccountLists,
     updateMediaState,
     updateMediaStateSuccess,
     updateRating

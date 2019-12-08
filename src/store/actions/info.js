@@ -103,7 +103,6 @@ const updateRatingFail = () => {
 };
 
 export const updateRating = (type, id, value, sessionID, requestType="post") => {
-    console.log(requestType);
     return dispatch => {
         dispatch(updateRatingStart());
         let config = {
@@ -129,3 +128,35 @@ export const updateRating = (type, id, value, sessionID, requestType="post") => 
     };
 };
 
+const fetchAccountListsStart = () => {
+    return {
+        type: actionTypes.FETCH_ACCOUNT_LISTS
+    };
+};
+
+const fetchAccountListsSuccess = (data) => {
+    return {
+        type: actionTypes.FETCH_ACCOUNT_LISTS_SUCCESS,
+        data
+    };
+};
+
+const fetchAccountListsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_ACCOUNT_LISTS_FAIL,
+        error
+    };
+};
+
+export const fetchAccountLists = (accountID, sessionID) => {
+    return dispatch => {
+        dispatch(fetchAccountListsStart);
+        axios.get(`/account/${accountID}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionID}&page=1`)
+            .then(res => {
+                dispatch(fetchAccountListsSuccess(res.data.results));
+            })
+            .catch(err => {
+                dispatch(fetchAccountListsFail(err));
+            });
+    };
+};
