@@ -1,0 +1,27 @@
+.ListControls {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 25px;
+    min-height: 80px;
+}
+
+.ListBar {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #608aad;
+    padding: 20px;
+    border-radius: 50px;
+    width: calc(100% - 50px);
+}
+
+.ListBar svg {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
