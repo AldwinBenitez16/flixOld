@@ -5,6 +5,7 @@ import React, { Fragment } from 'react';
 import Spinner from '../../UI/Spinner/Spinner';
 import InfoControls from './InfoControls/InfoControls';
 import RatingOverlay from './RatingOverlay/RatingOverlay';
+import ListOverlay from './ListOverlay/ListOverlay';
 
 // CSS
 import styles from './InfoCard.module.css';
@@ -15,8 +16,10 @@ const InfoCard = (props) => {
         let genreList = props.data.genres.map(genre => {
             return <li key={genre.id} >{genre.name}</li>
         });
+
         let controls = null;
         let ratingContent = null;
+        let listsContent = null;
         if(props.isAuth) {
             if (props.showRatingOverlay) {
                 ratingContent = <RatingOverlay 
@@ -24,14 +27,19 @@ const InfoCard = (props) => {
                                     rateValue={props.ratingValue}
                                     updateRating={props.updateRating}/>;
             }
+            if(props.showListsOverlay) {
+                listsContent = <ListOverlay />
+            }
             controls = (
                 <Fragment>
                     <InfoControls
                         id={props.mediaID}
                         toggleMediaState={props.toggleMediaState}
                         toggleRatingOverlay={props.toggleRatingOverlay}
+                        toggleListsOverlay={props.toggleListsOverlay}
                         updateRating={props.updateRating} />
                     {ratingContent}
+                    {listsContent}
                 </Fragment>
             );
         }
