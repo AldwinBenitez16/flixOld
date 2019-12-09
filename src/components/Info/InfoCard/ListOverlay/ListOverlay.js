@@ -11,7 +11,11 @@ import styles from './ListOverlay.module.css';
 const listOverlay = (props) => {
     return (
         <div className={styles.ListOverlay}>
-            <ListDropdown show={true} lists={props.accountLists}/>
+            <ListDropdown 
+                show={true} 
+                lists={props.accountLists} 
+                listType="info"
+                mediaID={props.mediaID}/>
         </div>
     );
 };

@@ -28,7 +28,7 @@ const InfoCard = (props) => {
                                     updateRating={props.updateRating}/>;
             }
             if(props.showListsOverlay) {
-                listsContent = <ListOverlay />
+                listsContent = <ListOverlay mediaID={props.mediaID}/>
             }
             controls = (
                 <Fragment>
