@@ -32,9 +32,7 @@ class Info extends Component {
         const id = query.substring(query.indexOf('=')+1);
         this.setState({ type, id });
         if(this.props.isAuth) {
-            console.log(id);
             if(!this.props.accountState || !this.props.accountState[`${id}`]) {
-                console.log('fetched');
                 this.props.onFetchMediaState(id, this.props.sessionData.session_id, type); 
             }
         }

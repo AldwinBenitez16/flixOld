@@ -5,7 +5,7 @@ import * as actions from '../../store/actions/index';
 
 // Components
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Lists from './Lists/Lists';
+import Lists from '../../components/User/Lists/Lists';
 import Favorites from '../../components/User/Favorites/Favorites';
 import Rated from '../../components/User/Rated/Rated';
 import WatchList from '../../components/User/WatchList/WatchList';
@@ -27,6 +27,9 @@ class User extends Component {
         if(this.props.user.accountID === null) {
             this.props.onFetchAccountDetails(this.props.sessionID);
         }
+        if(this.props.accountLists === null) {
+            this.props.onFetchAccountLists(this.props.accountID, this.props.sessionID);
+        }
     }
 
     showHandler = (type) => {
@@ -46,6 +49,7 @@ class User extends Component {
                 <Fragment>
                     <Lists 
                         show={this.state.showLists}
+                        lists={this.props.accountLists}
                         accountID={this.props.user.accountID}
                         sessionID={this.props.sessionID}/>
                     <Favorites 
@@ -78,13 +82,15 @@ const mapStateToProps = state => {
         user: state.user,
         accountID: state.user.accountID,
         loading: state.user.loading,
-        sessionID: state.auth.sessionIdData.session_id
+        sessionID: state.auth.sessionIdData.session_id,
+        accountLists: state.info.accountLists
     };
 };
 
 const mpaDispatchToProps = dispatch => {
     return {
-        onFetchAccountDetails: (sessionID) => dispatch(actions.fetchAccountDetails(sessionID))
+        onFetchAccountDetails: (sessionID) => dispatch(actions.fetchAccountDetails(sessionID)),
+        onFetchAccountLists: (accountID, sessionID) => dispatch(actions.fetchAccountLists(accountID, sessionID))
     };
 };
 
