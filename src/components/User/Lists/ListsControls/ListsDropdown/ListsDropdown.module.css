@@ -4,6 +4,7 @@
     background-color: #608aad;
     border-radius: 10px;
     transition: min-height 1s ease-in;
+    width: 100%;
 }
 
 .ListsDropdown ul {
