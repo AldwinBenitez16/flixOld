@@ -1,0 +1,19 @@
+.ListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ListItem svg:first-child {
+    margin: 0;
+    margin-left: 10px;
+}
+
+.ListItem svg {
+    margin-left: 5px;
+}
+
+.InfoSVG {
+    width: 15px;
+    height: 15px;
+}

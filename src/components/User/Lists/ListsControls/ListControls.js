@@ -18,7 +18,7 @@ const listControls = (props) => {
                 <ListDrop onClick={props.toggleShowLists}/>
                 <AddList />
             </div>
-            <ListsDropdown show={props.showLists}/>
+            <ListsDropdown show={props.showLists} listType="user"/>
         </div>
     );
 };
