@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import DataWrapper from '../../../hoc/DataWrapper/DataWrapper';
 
 // Components
-import GenreInfo from './GenreInfo/GenreInfo';
+import DataInfo from '../../UI/DataInfo/DataInfo';
 import Spinner from '../../UI/Spinner/Spinner';
 
 // CSS
@@ -46,12 +46,12 @@ class GenrePage extends Component {
         if(this.state.id && this.state.type && this.state.page) {
             list = (
                 <DataWrapper path={`/discover/${this.state.type}?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}&with_genres=${this.state.id}`}>
-                    <GenreInfo 
+                    <DataInfo 
                         changePage={this.changePageHandler}
                         title={this.state.genre}
                         page={this.state.page}
                         viewInfo={this.props.viewInfo}
-                        type={this.state.type}/>
+                        type={this.state.type} />
                 </DataWrapper>
             );
         }
