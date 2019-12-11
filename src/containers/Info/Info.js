@@ -22,7 +22,7 @@ class Info extends Component {
         loading: false,
         error: null,
         showRatingOverlay: false,
-        showListsOverlay: true,
+        showListsOverlay: false,
         rateValue: 1
     };
 
