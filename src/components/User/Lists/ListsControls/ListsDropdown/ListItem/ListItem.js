@@ -65,6 +65,7 @@ class ListItem extends Component {
             showItems,
             toggleLists,
             onClearList,
+            onDeleteList,
             ...rest } = this.props;
 
         let listControls = null;
@@ -75,8 +76,11 @@ class ListItem extends Component {
                 listControls = (
                     <div>
                         <Clear 
+                            title="Clear List"
                             onClick={() => onClearList(this.props.id, sessionID)}/>
-                        <Delete />
+                        <Delete 
+                            title="Delete List"
+                            onClick={() => onDeleteList(this.props.id, sessionID)}/>
                     </div>
                 );
                 list = <li 
@@ -123,7 +127,8 @@ const mapDispatchToProps = dispatch => {
         onFetchMediaStatus: (mediaID, id) => dispatch(actions.fetchMediaStatus(mediaID, id)),
         onUpdateListMedia: (id, mediaID, sessionID, type, status) => dispatch(actions.updateList(id, mediaID, sessionID, type, status)),
         onFetchListStatus: (id) => dispatch(actions.fetchListStatus(id)),
-        onClearList: (id, sessionID) => dispatch(actions.clearList(id, sessionID))
+        onClearList: (id, sessionID) => dispatch(actions.clearList(id, sessionID)),
+        onDeleteList: (id, sessionID) => dispatch(actions.deleteList(id, sessionID))
     };
 };
 
