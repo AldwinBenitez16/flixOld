@@ -1,7 +1,7 @@
 // Dependencies
 import React, { Fragment, Component } from 'react';
-import axios, { apiKey } from '../../../../../../shared/Axios/axios';
 import { connect } from 'react-redux';
+import * as actions from '../../../../../../store/actions/index';
 
 // CSS
 import styles from './ListItem.module.css';
@@ -14,86 +14,114 @@ import { ReactComponent as RemoveMedia } from '../../../../../../assets/images/s
 
 class ListItem extends Component {
 
-    state = {
-        present: null
-    };
-
     componentDidMount() {
-        this.checkMediaStatus();
-    }
+        const { id, mediaID, listsItems, lists, onFetchMediaStatus, onFetchListStatus, addList, type, title } = this.props;
 
-    checkMediaStatus = () => {
-        const { mediaID, id } = this.props;
-        axios.get(`/list/${id}/item_status?api_key=${apiKey}&movie_id=${mediaID}`)
-            .then(res => {
-                console.log(res.data);
-                this.setState({present: res.data.item_present})
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        if(lists !== null) {
+            if(lists[id]) {
+                if(lists[id][mediaID] === undefined) {
+                    onFetchMediaStatus(mediaID, id);
+                }   
+            } else {
+                onFetchMediaStatus(mediaID, id);
+            }
+        } else {
+            onFetchMediaStatus(mediaID, id);
+        }
+
+        if(listsItems) {
+            if(listsItems[id] === null) {
+                onFetchListStatus(this.props.id);
+            }
+        } else {
+            onFetchListStatus(this.props.id);
+        }
+
+        if(type === 'user') {
+            addList(id, title);    
+        }
     }
 
     addMediaHandler = () => {
-        axios({
-            url: `/list/${this.props.id}/add_item?api_key=${apiKey}&session_id=${this.props.sessionID}`,
-            method: "post",
-            data: {
-                media_id: this.props.mediaID
-            }
-        })
-            .then(res => {
-                console.log(res.data);
-                this.checkMediaStatus();
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        const { id, mediaID, sessionID, title } = this.props;
+        this.props.onUpdateListMedia(id, mediaID, sessionID, "add_item", true);
     };
 
     removeMediaHandler = () => {
-        // axios()
-        //     .then(res => {
-        //         console.log(res.data);
-        //         this.checkMediaStatus();
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
+        const { id, mediaID, sessionID, title } = this.props;
+        this.props.onUpdateListMedia(id, mediaID, sessionID, "remove_item", false);
     };
 
     render() {
-        const { mediaID, sessionID, dispatch, ...rest } = this.props;
-        let listControls = (
-            <div>
-                <Clear />
-                <Delete />
-            </div>
-        );
-        if(this.props.type === 'info') {
-            listControls =  (
-                <Fragment>
-                    {this.state.present ? 
-                        <RemoveMedia 
-                            title="Remove Movie From List"
-                            className={styles.InfoSVG}/> : 
-                        <AddMedia
-                            onClick={this.addMediaHandler}
-                            title="Add Movie To List" 
-                            className={styles.InfoSVG}/>}
-                </Fragment>
-            );
+        const { 
+            mediaID,
+            sessionID, 
+            dispatch, 
+            onFetchMediaStatus, 
+            onUpdateListMedia,
+            onFetchListStatus, 
+            listsItems,
+            addList,
+            showItems,
+            toggleLists,
+            ...rest } = this.props;
+
+        let listControls = null;
+        let list = null;
+
+        if (this.props.lists) {
+            if(this.props.type === 'user') {
+                listControls = (
+                    <div>
+                        <Clear />
+                        <Delete />
+                    </div>
+                );
+                list = <li 
+                    onClick={() => {
+                        toggleLists();
+                        showItems(this.props.id);
+                    }}
+                    className={styles.ListItem}
+                    {...rest}>{this.props.children}{listControls}</li>;
+            }
+            if(this.props.type === 'info') {
+                listControls =  (
+                    <Fragment>
+                        {this.props.lists[this.props.id][this.props.mediaID] ? 
+                            <RemoveMedia 
+                                onClick={this.removeMediaHandler}
+                                title="Remove Movie From List"
+                                className={styles.InfoSVG}/> : 
+                            <AddMedia
+                                onClick={this.addMediaHandler}
+                                title="Add Movie To List" 
+                                className={styles.InfoSVG}/>}
+                    </Fragment>
+                );
+                list = <li 
+                className={styles.ListItem}
+                {...rest}>{this.props.children}{listControls}</li>;
+            }
         }
-        return  <li 
-            className={styles.ListItem}
-            {...rest}>{this.props.children}{listControls}</li>;
+        return list;
     }
 };
 
 const mapStateToProps = state => {
     return {
+        lists: state.info.lists,
+        listsItems: state.info.listsItems,
         sessionID: state.auth.sessionIdData.session_id
     };
 };
 
-export default connect(mapStateToProps)(ListItem);
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchMediaStatus: (mediaID, id) => dispatch(actions.fetchMediaStatus(mediaID, id)),
+        onUpdateListMedia: (id, mediaID, sessionID, type, status) => dispatch(actions.updateList(id, mediaID, sessionID, type, status)),
+        onFetchListStatus: (id) => dispatch(actions.fetchListStatus(id))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListItem);

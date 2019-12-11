@@ -26,7 +26,11 @@ const listsDropdown = (props) => {
                 key={list.id} 
                 id={list.id}
                 type={props.listType}
-                mediaID={props.mediaID}>{name}</ListItem>
+                mediaID={props.mediaID}
+                addList={props.addList}
+                showItems={props.showItems}
+                toggleLists={props.toggleLists}
+                title={list.name}>{name}</ListItem>
         );
     });
     return (
