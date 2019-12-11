@@ -1,5 +1,6 @@
 // Dependencies
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class PageWrapper extends Component {
     state = {
@@ -35,4 +36,4 @@ class PageWrapper extends Component {
     }
 }
 
-export default PageWrapper;
+export default withRouter(PageWrapper);
