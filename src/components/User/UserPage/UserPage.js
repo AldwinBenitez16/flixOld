@@ -11,7 +11,6 @@ import DataWrapper from '../../../hoc/DataWrapper/DataWrapper';
 const userPage = (props) => {
     let pageContent = null;
     if(props.show) {
-        console.log(props);
         pageContent = (
             <Fragment>
                 <DataWrapper path={props.moviePath}>

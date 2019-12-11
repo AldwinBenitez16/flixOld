@@ -88,7 +88,6 @@ const reducer = (state=initialState, action) => {
                 error: null
             };
         case actionTypes.FETCH_LIST_STATUS_SUCCESS: 
-        console.log(action.data);
             return {
                 ...state,
                 loading: false,

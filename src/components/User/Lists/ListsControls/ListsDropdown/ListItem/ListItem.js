@@ -64,6 +64,7 @@ class ListItem extends Component {
             addList,
             showItems,
             toggleLists,
+            onClearList,
             ...rest } = this.props;
 
         let listControls = null;
@@ -73,7 +74,8 @@ class ListItem extends Component {
             if(this.props.type === 'user') {
                 listControls = (
                     <div>
-                        <Clear />
+                        <Clear 
+                            onClick={() => onClearList(this.props.id, sessionID)}/>
                         <Delete />
                     </div>
                 );
@@ -120,7 +122,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchMediaStatus: (mediaID, id) => dispatch(actions.fetchMediaStatus(mediaID, id)),
         onUpdateListMedia: (id, mediaID, sessionID, type, status) => dispatch(actions.updateList(id, mediaID, sessionID, type, status)),
-        onFetchListStatus: (id) => dispatch(actions.fetchListStatus(id))
+        onFetchListStatus: (id) => dispatch(actions.fetchListStatus(id)),
+        onClearList: (id, sessionID) => dispatch(actions.clearList(id, sessionID))
     };
 };
 
