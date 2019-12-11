@@ -248,3 +248,44 @@ export const fetchListStatus = (id) => {
             });
     };
 };
+
+const clearListStart = () => {
+    return {
+        type: actionTypes.CLEAR_LIST
+    };
+};
+
+const clearListSuccess = () => {
+    return {
+        type: actionTypes.CLEAR_LIST_SUCCESS
+    };
+};
+
+const clearListFail = () => {
+    return {
+        type: actionTypes.CLEAR_LIST_FAIL
+    };
+};
+
+export const clearList = (id, sessionID) => {
+    return dispatch => {
+        dispatch(clearListStart());
+        axios({
+            url: `/list/${id}/clear?api_key=${apiKey}&session_id=${sessionID}&confirm=true`,
+            method: 'post'
+        })
+            .then(res => {
+                console.log(res.data);
+                dispatch(fetchListStatusSuccess({[id]: []}));
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+};
+
+export const deleteList = () => {
+    return {
+        
+    };
+};
