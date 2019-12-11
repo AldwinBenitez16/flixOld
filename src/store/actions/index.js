@@ -12,7 +12,10 @@ export {
 export {
     fetchAccountState,
     fetchAccountLists,
+    fetchMediaStatus,
+    fetchListStatus,
     updateMediaState,
     updateMediaStateSuccess,
-    updateRating
+    updateRating,
+    updateList
 } from './info';

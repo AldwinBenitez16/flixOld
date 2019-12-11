@@ -1,8 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    accountState: {},
+    accountState: null,
     accountLists: null,
+    listsItems: null,
+    lists: null,
     loading: false,
     error: null
 };
@@ -74,6 +76,51 @@ const reducer = (state=initialState, action) => {
                 accountLists: action.data
             };
         case actionTypes.FETCH_ACCOUNT_LISTS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            };
+        case actionTypes.FETCH_LIST_STATUS: 
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
+        case actionTypes.FETCH_LIST_STATUS_SUCCESS: 
+        console.log(action.data);
+            return {
+                ...state,
+                loading: false,
+                lists: {
+                    ...state.lists,
+                    ...{[action.listID]: {
+                        ...action.data
+                    }}
+                }
+            };
+        case actionTypes.FETCH_LIST_STATUS_FAIL: 
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            };
+        case actionTypes.FETCH_LIST_MEDIA:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
+        case actionTypes.FETCH_LIST_MEDIA_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                listsItems: {
+                    ...state.listsItems,
+                    ...action.data
+                }
+            };
+        case actionTypes.FETCH_LIST_MEDIA_FAIL:
             return {
                 ...state,
                 loading: false,

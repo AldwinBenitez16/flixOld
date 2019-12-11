@@ -160,3 +160,91 @@ export const fetchAccountLists = (accountID, sessionID) => {
             });
     };
 };
+
+const fetchMediaStatusStart = () => {
+    return {
+        type: actionTypes.FETCH_LIST_STATUS
+    };
+};
+
+const updateListMedia = (listID, data) => {
+    return {
+        type: actionTypes.FETCH_LIST_STATUS_SUCCESS,
+        listID,
+        data
+    };
+};
+
+const fetchMediaStatusFail = (error) => {
+    return {
+        type: actionTypes.FETCH_LIST_STATUS_FAIL,
+        error
+    };
+};
+
+export const fetchMediaStatus = (mediaID, id) => {
+    return dispatch => {
+        dispatch(fetchMediaStatusStart());
+        axios.get(`/list/${id}/item_status?api_key=${apiKey}&movie_id=${mediaID}`)
+            .then(res => {
+                console.log(mediaID);
+                dispatch(updateListMedia(id , {[mediaID]: res.data.item_present}));
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch(fetchMediaStatusFail());
+            });
+    };
+};
+
+export const updateList = (id, mediaID, sessionID, type, status) => {
+    return dispatch => {
+        axios({
+            url: `/list/${id}/${type}?api_key=${apiKey}&session_id=${sessionID}`,
+            method: "post",
+            data: {
+                media_id: mediaID
+            }
+        })
+            .then(res => {
+                dispatch(updateListMedia(id , {[mediaID]: status}));
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+};
+
+const fetchListStatusStart = () => {
+    return {
+        type: actionTypes.FETCH_LIST_MEDIA
+    }
+};
+
+const fetchListStatusSuccess = (data) => {
+    return {
+        type: actionTypes.FETCH_LIST_MEDIA_SUCCESS,
+        data
+    }
+};
+
+const fetchListStatusFail = (error) => {
+    return {
+        type: actionTypes.FETCH_LIST_MEDIA_FAIL,
+        error
+    }
+};
+
+export const fetchListStatus = (id) => {
+    return dispatch => {
+        dispatch(fetchListStatusStart());
+        axios.get(`/list/${id}?api_key=${apiKey}&language=en-US`)
+            .then(res => {
+                console.log(res.data);
+                dispatch(fetchListStatusSuccess({[res.data.id]: res.data.items}));
+            })
+            .catch(err => {
+                dispatch(fetchListStatusFail(err));
+            });
+    };
+};
