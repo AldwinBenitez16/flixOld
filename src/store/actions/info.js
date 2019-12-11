@@ -270,10 +270,7 @@ const clearListFail = () => {
 export const clearList = (id, sessionID) => {
     return dispatch => {
         dispatch(clearListStart());
-        axios({
-            url: `/list/${id}/clear?api_key=${apiKey}&session_id=${sessionID}&confirm=true`,
-            method: 'post'
-        })
+        axios.post(`/list/${id}/clear?api_key=${apiKey}&session_id=${sessionID}&confirm=true`)
             .then(res => {
                 console.log(res.data);
                 dispatch(fetchListStatusSuccess({[id]: []}));
@@ -284,8 +281,38 @@ export const clearList = (id, sessionID) => {
     };
 };
 
-export const deleteList = () => {
+const deleteListStart = () => {
     return {
-        
+        type: actionTypes.DELETE_LIST
+    };
+};
+
+const deleteListSuccess = (id) => {
+    return {
+        type: actionTypes.DELETE_LIST_SUCCESS,
+        id
+    };
+};
+
+const deleteListFail = () => {
+    return {
+        type: actionTypes.DELETE_LIST_FAIL
+    };
+};
+
+export const deleteList = (id, sessionID) => {
+    return dispatch => {
+        axios({
+            url: `/list/${id}?api_key=${apiKey}&session_id=${sessionID}`,
+            method: 'delete'
+        })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                if(err.response.status === 500) {
+                    dispatch(deleteListSuccess(id));
+                }
+            });
     };
 };

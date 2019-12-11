@@ -125,6 +125,27 @@ const reducer = (state=initialState, action) => {
                 loading: false,
                 error: action.error
             };
+        case actionTypes.DELETE_LIST_SUCCESS: 
+            let id = action.id;
+            let updatedAccountLists = state.accountLists;
+            let updatedListsItems = state.listsItems;
+            let updatedLists = state.lists;
+
+            updatedAccountLists = updatedAccountLists.filter(list => list.id !== id);
+            delete updatedListsItems[id];
+            delete updatedLists[id];
+            console.log({
+                ...state,
+                accountLists: updatedAccountLists,
+                listsItems: updatedListsItems,
+                lists: updatedLists
+            });
+            return {
+                ...state,
+                accountLists: updatedAccountLists,
+                listsItems: updatedListsItems,
+                lists: updatedLists
+            };
         default:
             return state;
     };

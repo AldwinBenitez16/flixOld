@@ -18,5 +18,6 @@ export {
     updateMediaStateSuccess,
     updateRating,
     updateList,
-    clearList
+    clearList,
+    deleteList
 } from './info';
