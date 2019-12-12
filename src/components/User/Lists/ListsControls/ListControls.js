@@ -2,7 +2,8 @@
 import React from 'react';
 
 // Components
-import ListsDropdown from '../../../../components/User/Lists/ListsControls/ListsDropdown/ListsDropdown';
+import ListsDropdown from './ListsDropdown/ListsDropdown';
+import ListsForm from './ListsForm/ListsForm'
 
 // CSS
 import styles from './ListControls.module.css';
@@ -16,14 +17,21 @@ const listControls = (props) => {
         <div className={styles.ListControls}>
             <div className={styles.ListBar}>
                 <ListDrop onClick={props.toggleShowLists}/>
-                <AddList />
+                <AddList onClick={props.toggleShowForm}/>
             </div>
             <ListsDropdown 
                 show={props.showLists} 
                 listType="user"
                 addList={props.addList}
                 showItems={props.showItems}
-                toggleLists={props.toggleShowLists}/>
+                toggleLists={props.toggleShowLists}
+                toggleShowForm={props.toggleShowForm}/>
+            <ListsForm 
+                title={props.titleValue}
+                desc={props.descValue}
+                show={props.showForm} 
+                changeFormKey={props.changeFormKey}
+                createNewList={props.createNewList}/>
         </div>
     );
 };
