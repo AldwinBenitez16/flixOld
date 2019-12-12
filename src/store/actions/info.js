@@ -197,24 +197,6 @@ export const fetchMediaStatus = (mediaID, id) => {
     };
 };
 
-export const updateList = (id, mediaID, sessionID, type, status) => {
-    return dispatch => {
-        axios({
-            url: `/list/${id}/${type}?api_key=${apiKey}&session_id=${sessionID}`,
-            method: "post",
-            data: {
-                media_id: mediaID
-            }
-        })
-            .then(res => {
-                dispatch(updateListMedia(id , {[mediaID]: status}));
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
-};
-
 const fetchListStatusStart = () => {
     return {
         type: actionTypes.FETCH_LIST_MEDIA
@@ -240,7 +222,6 @@ export const fetchListStatus = (id) => {
         dispatch(fetchListStatusStart());
         axios.get(`/list/${id}?api_key=${apiKey}&language=en-US`)
             .then(res => {
-                console.log(res.data);
                 dispatch(fetchListStatusSuccess({[res.data.id]: res.data.items}));
             })
             .catch(err => {
@@ -313,6 +294,118 @@ export const deleteList = (id, sessionID) => {
                 if(err.response.status === 500) {
                     dispatch(deleteListSuccess(id));
                 }
+            });
+    };
+};
+
+const createNewListStart = () => {
+    return {
+        type: actionTypes.CREATE_NEW_LIST 
+    };
+};
+
+const createNewListSuccess = (id, data) => {
+    return {
+        type: actionTypes.CREATE_NEW_LIST_SUCCESS,
+        id,
+        data 
+    };
+};
+
+const createNewListFail = () => {
+    return {
+        type: actionTypes.CREATE_NEW_LIST_FAIL 
+    };
+};
+
+export const createNewList = (sessionID, name, description) => {
+    return dispatch => {
+        dispatch(createNewListStart());
+        axios({
+            url: `/list?api_key=${apiKey}&session_id=${sessionID}`,
+            method: 'post',
+            data: {
+                name,
+                description,
+                language: 'en'
+            }
+        })
+            .then(res => {
+                let data = {
+                    description,
+                    name,
+                    id: res.data.list_id
+                }
+                dispatch(createNewListSuccess(res.data.list_id, data));
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+};
+
+const fetchMediaStart = () => {
+    return {
+        type: actionTypes.FETCH_MEDIA
+    };
+};
+
+const fetchMediaSuccess = (id, data) => {
+    return {
+        type: actionTypes.FETCH_MEDIA_SUCCESS,
+        data,
+        id
+    };
+};
+
+const fetchMediaFail = () => {
+    return {
+        type: actionTypes.FETCH_MEDIA_FAIL
+    };
+};
+
+const fetchMedia = (id, mediaID, mediaType) => {
+    return dispatch => {
+        dispatch(fetchMediaStart());
+        axios.get(`/${mediaType}/${mediaID}?api_key=${apiKey}&language=en-US`)
+            .then(res => {
+                console.log(res.data);
+                dispatch(fetchMediaSuccess(id, res.data));
+            })
+            .catch(err => {
+                dispatch(fetchMediaFail(err));
+            });
+    };
+};
+
+export const removeMedia = (id, mediaID) => {
+    return {
+        type: actionTypes.REMOVE_MEDIA,
+        id,
+        mediaID
+    };
+};
+
+export const updateList = (id, mediaID, mediaType, sessionID, type, status) => {
+    return dispatch => {
+        axios({
+            url: `/list/${id}/${type}?api_key=${apiKey}&session_id=${sessionID}`,
+            method: "post",
+            data: {
+                media_id: mediaID
+            }
+        })
+            .then(res => {
+                dispatch(updateListMedia(id , {[mediaID]: status}));
+                console.log(status, mediaType);
+                if(status) {
+                    dispatch(fetchMedia(id, mediaID, mediaType));
+                } else {
+                    dispatch(removeMedia(id, mediaID))
+                }
+            })
+            .catch(err => {
+                console.log(err);
             });
     };
 };

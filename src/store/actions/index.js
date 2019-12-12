@@ -19,5 +19,6 @@ export {
     updateRating,
     updateList,
     clearList,
-    deleteList
+    deleteList,
+    createNewList
 } from './info';

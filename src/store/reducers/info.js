@@ -9,6 +9,11 @@ const initialState = {
     error: null
 };
 
+let id = null;
+let updatedAccountLists = null;
+let updatedListsItems = null;
+let updatedLists = null;
+
 const reducer = (state=initialState, action) => {
     switch(action.type) {
         case actionTypes.FETCH_MEDIA_STATE: 
@@ -126,26 +131,53 @@ const reducer = (state=initialState, action) => {
                 error: action.error
             };
         case actionTypes.DELETE_LIST_SUCCESS: 
-            let id = action.id;
-            let updatedAccountLists = state.accountLists;
-            let updatedListsItems = state.listsItems;
-            let updatedLists = state.lists;
+            id = action.id;
+            updatedAccountLists = state.accountLists;
+            updatedListsItems = state.listsItems;
+            updatedLists = state.lists;
 
             updatedAccountLists = updatedAccountLists.filter(list => list.id !== id);
             delete updatedListsItems[id];
             delete updatedLists[id];
-            console.log({
-                ...state,
-                accountLists: updatedAccountLists,
-                listsItems: updatedListsItems,
-                lists: updatedLists
-            });
             return {
                 ...state,
                 accountLists: updatedAccountLists,
                 listsItems: updatedListsItems,
                 lists: updatedLists
             };
+        case actionTypes.CREATE_NEW_LIST_SUCCESS:
+            id = action.id;
+            updatedAccountLists = state.accountLists;
+            updatedListsItems = state.listsItems;
+            updatedLists = state.lists;
+
+            updatedAccountLists.push(action.data);
+            updatedListsItems[id] = [];
+            updatedLists[id] = {};
+            return {
+                ...state,
+                accountLists: updatedAccountLists,
+                listsItems: updatedListsItems,
+                lists: updatedLists
+            };
+        case actionTypes.FETCH_MEDIA_SUCCESS:
+            id = action.id;    
+            updatedListsItems = state.listsItems;
+            updatedListsItems[id].push(action.data);
+            console.log({...state}, {
+                ...state,
+                listsItems: updatedListsItems
+            });
+            return {
+                ...state,
+                listsItems: updatedListsItems
+            };
+        case actionTypes.REMOVE_MEDIA:
+            id = action.id;
+            updatedListsItems = state.listsItems;
+            updatedListsItems[id] = updatedListsItems[id].filter(item => item.id !== action.mediaID);
+            console.log(updatedListsItems);
+            return state;
         default:
             return state;
     };
