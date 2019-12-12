@@ -35,3 +35,7 @@
 .Show {
     display: block;
 }
+
+.Center {
+    text-align: center;
+};
