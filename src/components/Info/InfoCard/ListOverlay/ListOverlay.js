@@ -15,7 +15,8 @@ const listOverlay = (props) => {
                 show={true} 
                 lists={props.accountLists} 
                 listType="info"
-                mediaID={props.mediaID}/>
+                mediaID={props.mediaID}
+                mediaType={props.mediaType}/>
         </div>
     );
 };

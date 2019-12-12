@@ -20,6 +20,10 @@ const InfoCard = (props) => {
         let controls = null;
         let ratingContent = null;
         let listsContent = null;
+        let type = 'movie';
+        if(props.data.original_name) {
+            type = 'tv';
+        }
         if(props.isAuth) {
             if (props.showRatingOverlay) {
                 ratingContent = <RatingOverlay 
@@ -28,7 +32,7 @@ const InfoCard = (props) => {
                                     updateRating={props.updateRating}/>;
             }
             if(props.showListsOverlay) {
-                listsContent = <ListOverlay mediaID={props.mediaID}/>
+                listsContent = <ListOverlay mediaID={props.mediaID} mediaType={type}/>
             }
             controls = (
                 <Fragment>
