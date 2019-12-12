@@ -1,16 +1,21 @@
 // Dependencies
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 // Components
 import ListControls from '../../../components/User/Lists/ListsControls/ListControls';
 import DataInfo from '../../UI/DataInfo/DataInfo';
-import Spinner from '../../UI/Spinner/Spinner';
 
 class Lists extends Component {
 
     state = {
-        showLists: false
+        showLists: false,
+        form: {
+            show: false,
+            title: "",
+            desc: ""
+        }
     }
 
     toggleShowListsHandler = () => {
@@ -21,9 +26,31 @@ class Lists extends Component {
         });
     }
 
+    toggleShowFormHandler = () => {
+        this.setState(prevState => {
+            return {
+                form: {
+                    ...prevState.form,
+                    show: !prevState.form.show
+                }
+            };
+        });
+    };
+
+    changeFormKeyHandler = (data) => {
+        this.setState(prevState => {
+            return {
+                form: {
+                    ...prevState.form,
+                    ...data
+                }
+            };
+        });
+    };
+
     render() {
         let list = null;
-        let listItems = <Spinner />;
+        let listItems = null;
             if(this.props.show && this.props.lists !== null && this.props.list !== null) {
                 if(this.props.listsItems) {
                     let listItemsArray = Object.keys(this.props.list).map(i => i);
@@ -57,9 +84,15 @@ class Lists extends Component {
                         <ListControls 
                             showLists={this.state.showLists}
                             toggleShowLists={this.toggleShowListsHandler}
+                            showForm={this.state.form.show}
+                            toggleShowForm={this.toggleShowFormHandler}
                             addList={this.props.addList}
-                            showItems={this.props.showItems}sa
-                            toggleList={this.props.showList}/>
+                            showItems={this.props.showItems}
+                            toggleList={this.props.showList}
+                            changeFormKey={this.changeFormKeyHandler}
+                            titleValue={this.state.form.title}
+                            descValue={this.state.form.desc}
+                            createNewList={() => this.props.onCreateList(this.props.sessionID, this.state.form.title, this.state.form.desc)}/>
                         {listItems}
                     </Fragment>
                 );
@@ -74,8 +107,15 @@ class Lists extends Component {
 
 const mapStateToProps = state => {
     return {
-        listsItems: state.info.listsItems
+        listsItems: state.info.listsItems,
+        sessionID: state.auth.sessionIdData.session_id
     };
 };
 
-export default connect(mapStateToProps)(Lists);
+const mapDispatchToProps = dispatch => {
+    return {
+        onCreateList: (sessionID, name, description) => dispatch(actions.createNewList(sessionID, name, description))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lists);
