@@ -17,9 +17,9 @@ class ListItem extends Component {
     componentDidMount() {
         const { id, mediaID, listsItems, lists, onFetchMediaStatus, onFetchListStatus, addList, type, title } = this.props;
 
-        if(lists !== null) {
+        if(lists !== null && mediaID !== null) {
             if(lists[id]) {
-                if(lists[id][mediaID] === undefined) {
+                if(lists[id][mediaID] === null) {
                     onFetchMediaStatus(mediaID, id);
                 }   
             } else {
@@ -29,12 +29,14 @@ class ListItem extends Component {
             onFetchMediaStatus(mediaID, id);
         }
 
-        if(listsItems) {
-            if(listsItems[id] === null) {
+        if(type === 'info') {
+            if(listsItems) {
+                if(listsItems[id] === null) {
+                    onFetchListStatus(this.props.id);
+                }
+            } else {
                 onFetchListStatus(this.props.id);
             }
-        } else {
-            onFetchListStatus(this.props.id);
         }
 
         if(type === 'user') {
@@ -43,13 +45,13 @@ class ListItem extends Component {
     }
 
     addMediaHandler = () => {
-        const { id, mediaID, sessionID, title } = this.props;
-        this.props.onUpdateListMedia(id, mediaID, sessionID, "add_item", true);
+        const { id, mediaID, sessionID, mediaType } = this.props;
+        this.props.onUpdateListMedia(id, mediaID, mediaType, sessionID, "add_item", true);
     };
 
     removeMediaHandler = () => {
-        const { id, mediaID, sessionID, title } = this.props;
-        this.props.onUpdateListMedia(id, mediaID, sessionID, "remove_item", false);
+        const { id, mediaID, sessionID, mediaType } = this.props;
+        this.props.onUpdateListMedia(id, mediaID, mediaType, sessionID, "remove_item", false);
     };
 
     render() {
@@ -66,6 +68,7 @@ class ListItem extends Component {
             toggleLists,
             onClearList,
             onDeleteList,
+            mediaType,
             ...rest } = this.props;
 
         let listControls = null;
@@ -125,7 +128,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchMediaStatus: (mediaID, id) => dispatch(actions.fetchMediaStatus(mediaID, id)),
-        onUpdateListMedia: (id, mediaID, sessionID, type, status) => dispatch(actions.updateList(id, mediaID, sessionID, type, status)),
+        onUpdateListMedia: (id, mediaID, mediaType, sessionID, type, status) => dispatch(actions.updateList(id, mediaID, mediaType, sessionID, type, status)),
         onFetchListStatus: (id) => dispatch(actions.fetchListStatus(id)),
         onClearList: (id, sessionID) => dispatch(actions.clearList(id, sessionID)),
         onDeleteList: (id, sessionID) => dispatch(actions.deleteList(id, sessionID))
