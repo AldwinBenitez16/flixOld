@@ -43,17 +43,20 @@ class Info extends Component {
         }
     }
 
-    toggleMediaStateHandler = (mediaType) => {
-        const { accountID, sessionData, mediaState, onUpdateMediaState } = this.props;
+    toggleMediaStateHandler = (stateType) => {
+        const { accountID, sessionData, mediaState, onUpdateMediaState, onAddStateMedia } = this.props;
         console.log(this.state.id);
         onUpdateMediaState(
             accountID,
             sessionData.session_id,
             this.state.type,
             this.state.id,
-            mediaType,
-            mediaState[`${this.state.id}`][`${mediaType}`]
+            stateType,
+            mediaState[`${this.state.id}`][`${stateType}`]
         );
+        if(!mediaState[`${this.state.id}`][`${stateType}`]) {
+            onAddStateMedia(this.state.type, this.state.id, stateType);
+        }
     };
 
     toggleRatingOverlayHandler = () => {
@@ -83,13 +86,16 @@ class Info extends Component {
     };
 
     updateRatingHandler = (type) => {
-        const { onUpdateRating, onSetGuestMedia, sessionData, guestSessionData, isAuth, isGuest} = this.props;
+        const { onUpdateRating, onSetGuestMedia, sessionData, guestSessionData, isAuth, isGuest, onAddStateMedia} = this.props;
         let value = this.state.rateValue;
         if(type !== 'delete') {
             type="post";
         }
         if(isAuth) {
             onUpdateRating(this.state.type, this.state.id, value, sessionData.session_id, type);
+            if(type === 'post') {
+                onAddStateMedia(this.state.type, this.state.id, 'rated');
+            }
         }
         if(isGuest) {
             onUpdateRating(this.state.type, this.state.id, value, guestSessionData.guest_session_id, type, true);
@@ -142,7 +148,8 @@ const mapDispatchToProps = dispatch => {
         onFetchMediaState: (id, sessionID, type) => dispatch(actions.fetchAccountState(id, sessionID, type)),
         onUpdateMediaState: (accountID, sessionID, mediaType, mediaID, stateType, stateValue) => dispatch(actions.updateMediaState(accountID, sessionID, mediaType, mediaID, stateType, stateValue)),
         onUpdateRating: (type, id, value, sessionID, requestType, isGuest) => dispatch(actions.updateRating(type, id, value, sessionID, requestType, isGuest)),
-        onSetGuestMedia: (mediaID, status) => dispatch(actions.setGuestMedia(mediaID, status))
+        onSetGuestMedia: (mediaID, status) => dispatch(actions.setGuestMedia(mediaID, status)),
+        onAddStateMedia: (mediaType, mediaID, stateType) => dispatch(actions.addStateMedia(mediaType, mediaID, stateType))
     };
 };
 

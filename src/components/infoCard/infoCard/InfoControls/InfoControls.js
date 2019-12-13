@@ -31,7 +31,6 @@ const userControls = (props) => {
         isGuest 
     } = props;
 
-    console.log(mediaState);
     let controlsContent = null;
     if(mediaState) {
         if(mediaState[`${id}`]) {
