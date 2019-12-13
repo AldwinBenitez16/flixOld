@@ -13,6 +13,7 @@ import { ReactComponent as ListDrop } from '../../../../assets/images/svgs/lists
 import { ReactComponent as AddList } from '../../../../assets/images/svgs/add.svg'; 
 
 const listControls = (props) => {
+    console.log();
     return (
         <div className={styles.ListControls}>
             <div className={styles.ListBar}>
