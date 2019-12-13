@@ -12,13 +12,19 @@ export {
 export {
     fetchAccountState,
     fetchAccountLists,
-    fetchMediaStatus,
-    fetchListStatus,
-    updateMediaState,
-    updateMediaStateSuccess,
-    updateRating,
-    updateList,
     clearList,
     deleteList,
-    createNewList
+    addMedia,
+    removeMedia,
+    createNewList,
+    updateMediaState,
+    updateRating
+    
+    // fetchMediaStatus,
+    // updateMediaState,
+    // updateMediaStateSuccess,
+    // updateRating,
+    // updateList,
+    // deleteList,
+    // createNewList
 } from './info';

@@ -1,183 +1,145 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    accountState: null,
+    mediaState: null,
     accountLists: null,
-    listsItems: null,
-    lists: null,
     loading: false,
     error: null
 };
 
 let id = null;
 let updatedAccountLists = null;
-let updatedListsItems = null;
-let updatedLists = null;
-
+let updatedListItems = null;
 const reducer = (state=initialState, action) => {
     switch(action.type) {
-        case actionTypes.FETCH_MEDIA_STATE: 
+        case actionTypes.START: 
             return {
                 ...state,
                 loading: true,
                 error: null
+            };
+        case actionTypes.FAIL: 
+            return {
+                ...state,
+                loading: false,
+                error: action.error
             };
         case actionTypes.FETCH_MEDIA_STATE_SUCCESS:
             return {
                 ...state,
-                accountState: {
-                    ...state.accountState,
+                mediaState: {
+                    ...state.mediaState,
                     ...action.mediaState
                 }
-            };
-        case actionTypes.FETCH_MEDIA_STATE_FAIL: 
-            return {
-                ...state,
-                loading: false,
-                error: action.error
             };
         case actionTypes.LOGOUT:
             return {
                 ...state,
-                accountState: null,
+                mediaState: null,
                 accountLists: null,
                 loading: false,
                 error: null
             }
-        case actionTypes.UPDATE_MEDIA_STATE:
-            return {
-                ...state, 
-                loading: true,
-                error: null
-            };
-        case actionTypes.UPDATE_MEDIA_STATE_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                accountState: {
-                    ...state.accountState,
-                    [`${action.id}`]: {
-                        ...state.accountState[`${action.id}`],
-                        ...action.data
-                    }
-                }
-            };
-        case actionTypes.UPDATE_MEDIA_STATE_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.error
-            };
-        case actionTypes.FETCH_ACCOUNT_LISTS: 
-            return {
-                ...state,
-                loading: true,
-                error: null
-            };
         case actionTypes.FETCH_ACCOUNT_LISTS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                accountLists: action.data
-            };
-        case actionTypes.FETCH_ACCOUNT_LISTS_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.error
-            };
-        case actionTypes.FETCH_LIST_STATUS: 
-            return {
-                ...state,
-                loading: true,
-                error: null
-            };
-        case actionTypes.FETCH_LIST_STATUS_SUCCESS: 
-            return {
-                ...state,
-                loading: false,
-                lists: {
-                    ...state.lists,
-                    ...{[action.listID]: {
-                        ...action.data
-                    }}
-                }
-            };
-        case actionTypes.FETCH_LIST_STATUS_FAIL: 
-            return {
-                ...state,
-                loading: false,
-                error: action.error
-            };
-        case actionTypes.FETCH_LIST_MEDIA:
-            return {
-                ...state,
-                loading: true,
-                error: null
-            };
-        case actionTypes.FETCH_LIST_MEDIA_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                listsItems: {
-                    ...state.listsItems,
+                accountLists: {
+                    ...state.accountLists,
                     ...action.data
                 }
             };
-        case actionTypes.FETCH_LIST_MEDIA_FAIL:
+        case actionTypes.CLEAR_LIST_SUCCESS:
+            id = action.id;
+            updatedAccountLists = state.accountLists;
+            for(let key in updatedAccountLists) {
+                if(key === id) {
+                    updatedAccountLists[id].listItems = [];
+                }
+            }
+            console.log(updatedAccountLists);
             return {
                 ...state,
                 loading: false,
-                error: action.error
+                accountLists: updatedAccountLists
             };
         case actionTypes.DELETE_LIST_SUCCESS: 
             id = action.id;
             updatedAccountLists = state.accountLists;
-            updatedListsItems = state.listsItems;
-            updatedLists = state.lists;
-
-            updatedAccountLists = updatedAccountLists.filter(list => list.id !== id);
-            delete updatedListsItems[id];
-            delete updatedLists[id];
+            delete updatedAccountLists[id];
             return {
                 ...state,
-                accountLists: updatedAccountLists,
-                listsItems: updatedListsItems,
-                lists: updatedLists
+                accountLists: updatedAccountLists
+            };
+        case actionTypes.ADD_MEDIA:
+            id = action.id;
+            updatedListItems = state.accountLists[id].listItems;
+            updatedListItems.push(action.data);
+            return {
+                ...state,
+                accountLists: {
+                    ...state.accountLists,
+                    [id]: {
+                        ...state.accountLists[id],
+                        listItems: updatedListItems
+                    }
+                }
+            };
+        case actionTypes.REMOVE_MEDIA:
+            id = action.id;
+            updatedListItems = state.accountLists[id].listItems;
+            updatedListItems = updatedListItems.filter(item => item.id !== parseInt(action.mediaID));
+            return {
+                ...state,
+                accountLists: {
+                    ...state.accountLists,
+                    [id]: {
+                        ...state.accountLists[id],
+                        listItems: updatedListItems
+                    }
+                }
             };
         case actionTypes.CREATE_NEW_LIST_SUCCESS:
             id = action.id;
             updatedAccountLists = state.accountLists;
-            updatedListsItems = state.listsItems;
-            updatedLists = state.lists;
-
-            updatedAccountLists.push(action.data);
-            updatedListsItems[id] = [];
-            updatedLists[id] = {};
+            updatedAccountLists[id] = action.data;
             return {
                 ...state,
-                accountLists: updatedAccountLists,
-                listsItems: updatedListsItems,
-                lists: updatedLists
+                accountLists: updatedAccountLists
             };
-        case actionTypes.FETCH_MEDIA_SUCCESS:
-            id = action.id;    
-            updatedListsItems = state.listsItems;
-            updatedListsItems[id].push(action.data);
-            console.log({...state}, {
-                ...state,
-                listsItems: updatedListsItems
-            });
+        case actionTypes.UPDATE_MEDIA_STATE_SUCCESS:
             return {
                 ...state,
-                listsItems: updatedListsItems
+                mediaState: {
+                    ...state.mediaState,
+                    [action.mediaID]: {
+                        ...state.mediaState[action.mediaID],
+                        ...action.mediaState
+                    }
+                }
             };
-        case actionTypes.REMOVE_MEDIA:
-            id = action.id;
-            updatedListsItems = state.listsItems;
-            updatedListsItems[id] = updatedListsItems[id].filter(item => item.id !== action.mediaID);
-            console.log(updatedListsItems);
-            return state;
+        case actionTypes.ADD_RATING:
+            return {
+                ...state,
+                mediaState: {
+                    ...state.mediaState,
+                    [action.mediaID]: {
+                        ...state.mediaState[action.mediaID],
+                        ['rated']: parseInt(action.value)
+                    }
+                }
+            };
+        case actionTypes.REMOVE_RATING:
+            return {
+                ...state,
+                mediaState: {
+                    ...state.mediaState,
+                    [action.mediaID]: {
+                        ...state.mediaState[action.mediaID],
+                        ['rated']: false
+                    }
+                }
+            };
         default:
             return state;
     };
