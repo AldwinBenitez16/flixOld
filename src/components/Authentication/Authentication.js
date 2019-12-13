@@ -49,8 +49,31 @@ class Authentication extends Component {
     };
 
     componentDidMount() { 
-        if(this.props.auth.tokenData === null) {
-            this.props.fetchToken();
+        const { tokenData, fetchToken} = this.props;
+        if(tokenData === null) {
+            fetchToken();
+        }
+
+        if(tokenData !== null) {
+            // console.log(tokenData.expires_at); // year, month, day, hour, min, seconds milliseconds
+            const tokenDateArray = tokenData.expires_at.split(' ');
+            const tokenDate = tokenDateArray[0].split('-');
+            const tokenTime = tokenDateArray[1].split(':');
+            const tokenExpiryArray = [...tokenDate, ...tokenTime].map(date => parseInt(date));
+            const tokenExpiryDate = new Date(
+                tokenExpiryArray[0],
+                tokenExpiryArray[1]-1,
+                tokenExpiryArray[2],
+                tokenExpiryArray[3],
+                tokenExpiryArray[4],
+                tokenExpiryArray[5],
+                0
+            ).getTime();
+            const currentTime = new Date().getTime();
+            const isExpired = ((tokenExpiryDate - currentTime) / 1000) < 0;
+            if(isExpired) {
+                fetchToken();
+            }
         }
     }
 
@@ -149,6 +172,7 @@ class Authentication extends Component {
 const mapStateToProps = state => {
     return {
         auth: state.auth,
+        tokenData: state.auth.tokenData,
         isAuth: state.auth.authenticated,
         isGuest: state.auth.guestAuth,
         loading: state.auth.loading,

@@ -132,6 +132,7 @@ export const fetchGuestSessionID = () => {
         dispatch(fetchGuestSessionIDStart());
         axios.get(`/authentication/guest_session/new?api_key=${apiKey}`)
             .then(res => {
+                console.log();
                 let data = {
                     guest_session_id: res.data.guest_session_id,
                     expires_at: res.data.expires_at
