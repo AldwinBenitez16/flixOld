@@ -1,0 +1,64 @@
+.InfoCard {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-sizing: border-box;
+    width: 80%;
+    height: 100%;
+    background-color: #ededed;
+    box-shadow: 3px 3px 10px #637899;
+}
+
+.InfoCard img {
+    max-height: 400px;
+    margin: 0 25px;
+    box-shadow: 5px 5px 15px #637899;
+}
+
+.InfoData {
+    height: 80%;
+    width: 50%;
+    margin: 0 auto 0 25px;
+}
+
+.Genres {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.Genres ul {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Genres li {
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ebeced;
+    box-shadow: 2px 2px 5px #637899;
+    margin-left: 25px;
+}
+
+.InfoBox {
+    display: block;
+    box-sizing: border-box;
+    font-size: .8rem;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #999;
+    background-color: #ebeced;
+    border-radius: 2px;
+    max-width: 250px;
+    box-shadow: 2px 2px 5px #637899;
+}
+
+.InfoBox p {
+    margin: 0;
+}
