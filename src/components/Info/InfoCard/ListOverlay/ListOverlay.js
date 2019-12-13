@@ -9,14 +9,15 @@ import ListDropdown from '../../../User/Lists/ListsControls/ListsDropdown/ListsD
 import styles from './ListOverlay.module.css';
 
 const listOverlay = (props) => {
+    const { accountLists, mediaID, mediaType } = props;
     return (
         <div className={styles.ListOverlay}>
             <ListDropdown 
                 show={true} 
-                lists={props.accountLists} 
+                lists={accountLists} 
                 listType="info"
-                mediaID={props.mediaID}
-                mediaType={props.mediaType}/>
+                mediaID={mediaID}
+                mediaType={mediaType}/>
         </div>
     );
 };
