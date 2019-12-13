@@ -53,3 +53,6 @@ export const START = 'START';
 export const FAIL = 'FAIL'; 
 
 export const SET_GUEST_MEDIA = 'SET_GUEST_MEDIA';
+
+export const ADD_STATE_MEDIA = 'ADD_STATE_MEDIA';
+export const REMOVE_STATE_MEDIA = 'REMOVE_STATE_MEDIA'; 

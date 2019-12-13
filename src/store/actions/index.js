@@ -20,5 +20,6 @@ export {
     createNewList,
     updateMediaState,
     updateRating,
-    setGuestMedia
+    setGuestMedia,
+    addStateMedia
 } from './info';

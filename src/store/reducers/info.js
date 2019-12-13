@@ -2,15 +2,22 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     mediaState: null,
+    mediaItems: {
+        rated: [],
+        favorite: [],
+        watchlist: []
+    }, 
     accountLists: null,
     loading: false,
     error: null
 };
 
 let id = null;
+let stateType = null;
 let updatedAccountLists = null;
 let updatedListItems = null;
-const reducer = (state=initialState, action) => {
+let updatedState = null;
+const reducer = (state=initialState, action) => {   
     switch(action.type) {
         case actionTypes.START: 
             return {
@@ -153,6 +160,32 @@ const reducer = (state=initialState, action) => {
                     [action.mediaID]: {
                         rated: action.status
                     }
+                }
+            };
+        case actionTypes.ADD_STATE_MEDIA:
+            id = action.mediaID;
+            stateType = action.stateType;
+            updatedState = state.mediaItems[stateType];
+            updatedState.push(action.data);
+            return {
+                ...state,
+                mediaItems: {
+                    ...state.mediaItems,
+                    [stateType]: updatedState
+                }
+            };
+        case actionTypes.REMOVE_STATE_MEDIA:
+            id = action.mediaID;
+            stateType = action.stateType;
+            updatedState = state.mediaItems[stateType];
+            updatedState = updatedState.filter(item => {
+                return item.id !== parseInt(id);
+            });
+            return {
+                ...state,
+                mediaItems: {
+                    ...state.mediaItems,
+                    [stateType]: updatedState
                 }
             };
         default:

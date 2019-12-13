@@ -222,6 +222,15 @@ export const createNewList = (sessionID, name, description) => {
     };
 };
 
+// Removes the media from the redux State
+const removeStateMediaSuccess = (stateType, mediaID) => {
+    return {
+        type: actionTypes.REMOVE_STATE_MEDIA,
+        stateType,
+        mediaID
+    };
+};
+
 // Updates Rating
 const addRating = (mediaID, value) => {
     return {
@@ -261,10 +270,12 @@ export const updateRating = (type, id, value, sessionID, requestType, isGuest) =
         }
         axios(config)
             .then(res => {
-                if(requestType === 'post' || !isGuest) {
+                console.log(requestType === 'post');
+                if(requestType === 'post') {
                     dispatch(addRating(id, value));
                 } else if(requestType === 'delete'){
                     dispatch(removeRating(id));
+                    dispatch(removeStateMediaSuccess('rated', id));
                 }
             })
             .catch(err => {
@@ -301,6 +312,9 @@ export const updateMediaState = (accountID, sessionID, mediaType, mediaID, state
                     [`${stateType}`]: !stateValue
                 };
                 dispatch(updateMediaStateSuccess(mediaID, mediaState));
+                if(stateValue) {
+                    dispatch(removeStateMediaSuccess(stateType, mediaID));
+                }
             })
             .catch(err => {
                 dispatch(Fail(err));
@@ -316,3 +330,23 @@ export const setGuestMedia = (mediaID, status) => {
     };
 };
 
+const addStateMediaSuccess = (mediaID, data, stateType) => {
+    return {
+        type: actionTypes.ADD_STATE_MEDIA,
+        mediaID,
+        data,
+        stateType
+    };
+};
+
+export const addStateMedia = (mediaType, mediaID, stateType) => {
+    return dispatch => {
+        axios.get(`/${mediaType}/${mediaID}?api_key=${apiKey}&language=en-US`)
+        .then(res => {
+            dispatch(addStateMediaSuccess(mediaID, res.data, stateType));
+        })
+        .catch(err => {
+            dispatch(Fail(err));
+        });
+    };
+};
