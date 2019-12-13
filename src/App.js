@@ -39,7 +39,12 @@ class App extends Component {
       </Fragment>
     );
 
+    let userRoute = null;
     if(this.props.isAuth) {
+      userRoute = <Route path="/user" component={User} />;
+    }
+
+    if(this.props.isAuth || this.props.isGuest) {
       routes = (
         <Fragment>
           <Switch>
@@ -49,8 +54,8 @@ class App extends Component {
             <Route path="/tvshows" render={(props) => <PageWrapper {...props} ><TvShows /></PageWrapper>}/>
             <Route path="/explore" component={Explore}/>
             <Route path="/login" component={Authentication}/>
-            <Route path="/logout" component={LogOut}/>
-            <Route path="/user" component={User} />
+            {userRoute}
+            <Route path="/logout" component={LogOut}/> 
             <Route path="/genre/:genre" render={(props) => <PageWrapper {...props}  ><GenrePage /></PageWrapper>} />
             <Route path="/info/:type/:title" component={Info}/>
             <Route render={() => <h2>Page Not Found!</h2>}/>
@@ -71,7 +76,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.authenticated
+    isAuth: state.auth.authenticated,
+    isGuest: state.auth.guestAuth
   };
 };
 
