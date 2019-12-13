@@ -15,14 +15,21 @@ const listsDropdown = (props) => {
     }
 
     let listsContent = <li onClick={props.toggleShowForm} className={styles.Center}>Create New List</li>
-    if(props.lists.length > 0) {
-        listsContent = props.lists.map(list => {
+    const accountListsArray = Object.keys(props.accountLists).map(key => {
+        let list = props.accountLists[key];
+        list.id = key;
+        return list;
+    });
+
+    if(accountListsArray.length > 0) {
+        listsContent = accountListsArray.map(list => {
             let name = list.name;
             if(props.listType === 'info') {
                 if(name.length >= 20) {
                     name = name.substring(0, 17) + '...';
                 }
             }
+
             return ( 
                 <ListItem 
                     key={list.id} 
@@ -47,10 +54,9 @@ const listsDropdown = (props) => {
 };
 
 // --- listItems clearList/deleteList
-
 const mapStateToProps = state => {
     return {
-        lists: state.info.accountLists
+        accountLists: state.info.accountLists
     };
 };
 

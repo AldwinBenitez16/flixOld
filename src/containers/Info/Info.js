@@ -32,20 +32,22 @@ class Info extends Component {
         const id = query.substring(query.indexOf('=')+1);
         this.setState({ type, id });
         if(this.props.isAuth) {
-            if(!this.props.accountState || !this.props.accountState[`${id}`]) {
+            if(!this.props.mediaState || !this.props.mediaState[`${id}`]) {
                 this.props.onFetchMediaState(id, this.props.sessionData.session_id, type); 
             }
         }
     }
 
-    toggleMediaStateHandler = (type) => {
-        this.props.onUpdateMediaState(
-            this.props.accountID,
-            this.props.sessionData.session_id,
+    toggleMediaStateHandler = (mediaType) => {
+        const { accountID, sessionData, mediaState, onUpdateMediaState } = this.props;
+        console.log(this.state.id);
+        onUpdateMediaState(
+            accountID,
+            sessionData.session_id,
             this.state.type,
             this.state.id,
-            type,
-            this.props.accountState[`${this.state.id}`][`${type}`]
+            mediaType,
+            mediaState[`${this.state.id}`][`${mediaType}`]
         );
     };
 
@@ -76,14 +78,12 @@ class Info extends Component {
     };
 
     updateRatingHandler = (type) => {
+        const { onUpdateRating, sessionData } = this.props;
         let value = this.state.rateValue;
-        this.props.onUpdateRating(this.state.type, this.state.id, value, this.props.sessionData.session_id, type)
-        if(type === "delete") {
-            value = false;
+        if(type !== 'delete') {
+            type="post";
         }
-        this.props.onUpdateMediaRating(this.state.id, {
-            rated: parseInt(value)
-        });
+        onUpdateRating(this.state.type, this.state.id, value, sessionData.session_id, type);
         this.setState({ showRatingOverlay: false });
     };
 
@@ -119,7 +119,7 @@ const mapStateToProps = state => {
         isAuth: state.auth.authenticated,
         sessionData: state.auth.sessionIdData,
         accountID: state.user.accountID,
-        accountState: state.info.accountState
+        mediaState: state.info.mediaState
     };
 };
 
@@ -127,8 +127,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchMediaState: (id, sessionID, type) => dispatch(actions.fetchAccountState(id, sessionID, type)),
         onUpdateMediaState: (accountID, sessionID, mediaType, mediaID, stateType, stateValue) => dispatch(actions.updateMediaState(accountID, sessionID, mediaType, mediaID, stateType, stateValue)),
-        onUpdateRating: (type, id, value, sessionID, requestType) => dispatch(actions.updateRating(type, id, value, sessionID, requestType)),
-        onUpdateMediaRating: (id, data) => dispatch(actions.updateMediaStateSuccess(id, data))
+        onUpdateRating: (type, id, value, sessionID, requestType) => dispatch(actions.updateRating(type, id, value, sessionID, requestType))
     };
 };
 
