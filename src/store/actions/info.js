@@ -239,11 +239,15 @@ const removeRating = (mediaID) => {
 };
 
 
-export const updateRating = (type, id, value, sessionID, requestType) => {
+export const updateRating = (type, id, value, sessionID, requestType, isGuest) => {
     return dispatch => {
         dispatch(Start());
+        let sessionQuery = `session_id=${sessionID}`;
+        if(isGuest) {
+            sessionQuery = `guest_session_id=${sessionID}`;
+        }
         let config = {
-            url: `/${type}/${id}/rating?api_key=${apiKey}&session_id=${sessionID}`,
+            url: `/${type}/${id}/rating?api_key=${apiKey}&${sessionQuery}`,
             method: 'post',
             data: {
                 value
@@ -251,16 +255,15 @@ export const updateRating = (type, id, value, sessionID, requestType) => {
         };
         if(requestType === "delete") {
             config = {
-                url: `/${type}/${id}/rating?api_key=${apiKey}&session_id=${sessionID}`,
+                url: `/${type}/${id}/rating?api_key=${apiKey}&${sessionQuery}`,
                 method: 'delete',
             };
         }
         axios(config)
             .then(res => {
-                console.log(res.data);
-                if(requestType === 'post') {
+                if(requestType === 'post' || !isGuest) {
                     dispatch(addRating(id, value));
-                } else {
+                } else if(requestType === 'delete'){
                     dispatch(removeRating(id));
                 }
             })
@@ -304,3 +307,12 @@ export const updateMediaState = (accountID, sessionID, mediaType, mediaID, state
             });
     };
 };
+
+export const setGuestMedia = (mediaID, status) => {
+    return {
+        type: actionTypes.SET_GUEST_MEDIA,
+        mediaID,
+        status
+    };
+};
+

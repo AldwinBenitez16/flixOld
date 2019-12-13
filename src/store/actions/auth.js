@@ -107,3 +107,41 @@ export const logout = () => {
     };
 };
 
+const fetchGuestSessionIDStart = () => {
+    return {
+        type: actionTypes.FETCH_GUEST_SESSION_ID
+    };
+};
+
+const fetchGuestSessionIDSuccess = (data) => {
+    return {
+        type: actionTypes.FETCH_GUEST_SESSION_ID_SUCCESS,
+        data
+    };
+};
+
+const fetchGuestSessionIDFail = (error) => {
+    return {
+        type: actionTypes.FETCH_GUEST_SESSION_ID_FAIL,
+        error
+    };
+};
+
+export const fetchGuestSessionID = () => {
+    return dispatch => {
+        dispatch(fetchGuestSessionIDStart());
+        axios.get(`/authentication/guest_session/new?api_key=${apiKey}`)
+            .then(res => {
+                let data = {
+                    guest_session_id: res.data.guest_session_id,
+                    expires_at: res.data.expires_at
+                };
+                dispatch(fetchGuestSessionIDSuccess(data));
+            })
+            .catch(err => {
+                dispatch(fetchGuestSessionIDFail(err));
+            });
+    };
+};
+
+

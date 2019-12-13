@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 
 // Components
-import ListControls from '../../../components/User/Lists/ListsControls/ListControls';
+import ListControls from './ListsControls/ListControls';
 import ListsPages from './ListPages/ListPages';
 
 class Lists extends Component {

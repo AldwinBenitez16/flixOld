@@ -140,6 +140,21 @@ const reducer = (state=initialState, action) => {
                     }
                 }
             };
+        case actionTypes.FETCH_GUEST_SESSION_ID_SUCCESS:
+            return {
+                ...state,
+                mediaState: {}
+            };
+        case actionTypes.SET_GUEST_MEDIA:
+            return {
+                ...state,
+                mediaState: {
+                    ...state.mediaState,
+                    [action.mediaID]: {
+                        rated: action.status
+                    }
+                }
+            };
         default:
             return state;
     };

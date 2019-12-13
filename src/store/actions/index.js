@@ -2,6 +2,7 @@ export {
     fetchToken,
     fetchSessionId,
     fetchSessionIdFinal,
+    fetchGuestSessionID,
     logout
 } from './auth';
 
@@ -18,13 +19,6 @@ export {
     removeMedia,
     createNewList,
     updateMediaState,
-    updateRating
-    
-    // fetchMediaStatus,
-    // updateMediaState,
-    // updateMediaStateSuccess,
-    // updateRating,
-    // updateList,
-    // deleteList,
-    // createNewList
+    updateRating,
+    setGuestMedia
 } from './info';

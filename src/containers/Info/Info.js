@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 // Components
-import InfoCard from '../../components/Info/InfoCard/InfoCard';
+import InfoCard from '../../components/infoCard/infoCard/InfoCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 // HOC
@@ -34,6 +34,11 @@ class Info extends Component {
         if(this.props.isAuth) {
             if(!this.props.mediaState || !this.props.mediaState[`${id}`]) {
                 this.props.onFetchMediaState(id, this.props.sessionData.session_id, type); 
+            }
+        }
+        if(this.props.isGuest) {
+            if(!this.props.mediaState[`${id}`]) {
+                this.props.onSetGuestMedia(id, false);
             }
         }
     }
@@ -78,12 +83,18 @@ class Info extends Component {
     };
 
     updateRatingHandler = (type) => {
-        const { onUpdateRating, sessionData } = this.props;
+        const { onUpdateRating, onSetGuestMedia, sessionData, guestSessionData, isAuth, isGuest} = this.props;
         let value = this.state.rateValue;
         if(type !== 'delete') {
             type="post";
         }
-        onUpdateRating(this.state.type, this.state.id, value, sessionData.session_id, type);
+        if(isAuth) {
+            onUpdateRating(this.state.type, this.state.id, value, sessionData.session_id, type);
+        }
+        if(isGuest) {
+            onUpdateRating(this.state.type, this.state.id, value, guestSessionData.guest_session_id, type, true);
+            onSetGuestMedia(this.state.id, value);
+        }
         this.setState({ showRatingOverlay: false });
     };
 
@@ -95,6 +106,7 @@ class Info extends Component {
                     <InfoCard
                         mediaID={this.state.id} 
                         isAuth={this.props.isAuth}
+                        isGuest={this.props.isGuest}
                         toggleMediaState={this.toggleMediaStateHandler}
                         toggleRatingOverlay={this.toggleRatingOverlayHandler}
                         showRatingOverlay={this.state.showRatingOverlay}
@@ -117,7 +129,9 @@ class Info extends Component {
 const mapStateToProps = state => {
     return {
         isAuth: state.auth.authenticated,
+        isGuest: state.auth.guestAuth,
         sessionData: state.auth.sessionIdData,
+        guestSessionData: state.auth.guestSessionData,
         accountID: state.user.accountID,
         mediaState: state.info.mediaState
     };
@@ -127,7 +141,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchMediaState: (id, sessionID, type) => dispatch(actions.fetchAccountState(id, sessionID, type)),
         onUpdateMediaState: (accountID, sessionID, mediaType, mediaID, stateType, stateValue) => dispatch(actions.updateMediaState(accountID, sessionID, mediaType, mediaID, stateType, stateValue)),
-        onUpdateRating: (type, id, value, sessionID, requestType) => dispatch(actions.updateRating(type, id, value, sessionID, requestType))
+        onUpdateRating: (type, id, value, sessionID, requestType, isGuest) => dispatch(actions.updateRating(type, id, value, sessionID, requestType, isGuest)),
+        onSetGuestMedia: (mediaID, status) => dispatch(actions.setGuestMedia(mediaID, status))
     };
 };
 
