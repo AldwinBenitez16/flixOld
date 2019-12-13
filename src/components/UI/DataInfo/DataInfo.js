@@ -18,6 +18,7 @@ const dataInfo = (props) => {
     if(props.stylesType === 'user') {
         dataStyles = styles.UserDataInfo;
     }
+
     if(!props.loading && props.data !== null) {
         dataItems = props.data.results.map(curr => {
             let type = null;
