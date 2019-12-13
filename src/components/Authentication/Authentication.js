@@ -81,10 +81,17 @@ class Authentication extends Component {
         this.props.history.push('/home');
     };
 
+    guestLoginHandler = () => {
+        this.props.onFetchGuestLogin();
+    };
+
     render() {
         let redirect = null;
         if(this.props.isAuth) {
             redirect = <Redirect to='/user' />;
+        }
+        if(this.props.isGuest) {
+            redirect = <Redirect to='/home'/>;
         }
         const loginFormArray = [];
         for(let key in this.state.loginForm) {
@@ -123,6 +130,11 @@ class Authentication extends Component {
                             action="Login"
                             clicked={this.loginHandler}>Login</Button>
                         <Button 
+                            addClass={[styles.Guest]}
+                            type="Success"
+                            action="Guest Login"
+                            clicked={this.guestLoginHandler}>Guest Login</Button>
+                        <Button 
                             addClass={[]}
                             type="Danger"
                             action="Cancel"
@@ -138,6 +150,7 @@ const mapStateToProps = state => {
     return {
         auth: state.auth,
         isAuth: state.auth.authenticated,
+        isGuest: state.auth.guestAuth,
         loading: state.auth.loading,
         error: state.auth.error
     };
@@ -146,7 +159,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchToken: () => dispatch(actions.fetchToken()),
-        fetchSessionId: (token, username, password) => dispatch(actions.fetchSessionId(token, username, password))
+        fetchSessionId: (token, username, password) => dispatch(actions.fetchSessionId(token, username, password)),
+        onFetchGuestLogin: () => dispatch(actions.fetchGuestSessionID())
     };
 };
 
