@@ -38,12 +38,17 @@ class User extends Component {
     }
 
     componentDidMount() {
-        if(this.props.user.accountID === null) {
-            this.props.onFetchAccountDetails(this.props.sessionID);
+        const {user, onFetchAccountDetails, onFetchAccountLists, sessionID, accountLists, accountID} = this.props;
+        if(user.accountID === null) {
+            onFetchAccountDetails(sessionID);
         }
-        if(this.props.accountLists === null) {
-            this.props.onFetchAccountLists(this.props.accountID, this.props.sessionID);
+        if(accountLists === null) {
+            onFetchAccountLists(accountID, sessionID);
         }
+    }
+
+    shouldComponentUpdate = (nextProps, nextState) => {
+        return true;
     }
 
     showHandler = (type) => {
@@ -119,7 +124,6 @@ class User extends Component {
                 <Fragment>
                     <PageWrapper
                         show={this.state.Lists.show}
-                        lists={this.props.accountLists}
                         accountID={this.props.user.accountID}
                         sessionID={this.props.sessionID}
                         addList={this.addListHandler}
