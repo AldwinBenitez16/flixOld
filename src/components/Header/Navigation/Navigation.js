@@ -17,6 +17,9 @@ const navigation = (props) => {
     if(props.isAuth) {
         loginNav = <NavigationItem path="/user">{props.IdData.username}</NavigationItem>;
     }
+    if(props.isGuest) {
+        loginNav = <NavigationItem path="/home" active="Guest">Guest</NavigationItem>;
+    }
     return(
         <nav className={props.navStyles}>
             <ul>
@@ -33,6 +36,7 @@ const navigation = (props) => {
 const mapStateToProps = state => {
     return {
         isAuth: state.auth.authenticated,
+        isGuest: state.auth.guestAuth,
         IdData: state.auth.sessionIdData
     };
 };

@@ -17,7 +17,7 @@ import searchStyles from '../../shared/Styles/Search.module.css';
 
 const header = (props) => {
     let loginNav = <NavigationItem path="/login">Login</NavigationItem>;
-    if(props.isAuth) {
+    if(props.isAuth || props.isGuest) {
         loginNav = <NavigationItem path="/logout">Log out</NavigationItem>;
     }
     return (
@@ -40,6 +40,7 @@ const header = (props) => {
 const mapStateToProps = state => {
     return {
         isAuth: state.auth.authenticated,
+        isGuest: state.auth.guestAuth,
         IdData: state.auth.sessionIdData
     };
 };
