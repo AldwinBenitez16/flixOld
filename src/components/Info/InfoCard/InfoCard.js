@@ -24,6 +24,7 @@ const InfoCard = (props) => {
         if(props.data.original_name) {
             type = 'tv';
         }
+
         if(props.isAuth) {
             if (props.showRatingOverlay) {
                 ratingContent = <RatingOverlay 

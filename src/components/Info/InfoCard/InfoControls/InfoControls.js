@@ -10,8 +10,6 @@ import styles from './InfoControls.module.css';
 
 // assets
 import { ReactComponent as Listdrop } from '../../../../assets/images/svgs/listsdrop.svg';
-import { ReactComponent as Listadd } from '../../../../assets/images/svgs/list-.svg';
-import { ReactComponent as Listrem } from '../../../../assets/images/svgs/list+.svg';
 
 import { ReactComponent as Heartadd } from '../../../../assets/images/svgs/heart+.svg';
 import { ReactComponent as Heartrem } from '../../../../assets/images/svgs/heart-.svg';
@@ -23,32 +21,43 @@ import { ReactComponent as Rateadd } from '../../../../assets/images/svgs/rate+.
 import { ReactComponent as Raterem } from '../../../../assets/images/svgs/rate-.svg';
 
 const userControls = (props) => {
+    const { 
+        mediaState, 
+        id, 
+        updateRating, 
+        toggleRatingOverlay, 
+        toggleMediaState, 
+        toggleListsOverlay 
+    } = props;
+
     let controlsContent = null;
-    if (props.accountState) {
-        if(props.accountState[`${props.id}`]) {
-            const mediaState = props.accountState[`${props.id}`];
+
+    if(mediaState) {
+        if(mediaState[`${id}`]) {
+            const media = mediaState[`${id}`];
+            console.log(media.rated);
             controlsContent = (
                 <Fragment>
                     <Button
                         addClass={[styles.UpdatedButton]}
                         type="Success"
                         action="Add To Lists"
-                        clicked={props.toggleListsOverlay}><Listdrop /></Button>
+                        clicked={toggleListsOverlay}><Listdrop /></Button>
                     <Button
                         addClass={[styles.UpdatedButton]}
                         type="Success"
                         action="Rate"
-                        clicked={() => mediaState.rated ? props.updateRating("delete") : props.toggleRatingOverlay() }>{mediaState.rated ? <Raterem /> : <Rateadd />}</Button>
+                        clicked={() => media.rated ? updateRating("delete") : toggleRatingOverlay() }>{media.rated ? <Raterem /> : <Rateadd />}</Button>
                     <Button
                         addClass={[styles.UpdatedButton]}
                         type="Success"
                         action="Favorite"
-                        clicked={() => props.toggleMediaState('favorite')}>{mediaState.favorite ? <Heartrem /> : <Heartadd />}</Button>
+                        clicked={() => toggleMediaState('favorite')}>{media.favorite ? <Heartrem /> : <Heartadd />}</Button>
                     <Button
                         addClass={[styles.UpdatedButton]}
                         type="Success"
                         action="Watchlist"
-                        clicked={() => props.toggleMediaState('watchlist')}>{mediaState.watchlist ? <Watchrem /> : <Watchadd />}</Button>
+                        clicked={() => toggleMediaState('watchlist')}>{media.watchlist ? <Watchrem /> : <Watchadd />}</Button>
                 </Fragment>
             );
         }
@@ -62,7 +71,7 @@ const userControls = (props) => {
 
 const mapStateToProps = state => {
     return {
-        accountState: state.info.accountState
+        mediaState: state.info.mediaState
     };
 };
 
