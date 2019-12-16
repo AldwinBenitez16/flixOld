@@ -1,6 +1,7 @@
 // Dependencies
 import React from 'react';
 import { ternary } from '../../../shared/Utillity/Utillity';
+import { connect } from 'react-redux';
 
 // Components
 import Pagination from './Pagination/Pagination';
@@ -14,26 +15,21 @@ const dataInfo = (props) => {
     let pagination= null;
     let dataStyles = styles.DataInfo;
     let dataTitle = styles.DataTitle;
+    let addClass = [];
+    if(props.addClass) {
+        addClass = props.addClass;
+    }
 
     if(props.stylesType === 'user') {
         dataStyles = styles.UserDataInfo;
     }
 
     if(!props.loading && props.data !== null) {
-        dataItems = props.data.results.map(curr => {
-            let type = null;
-            if (props.type) {
-                type = props.type;
-            } else {
-                if(curr.original_title) {
-                    type ="movie";
-                } else {
-                    type="tv";
-                }
-            }
+        let dataItemsArray = props.data.results;
+        dataItems = dataItemsArray.map(curr => {
             return (
                 <div 
-                    onClick={() => props.viewInfo(type, ternary(curr.original_title, curr.original_name), curr.id)}
+                    onClick={() => props.viewInfo(props.type, ternary(curr.original_title, curr.original_name), curr.id)}
                     key={curr.id} 
                     className={styles.Item}>
                     <img 
@@ -43,16 +39,17 @@ const dataInfo = (props) => {
                 </div>
             );
         });
+
         if(props.data.total_pages > 1) {
             pagination = <Pagination
                 max={props.data.total_pages}
                 changePage={props.changePage}
-                page={props.page} />;
+                page={props.data.page} />;
         }
     }
 
     return (
-        <div className={dataStyles}>
+        <div className={[dataStyles, ...addClass].join(' ')}>
             <div className={dataTitle}>
                 <h2>{props.title}</h2>
             </div>
@@ -62,4 +59,10 @@ const dataInfo = (props) => {
     );
 };
 
-export default dataInfo;
+const mapStateToProps = state => {
+    return {
+        mediaItems: state.info.mediaItems
+    };
+};
+
+export default connect(mapStateToProps)(dataInfo);
