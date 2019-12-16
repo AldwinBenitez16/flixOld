@@ -13,7 +13,7 @@
 
 .GenreList div {
     box-sizing: border-box;
-    width: calc(20% - 20px);
+    width: calc(100% - 20px);
     height: 200px;
     padding: 10px;
     margin: 10px;
@@ -29,4 +29,29 @@
 
 .Hidden {
     display: none;
+}
+
+@media (min-width: 400px) {
+    .GenreList div {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (min-width: 600px) {
+    .GenreList div {
+        width: calc(33% - 20px);
+    }
+}
+
+
+@media (min-width: 768px) {
+    .GenreList div {
+        width: calc(25% - 20px);
+    }
+}
+
+@media (min-width: 900px) {
+    .GenreList div {
+        width: calc(20% - 20px);
+    }
 }
