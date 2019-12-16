@@ -2,11 +2,12 @@
 
 // Dependencies
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // Components
 import Header from '../../components/Header/Header';
 import Sidedrawer from '../../components/Header/Sidedrawer/Sidedrawer';
-import Search from '../../components/Header/Search/Search';
+import SearchInput from '../../components/Header/SearchInput/SearchInput';
 
 // CSS
 import styles from './Layout.module.css';
@@ -45,11 +46,11 @@ class Layout extends Component {
 
     render() {
         let search = null;
-        if(this.state.showSearch) {
+        if(this.state.showSearch && this.props.history.location.pathname !== '/home') {
             search = (
-                <Search 
+                <SearchInput 
                     value={this.state.search} 
-                    searchStyles={searchStyles.SearchMob}
+                    addClass={[searchStyles.SearchMob]}
                     changed={this.searchQueryHandler}/>
             );
         }
@@ -73,4 +74,4 @@ class Layout extends Component {
     };
 };
 
-export default Layout;
+export default withRouter(Layout);

@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 import AuthReducer from './store/reducers/auth';
 import UserReducer from './store/reducers/user';
 import InfoReducer from './store/reducers/info';
+import SearchReducer from './store/reducers/search';
 
 // Redux Persist
 import { PersistGate } from 'redux-persist/integration/react';
@@ -31,7 +32,8 @@ import './index.css';
 const rootReducer = combineReducers({
     auth: AuthReducer,
     user: UserReducer,
-    info: InfoReducer
+    info: InfoReducer,
+    search: SearchReducer
 });
 
 const persistConfig = {
