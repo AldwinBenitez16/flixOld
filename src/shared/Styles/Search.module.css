@@ -1,5 +1,9 @@
 /* Search */
 
+.MainSearch {
+    display: block !important;
+}
+
 .SearchDesk {
     display: none;
 }
@@ -14,74 +18,54 @@
     padding: 10px;
 }
 
-.SearchMob input,
-.SearchDesk input {
-    border: none;
-    border-radius: 2px;
-    color: white;
-    outline: none;
-    cursor: text;
-    padding: 0;
-    display: initial;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    color: black;
-    padding-left: 5px;
+.SearchMob form,
+.SearchDesk form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
-.SearchMob input {
-    height: 60%;
-    width: 80%;
+.SearchMob select,
+.SearchDesk select {
+    border: none;
+    border-right: 1px solid #ccc;
+    outline: none;
+}
+
+.SearchMob input,
+.SearchDesk input {
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0px;
+    padding: 5px;
 }
 
 .SearchMob button,
 .SearchDesk button {
-    box-sizing: border-box;
-    display: initial;
-    margin-right: 10px;
-    font-size: initial;
-    padding: 0;
-    background-color: #608aad;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border: none;
+    padding: 3px;
+    width: 50px;
+    fill: #323;
+    margin-right: 0;
 }
 
-.SearchMob button {
-    width: 35px;
-    height: 60%;
-}
-
-.SearchMob .button:hover {
+.SearchMob button:hover,
+.SearchDesk button:hover {
     background-color: #4286f4;
 }
 
 @media (min-width: 750px) {
     .SearchDesk {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: initial;
-        height: 100%;
-        margin: 0 5px 0 auto;
-        border: none;
+        display: block;
     }
 
-    .SearchDesk input {
-        height: 40%;
-        width: initial;
-    }
-
-    .SearchDesk button {
-        width: 50px;
-        height: 40%;
-    }
-
-    .SearchDesk .button:hover {
-        background-color: #4286f4;
+    .HeaderSearch form {
+        height: 30px;
     }
 
     .SearchMob {
         display: none;
     }
+    
 }
 
