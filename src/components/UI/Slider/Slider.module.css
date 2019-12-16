@@ -1,6 +1,7 @@
 .Slider {
-    width: 90vw;
+    width: 70vw;
     margin: 20px auto;
+    text-align: center;
 }
 
 .Slider h2 {
@@ -31,11 +32,18 @@
     height: 225px;
     width: min-content !important;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 .Item img {
     height: 100%;
 }
+
+@media (min-width: 768px) {
+    .Slider {
+        width: 85vw;
+    } 
+};
 
 /* 
 [
