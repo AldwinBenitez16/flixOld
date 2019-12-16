@@ -1,0 +1,69 @@
+.Search {
+    display: block;
+}
+
+.SearchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 100%;
+}
+
+.HomeSearch {
+    width: 300px;
+}
+
+.HomeSearch form {
+    height: 50px;
+}
+
+.HomeSearch select {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.HomeSearch input {
+    width: 100%;
+}
+
+.HomeSearch Button {
+    height: 100%;
+}
+
+.DataInfo {
+    box-sizing: border-box;
+    width: 90%;
+    margin: 0 auto 40px auto;
+}
+
+.Invalid {
+    width: 60%;
+    margin: 0 auto 40px auto;
+    box-shadow: 3px 3px 10px #637899;
+    background-color: #fff;
+    text-align: center;
+    min-height: 500px;
+    padding: 25px;
+    font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .HomeSearch {
+        width: 450px;
+    }
+
+    .DataInfo {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1300px) {
+    .HomeSearch {
+        width: 450px;
+    }
+
+    .DataInfo {
+        width: 60%;
+    }
+};

@@ -1,25 +1,31 @@
 .InfoCard {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
     box-sizing: border-box;
     width: 80%;
-    height: 100%;
+    height: fit-content;
     background-color: #ededed;
     box-shadow: 3px 3px 10px #637899;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 25px;
 }
 
 .InfoCard img {
+    width: 80%;
     max-height: 400px;
     margin: 0 25px;
+    margin-top: 20px;
     box-shadow: 5px 5px 15px #637899;
 }
 
 .InfoData {
     height: 80%;
-    width: 50%;
-    margin: 0 auto 0 25px;
+    width: 100%;
+    margin: 0 10px;
 }
 
 .Genres {
@@ -30,6 +36,7 @@
 
 .Genres ul {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     align-items: center;
     list-style-type: none;
@@ -51,7 +58,7 @@
     box-sizing: border-box;
     font-size: .8rem;
     padding: 10px;
-    margin: 5px 0;
+    margin: 25px auto;
     border: 1px solid #999;
     background-color: #ebeced;
     border-radius: 2px;
@@ -61,4 +68,31 @@
 
 .InfoBox p {
     margin: 0;
+}
+
+@media(min-width: 500px) {
+    .InfoCard img {
+        max-width: 280px;
+    }
+}
+
+
+@media(min-width: 768px) {
+    .InfoCard {
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+}
+
+@media(min-width: 768px) {
+    .InfoCard {
+        width: 80%;
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+    
+    .InfoBox {
+        margin: 25px;
+        margin-left: 0;
+    }
 }
