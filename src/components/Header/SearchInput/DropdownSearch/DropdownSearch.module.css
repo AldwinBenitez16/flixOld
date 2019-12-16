@@ -1,0 +1,24 @@
+.DropdownSearch {
+    box-sizing: border-box;
+    display: block;
+    height: 100%;
+    width: 80px;
+    border: 2px solid #8a8a8a;
+    border-right: none;
+    border-top: none;
+    text-align: center;
+}
+
+.DropdownSearch button {
+    background-color: transparent;
+    margin-right: 0;
+    font-size: 2rem;
+    padding: 10px;
+    width: 100%;
+}
+
+@media (min-width: 750px) {
+    .DropdownSearch {
+        display: none;
+    }
+}
