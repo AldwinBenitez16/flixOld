@@ -62,7 +62,8 @@ class Info extends Component {
     toggleRatingOverlayHandler = () => {
         this.setState(prevState => {
             return {
-                showRatingOverlay: !prevState.showRatingOverlay
+                showRatingOverlay: !prevState.showRatingOverlay,
+                showListsOverlay: false
             };
         });
     };
@@ -70,7 +71,8 @@ class Info extends Component {
     toggleListsOverlayHandler = () => {
         this.setState(prevState => {
             return {
-                showListsOverlay: !prevState.showListsOverlay
+                showListsOverlay: !prevState.showListsOverlay,
+                showRatingOverlay: false
             };
         });
     };

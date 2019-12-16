@@ -12,6 +12,7 @@
     text-align: center;
     box-sizing: border-box;
     padding: 25px;
+    padding-top: 100px;
 }
 
 .InfoCard img {
@@ -25,7 +26,7 @@
 .InfoData {
     height: 80%;
     width: 100%;
-    margin: 0 10px;
+    margin: 10px;
 }
 
 .Genres {
@@ -71,8 +72,17 @@
 }
 
 @media(min-width: 500px) {
+    .InfoCard {
+        padding-bottom: 100px;
+    }
     .InfoCard img {
         max-width: 280px;
+    }
+}
+
+@media (min-width: 750px) {
+    .InfoData {
+        margin: 0 25px 0 10px;
     }
 }
 
@@ -87,8 +97,7 @@
 @media(min-width: 768px) {
     .InfoCard {
         width: 80%;
-        padding-top: 100px;
-        padding-bottom: 100px;
+        padding-right: 0;
     }
     
     .InfoBox {
