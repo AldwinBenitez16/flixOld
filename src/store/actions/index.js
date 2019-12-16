@@ -21,5 +21,13 @@ export {
     updateMediaState,
     updateRating,
     setGuestMedia,
-    addStateMedia
+    addStateMedia,
+    fetchAccountMediaState
 } from './info';
+
+export {
+    changeSearchPage,
+    changeSearchQuery,
+    changeSearchTypeQuery,
+    setSearchPath
+} from './search';

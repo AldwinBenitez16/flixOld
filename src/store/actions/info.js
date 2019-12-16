@@ -223,11 +223,12 @@ export const createNewList = (sessionID, name, description) => {
 };
 
 // Removes the media from the redux State
-const removeStateMediaSuccess = (stateType, mediaID) => {
+const removeStateMediaSuccess = (stateType, mediaID, mediaType) => {
     return {
         type: actionTypes.REMOVE_STATE_MEDIA,
         stateType,
-        mediaID
+        mediaID,
+        mediaType
     };
 };
 
@@ -275,7 +276,7 @@ export const updateRating = (type, id, value, sessionID, requestType, isGuest) =
                     dispatch(addRating(id, value));
                 } else if(requestType === 'delete'){
                     dispatch(removeRating(id));
-                    dispatch(removeStateMediaSuccess('rated', id));
+                    dispatch(removeStateMediaSuccess('rated', id, type+'s'));
                 }
             })
             .catch(err => {
@@ -313,7 +314,7 @@ export const updateMediaState = (accountID, sessionID, mediaType, mediaID, state
                 };
                 dispatch(updateMediaStateSuccess(mediaID, mediaState));
                 if(stateValue) {
-                    dispatch(removeStateMediaSuccess(stateType, mediaID));
+                    dispatch(removeStateMediaSuccess(stateType, mediaID, mediaType+'s'));
                 }
             })
             .catch(err => {
@@ -330,12 +331,13 @@ export const setGuestMedia = (mediaID, status) => {
     };
 };
 
-const addStateMediaSuccess = (mediaID, data, stateType) => {
+const addStateMediaSuccess = (mediaID, mediaType, data, stateType) => {
     return {
         type: actionTypes.ADD_STATE_MEDIA,
         mediaID,
         data,
-        stateType
+        stateType,
+        mediaType
     };
 };
 
@@ -343,10 +345,32 @@ export const addStateMedia = (mediaType, mediaID, stateType) => {
     return dispatch => {
         axios.get(`/${mediaType}/${mediaID}?api_key=${apiKey}&language=en-US`)
         .then(res => {
-            dispatch(addStateMediaSuccess(mediaID, res.data, stateType));
+            dispatch(addStateMediaSuccess(mediaID, mediaType, res.data, stateType));
         })
         .catch(err => {
             dispatch(Fail(err));
         });
+    };
+};
+
+const fetchAccountMediaStateSuccess = (data, stateType, mediaType) => {
+    return {
+        type: actionTypes.FETCH_ACCOUNT_MEDIA_STATE,
+        data, 
+        stateType, 
+        mediaType
+    };
+};
+
+export const fetchAccountMediaState = (accountID, stateType, mediaType, sessionID) => {
+    return dispatch => {
+        dispatch(Start());
+        axios.get(`/account/${accountID}/${stateType}/${mediaType}?api_key=${apiKey}&session_id=${sessionID}&language=en-US&sort_by=created_at.asc&page=1`)
+            .then(res => {
+                dispatch(fetchAccountMediaStateSuccess(res.data.results, stateType, mediaType));
+            })
+            .catch(err => {
+                dispatch(Fail(err));
+            });
     };
 };
