@@ -98,6 +98,7 @@ class Authentication extends Component {
             this.props.auth.tokenData.request_token, 
             this.state.loginForm.username.value,
             this.state.loginForm.password.value);
+        
     }
 
     cancelLoginHandler = () => {
