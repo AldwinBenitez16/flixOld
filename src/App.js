@@ -8,7 +8,7 @@ import Explore from './containers/Explore/Explore';
 import User from './containers/User/User';
 
 // Components
-import Home from './components/Home/Home';
+import Search from './components/Search/Search';
 import Movies from './components/Movies/Movies';
 import TvShows from './components/TvShows/TvShows';
 import Info from './containers/Info/Info';
@@ -27,7 +27,7 @@ class App extends Component {
       <Fragment>
         <Switch>
           <Redirect from="/" exact to="/home" />
-          <Route path="/home" render={(props) => <PageWrapper {...props} ><Home /></PageWrapper>}/>
+          <Route path="/home" render={(props) => <PageWrapper {...props} ><Search /></PageWrapper>}/>
           <Route path="/movies" render={(props) => <PageWrapper {...props} ><Movies /></PageWrapper>}/>
           <Route path="/tvshows" render={(props) => <PageWrapper {...props} ><TvShows /></PageWrapper>}/>
           <Route path="/explore" component={Explore}/>
@@ -49,7 +49,7 @@ class App extends Component {
         <Fragment>
           <Switch>
             <Redirect from="/" exact to="/home" />
-            <Route path="/home" render={(props) => <PageWrapper {...props} ><Home /></PageWrapper>}/>
+            <Route path="/home" render={(props) => <PageWrapper {...props} ><Search /></PageWrapper>}/>
             <Route path="/movies" render={(props) => <PageWrapper {...props} ><Movies /></PageWrapper>}/>
             <Route path="/tvshows" render={(props) => <PageWrapper {...props} ><TvShows /></PageWrapper>}/>
             <Route path="/explore" component={Explore}/>
