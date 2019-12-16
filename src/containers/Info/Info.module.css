@@ -2,8 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90vw;
-    height: 600px;
-    margin: 0 auto;
-    margin-top: 25px;
+    width: 100vw;
+    height: fit-content;
+    margin: 25px auto;
+}
+
+@media(min-width: 900px) {
+    .Info {
+        height: calc(100vh - 125px);
+    }
 }
