@@ -1,6 +1,23 @@
 .User {
-    width: 50vw;
+    width: 90vw;
     margin: 25px auto;
+    box-sizing: border-box;
+    padding: 20px;
     background-color: #fff;
     box-shadow: 3px 3px 10px #637899;
+}
+
+@media(min-width: 750px) {
+    .User {
+        width: 70vw;
+        margin: 25px auto;
+        background-color: #fff;
+        box-shadow: 3px 3px 10px #637899;
+    }
+}
+
+@media(min-width: 1200px) {
+    .User {
+        width: 50vw;
+    }
 }

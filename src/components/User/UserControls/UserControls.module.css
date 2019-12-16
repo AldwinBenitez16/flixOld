@@ -2,6 +2,18 @@
     padding: 25px;
 }
 
+.UserControls button {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
 .UpdatedButton {
     height: 40px;
+}
+
+@media(min-width: 750px) {
+    .UserControls button {
+        width: fit-content;
+        margin-bottom: 5px;
+    }
 }
