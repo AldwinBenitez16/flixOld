@@ -38,12 +38,20 @@ class User extends Component {
     }
 
     componentDidMount() {
-        const {user, onFetchAccountDetails, onFetchAccountLists, sessionID, accountLists, accountID} = this.props;
+        const {user, onFetchAccountDetails, onFetchAccountLists, onFetchAccountMediaState, sessionID, accountLists, accountID, mediaItems, medisIsFetched} = this.props;
         if(user.accountID === null) {
             onFetchAccountDetails(sessionID);
         }
         if(accountLists === null) {
             onFetchAccountLists(accountID, sessionID);
+        }
+        if(!medisIsFetched) {
+            onFetchAccountMediaState(accountID, 'favorite', 'movies', sessionID);
+            onFetchAccountMediaState(accountID, 'favorite', 'tv', sessionID);
+            onFetchAccountMediaState(accountID, 'rated', 'movies', sessionID);
+            onFetchAccountMediaState(accountID, 'rated', 'tv', sessionID);
+            onFetchAccountMediaState(accountID, 'watchlist', 'movies', sessionID);
+            onFetchAccountMediaState(accountID, 'watchlist', 'tv', sessionID);
         }
     }
 
@@ -133,23 +141,20 @@ class User extends Component {
                     </PageWrapper>
                     <PageWrapper
                         title="Favorites"
-                        show={this.state.Favorites.show}
-                        moviePath={`/account/${this.props.user.accountID}/favorite/movies?api_key=${apiKey}&session_id=${this.props.sessionID}&language=en-US&sort_by=created_at.asc&page=1`}
-                        tvPath={`/account/${this.props.user.accountID}/favorite/tv?api_key=${apiKey}&session_id=${this.props.sessionID}&language=en-US&sort_by=created_at.asc&page=1`}>
+                        stateType="favorite"
+                        show={this.state.Favorites.show} >
                         <UserPage />
                     </PageWrapper>
                     <PageWrapper
                         title="Rated"
-                        show={this.state.Rated.show}
-                        moviePath={`/account/${this.props.accountID}/rated/movies?api_key=${apiKey}&session_id=${this.props.sessionID}&language=en-US&sort_by=created_at.asc&page=1`}
-                        tvPath={`/account/${this.props.accountID}/rated/tv?api_key=${apiKey}&session_id=${this.props.sessionID}&language=en-US&sort_by=created_at.asc&page=1`}>
+                        stateType="rated"
+                        show={this.state.Rated.show} >
                         <UserPage />
                     </PageWrapper>
                     <PageWrapper
                         title="WatchList"
-                        show={this.state.WatchList.show}
-                        moviePath={`/account/${this.props.accountID}/watchlist/movies?api_key=${apiKey}&session_id=${this.props.sessionID}&language=en-US&sort_by=created_at.asc&page=1`}
-                        tvPath={`/account/${this.props.accountID}/watchlist/tv?api_key=${apiKey}&session_id=${this.props.sessionID}&language=en-US&sort_by=created_at.asc&page=1`}>
+                        stateType="watchlist"
+                        show={this.state.WatchList.show} >
                         <UserPage />
                     </PageWrapper>
 
@@ -172,14 +177,17 @@ const mapStateToProps = state => {
         accountID: state.user.accountID,
         loading: state.user.loading,
         sessionID: state.auth.sessionIdData.session_id,
-        accountLists: state.info.accountLists
+        accountLists: state.info.accountLists,
+        mediaItems: state.info.mediaItems,
+        medisIsFetched: state.info.mediaIsFetched
     };
 };
 
 const mpaDispatchToProps = dispatch => {
     return {
         onFetchAccountDetails: (sessionID) => dispatch(actions.fetchAccountDetails(sessionID)),
-        onFetchAccountLists: (accountID, sessionID) => dispatch(actions.fetchAccountLists(accountID, sessionID))
+        onFetchAccountLists: (accountID, sessionID) => dispatch(actions.fetchAccountLists(accountID, sessionID)),
+        onFetchAccountMediaState: (accountID, stateType, mediaType, sessionID) => dispatch(actions.fetchAccountMediaState(accountID, stateType, mediaType, sessionID))
     };
 };
 
