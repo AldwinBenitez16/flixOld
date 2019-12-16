@@ -1,11 +1,22 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../../shared/Utillity/Utillity';
 
 const initialState = {
+    mediaIsFetched: false,
     mediaState: null,
     mediaItems: {
-        rated: [],
-        favorite: [],
-        watchlist: []
+        favorite: {
+            tv: [],
+            movies: []
+        },
+        rated: {
+            tv: [],
+            movies: []
+        },
+        watchlist: {
+            tv: [],
+            movies: []
+        }
     }, 
     accountLists: null,
     loading: false,
@@ -15,6 +26,7 @@ const initialState = {
 let id = null;
 let stateType = null;
 let updatedAccountLists = null;
+let updatedObject = null;
 let updatedListItems = null;
 let updatedState = null;
 const reducer = (state=initialState, action) => {   
@@ -165,19 +177,22 @@ const reducer = (state=initialState, action) => {
         case actionTypes.ADD_STATE_MEDIA:
             id = action.mediaID;
             stateType = action.stateType;
-            updatedState = state.mediaItems[stateType];
+            updatedState = state.mediaItems[stateType][action.mediaType];
             updatedState.push(action.data);
             return {
                 ...state,
                 mediaItems: {
                     ...state.mediaItems,
-                    [stateType]: updatedState
+                    [stateType]: {
+                        ...state.mediaItems[stateType],
+                        [action.mediaType]: updatedState
+                    }
                 }
             };
         case actionTypes.REMOVE_STATE_MEDIA:
             id = action.mediaID;
             stateType = action.stateType;
-            updatedState = state.mediaItems[stateType];
+            updatedState = state.mediaItems[stateType][action.mediaType];
             updatedState = updatedState.filter(item => {
                 return item.id !== parseInt(id);
             });
@@ -185,7 +200,25 @@ const reducer = (state=initialState, action) => {
                 ...state,
                 mediaItems: {
                     ...state.mediaItems,
-                    [stateType]: updatedState
+                    [stateType]: {
+                        ...state.mediaItems[stateType],
+                        [action.mediaType]: updatedState
+                    }
+                }
+            };
+        case actionTypes.FETCH_ACCOUNT_MEDIA_STATE:
+            stateType = action.stateType;
+            updatedObject = state.mediaItems[stateType][action.mediaType];
+            updatedObject = action.data;
+            return {
+                ...state,
+                mediaIsFetched: true,
+                mediaItems: {
+                    ...state.mediaItems,
+                    [stateType]: {
+                        ...state.mediaItems[stateType],
+                        [action.mediaType]: updatedObject
+                    }
                 }
             };
         default:
