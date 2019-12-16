@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import DropdownDrawer from './Sidedrawer/DropdownDrawer/DropdownDrawer';
 import Logo from './Logo/Logo';
 import Navigation from './Navigation/Navigation';
-import Search from './Search/Search';
-import DropdownSearch from './Search/DropdownSearch/DropdownSearch';
+import SearchInput from './SearchInput/SearchInput';
+import DropdownSearch from './SearchInput/DropdownSearch/DropdownSearch';
 import NavigationItem from './Navigation/NavigationItem/NavigationItem';
 
 // CSS
@@ -25,10 +25,10 @@ const header = (props) => {
             <DropdownDrawer clicked={props.toggleMenu}/>
             <Logo />
             <Navigation navStyles={navStyles.NavigationDesk}/>
-            <Search 
+            <SearchInput 
                 value={props.searchValue} 
                 changed={props.onSearchChange}
-                searchStyles={searchStyles.SearchDesk}/>
+                addClass={[searchStyles.SearchDesk, searchStyles.HeaderSearch]}/>
             <div className={styles.Desk}>
                 {loginNav}
             </div>
