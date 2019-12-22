@@ -25,10 +25,10 @@ const header = (props) => {
             <DropdownDrawer clicked={props.toggleMenu}/>
             <Logo />
             <Navigation navStyles={navStyles.NavigationDesk}/>
-            <SearchInput 
+            {/* <SearchInput 
                 value={props.searchValue} 
                 changed={props.onSearchChange}
-                addClass={[searchStyles.SearchDesk, searchStyles.HeaderSearch]}/>
+                addClass={[searchStyles.SearchDesk, searchStyles.HeaderSearch]}/> */}
             <div className={styles.Desk}>
                 {loginNav}
             </div>
