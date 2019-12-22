@@ -34,7 +34,6 @@ class SliderContainer extends Component {
         if(width < 768) {
             devider = 200;
         }
-        console.log(Math.floor(width / devider));
         const settings = {
             dots: false, 
             infinite: true,

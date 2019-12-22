@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 100%;
+    width: fit-content;
     background-color: #fff;
     box-shadow: 3px 3px 10px #637899;
     padding: 25px;
