@@ -14,7 +14,7 @@ import styles from './Movies.module.css';
 
 const movies = (props) => {
     return(
-        <div className={styles.Movies}>
+        <div style={{ paddingTop: '10px' }} className={styles.Movies}>
             <DataWrapper path={`/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`}>
                 <Banner
                     viewInfo={props.viewInfo} 

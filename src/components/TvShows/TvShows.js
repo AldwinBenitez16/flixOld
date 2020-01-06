@@ -14,7 +14,7 @@ import styles from './TvShows.module.css';
 
 const tvShows = (props) => {
     return(
-        <div className={styles.Movies}>
+        <div style={{ paddingTop: '10px' }} className={styles.Movies}>
             <DataWrapper path={`/trending/tv/week?api_key=${apiKey}`}>
                 <Banner
                     viewInfo={props.viewInfo} 

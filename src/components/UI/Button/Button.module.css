@@ -10,7 +10,7 @@
 }
 
 .Button:hover {
-    background-color: #4286f4;
+    background-color: #c7416f;
 }
 
 .Button:disabled {
@@ -19,18 +19,18 @@
 }
 
 .Danger {
-    background-color: #f64f59;
+    background-color: #7e262c;
 }
 
 .Success {
-    background-color: #608aad;
+    background-color: #c97793;
 }
 
 .Mini {
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     background-color: #fff;
-    color: #608aad;
+    color: #c97793;
     transition: color .2s ease-out; 
 }
 

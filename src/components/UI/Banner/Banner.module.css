@@ -29,7 +29,7 @@
     }
 
     .MiniInfo {
-       right: 45px; 
+       right: 55px; 
     }
 
     .MiniOpenOverlay {
@@ -47,7 +47,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 100;
+        z-index: 55;
     }
     
     .Spinner {
@@ -61,16 +61,7 @@
 @media (min-width: 900px) {
 
     .Overlay {
-        box-sizing: border-box;
         max-width: 50%;
-        height: 100%;
-        padding: 20px;
-        background-color: rgba(138, 183, 255, .6);
-        border: 1px solid #608aad;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
     }
 
     .Banner img {
