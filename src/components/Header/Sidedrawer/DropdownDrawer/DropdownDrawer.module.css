@@ -1,31 +1,38 @@
 .DropdownDrawer {
     width: 80px;
-    height: 100%;
+    height: 80%;
     display: flex;
     flex-flow: column;
     justify-content: space-around;
     align-items: center;
     box-sizing: border-box;
     cursor: pointer;
-    border: 2px solid #8a8a8a;
     border-left: none;
     border-top: none;
     padding: 15px;
+}
+
+.Container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: background-color .2s ease-in;
     background-color: transparent;
 }
 
 .DropdownDrawer div {
-    width: 80%;
-    height: 3px;
+    width: 90%;
+    height: 5px;
+    border-radius: 5px;
     background-color: white;
 }
 
-.DropdownDrawer:hover {
-    background-color: #4286f4;
+.Container:hover {
+    background-color: #c7416f;
 }
 
-@media (min-width: 750px) {
+@media (min-width: 800px) {
     .DropdownDrawer {
         width: 40px;
         height: 80%;

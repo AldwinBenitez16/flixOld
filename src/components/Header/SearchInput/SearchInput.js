@@ -13,7 +13,6 @@ const searchInput = (props) => {
     if(props.addClass) {
         addClass = props.addClass;
     }
-
     return (
         <div className={[...addClass].join(' ')}>
             <form
@@ -26,6 +25,7 @@ const searchInput = (props) => {
                     <option value="tv" >Tv</option>
                 </select>
                 <input 
+                    placeholder={props.placeholder}
                     type='text'
                     onChange={(e) => props.ChangeSearchQuery(e.target.value)}
                     value={props.searchQuery} />
