@@ -7,14 +7,14 @@
 .slick-slider .slick-next:before,
 .slick-slider .slick-prev:before {
     opacity: 1 !important;
-    color: #608aad !important;
+    color: #c97793 !important;
     font-size: 25px !important;
     transition: color .2s ease-in;
 }
 
 .slick-slider .slick-next:hover::before,
 .slick-slider .slick-prev:hover::before {
-    color: #4286f4 !important;
+    color: #c7416f !important;
 }
 
 .slick-slider .slick-next {

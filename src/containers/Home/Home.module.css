@@ -2,25 +2,32 @@
     display: block;
 }
 
+.BlueContainer {
+    background-color: transparent;
+    padding: 25px;
+}
+
 .SearchContainer {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 75px);
-    width: 100%;
 }
 
 .HomeSearch {
     width: 400px;
     margin-bottom: 350px;
+    padding: 0 !important;
 }
 
 .HomeSearch form {
+    width: 100%;
     height: 50px;
 }
 
 .HomeSearch select {
-    width: 150px;
+    width: 100px;
     font-size: 20px;
     padding: 5px;
     border-top-left-radius: 3px;
@@ -34,6 +41,8 @@
 
 .HomeSearch Button {
     height: 100%;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 .DataInfo {
@@ -56,7 +65,8 @@
 .Loading {
     height: calc(100vh - 75px);
     width: 100%;
-    background-color: #5e45ff;
+    background-color: #002da1;
+    background-image: linear-gradient(to right, #608aad, #0048ff);
     display: flex;
     justify-content: center;
     align-items: center;

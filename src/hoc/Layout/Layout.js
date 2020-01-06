@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Sidedrawer from '../../components/Header/Sidedrawer/Sidedrawer';
 import SearchInput from '../../components/Header/SearchInput/SearchInput';
+import Footer from '../../components/Footer/Footer';
 
 // CSS
 import styles from './Layout.module.css';
@@ -17,7 +18,8 @@ class Layout extends Component {
     state = {
         showSideDrawer: false,
         showSearch: false,
-        search: ''
+        search: '',
+        queryType: 'movie'
     }
 
     toggleMenuHandler = () => {
@@ -36,13 +38,22 @@ class Layout extends Component {
         });
     }
 
+    viewSearchPageHandler = (e) => {
+        e.preventDefault();
+        this.props.history.push(`/search/${this.state.queryType}/${this.state.search}-1`);
+    };
+
+    searchQueryHandler = (value) => {
+        this.setState({ search: value });
+    };
+
+    seachTypeQueryHandler = (value) => {
+        this.setState({ typeQuery: value });
+    };
+
     closeMenuHandler = () => {
         this.setState({ showSideDrawer: false });
-    }
-
-    searchQueryHandler = (e) => {
-        this.setState({ search: e.target.value });
-    }
+    };
 
     render() {
         let search = null;
@@ -51,7 +62,9 @@ class Layout extends Component {
                 <SearchInput 
                     value={this.state.search} 
                     addClass={[searchStyles.SearchMob]}
-                    changed={this.searchQueryHandler}/>
+                    viewSearchPage={this.viewSearchPageHandler}
+                    ChangeSearchQuery={this.searchQueryHandler}
+                    ChangeSearchTypeQuery={this.ChangeSearchTypeQuery} />
             );
         }
 
@@ -65,10 +78,11 @@ class Layout extends Component {
                     toggleSearch={this.toggleSearchHandler}
                     searchValue={this.state.search}
                     onSearchChange={this.searchQueryHandler} />
-                {search}
                 <main className={styles.Content}>
+                    {search}
                     {this.props.children}
                 </main>
+                <Footer />
             </Fragment>
         );
     };

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios, { apiKey } from '../../shared/Axios/axios'; 
 
 import SearchInput from '../../components/Header/SearchInput/SearchInput';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Overlay from '../../components/Home/Overlay/Overlay';
 
 import styles from './Home.module.css';
 import searchStyles from '../../shared/Styles/Search.module.css';
@@ -18,7 +19,6 @@ class Home extends Component {
     componentDidMount() {
         axios.get(`/movie/now_playing?api_key=${apiKey}&language=en-US`)
             .then(res => {
-                console.log(res.data);
                 let counter = 0;
                 let backdrop = res.data.results[counter].backdrop_path;
                 while(!backdrop) {
@@ -59,13 +59,18 @@ class Home extends Component {
         );
         if(this.state.backdropPath.length > 0) {
             homeContent = (
-                <div style={backgroundStyles} className={styles.SearchContainer} >
-                    <SearchInput 
-                        addClass={[searchStyles.SearchDesk, searchStyles.MainSearch, styles.HomeSearch]}
-                        viewSearchPage={this.viewSearchPageHandler}
-                        ChangeSearchTypeQuery={this.ChangeSearchTypeQueryHandler}
-                        ChangeSearchQuery={this.ChangeSearchQueryHandler} />
-                    
+                <div style={{ position: 'relative' }}>
+                    <Overlay />
+                    <div className={styles.BlueContainer}>
+                        <div style={backgroundStyles} className={styles.SearchContainer} >
+                            <SearchInput 
+                                placeholder="Search"
+                                addClass={[styles.HomeSearch, searchStyles.SearchMob, searchStyles.MainSearch]}
+                                viewSearchPage={this.viewSearchPageHandler}
+                                ChangeSearchTypeQuery={this.ChangeSearchTypeQueryHandler}
+                                ChangeSearchQuery={this.ChangeSearchQueryHandler} />
+                        </div>
+                    </div>
                 </div>
             );
         }
