@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 // Components
 import Button from '../../../UI/Button/Button';
+import { ReactComponent as SearchIcon } from '../../../../assets/images/svgs/search.svg';
 
 // CSS
 import styles from './DropdownSearch.module.css';
@@ -15,7 +16,9 @@ const dropdown = (props) => {
                 if(props.history.location.pathname !== '/home') {
                     props.clicked();
                 }
-            }}>+</Button>
+            }}>
+                <SearchIcon />
+            </Button>
         </div>
     );
 };
