@@ -1,19 +1,23 @@
 .Header {
-    height: 75px;
+    height: 100px;
     background-color: black;
     display: flex;
     align-items: center;
-    background-image: linear-gradient(to right, #000000, #434343);
+    background-color: #4632c2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
 
-.Desk {
-    display: none;
+.Fill {
+    width: 80px;
+    height: 100%;
 }
 
-@media (min-width: 750px) {
-    .Desk {
-        display: initial;
-        margin-left: 10px;
+@media (min-width: 800px) {
+    .Fill {
+        display: none;
     }
 }
-

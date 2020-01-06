@@ -1,6 +1,7 @@
 // Dependencies
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // Components
 import DropdownDrawer from './Sidedrawer/DropdownDrawer/DropdownDrawer';
@@ -16,23 +17,16 @@ import navStyles from '../../shared/Styles/Navigation.module.css';
 import searchStyles from '../../shared/Styles/Search.module.css';
 
 const header = (props) => {
-    let loginNav = <NavigationItem path="/login">Login</NavigationItem>;
-    if(props.isAuth || props.isGuest) {
-        loginNav = <NavigationItem path="/logout">Log out</NavigationItem>;
+    let dropdownSearchContent = <div className={styles.Fill}></div>;
+    if(props.location.pathname !== '/home') {
+        dropdownSearchContent = <DropdownSearch clicked={props.toggleSearch}/>;
     }
     return (
         <div className={styles.Header}>
             <DropdownDrawer clicked={props.toggleMenu}/>
             <Logo />
             <Navigation navStyles={navStyles.NavigationDesk}/>
-            {/* <SearchInput 
-                value={props.searchValue} 
-                changed={props.onSearchChange}
-                addClass={[searchStyles.SearchDesk, searchStyles.HeaderSearch]}/> */}
-            <div className={styles.Desk}>
-                {loginNav}
-            </div>
-            <DropdownSearch clicked={props.toggleSearch}/>
+            {dropdownSearchContent}
         </div>
     );
 };
@@ -45,7 +39,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(header);
+export default withRouter(connect(mapStateToProps)(header));
 
 /** -- Destop
  * -- Logo
