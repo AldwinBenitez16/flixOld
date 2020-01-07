@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 // Components
+import InfoLayout from './InfoLayout/InfoLayout';
 import InfoCard from '../../components/infoCard/infoCard/InfoCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
@@ -23,7 +24,8 @@ class Info extends Component {
         error: null,
         showRatingOverlay: false,
         showListsOverlay: false,
-        rateValue: 1
+        rateValue: 1,
+        backdropPath: ''
     };
 
     componentDidMount() {
@@ -111,23 +113,25 @@ class Info extends Component {
         if(this.state.type && this.state.id) {
             infoContent = (
                 <DataWrapper path={`/${this.state.type}/${this.state.id}?api_key=${apiKey}&language=en-US`}>
-                    <InfoCard
-                        mediaID={this.state.id} 
-                        isAuth={this.props.isAuth}
-                        isGuest={this.props.isGuest}
-                        toggleMediaState={this.toggleMediaStateHandler}
-                        toggleRatingOverlay={this.toggleRatingOverlayHandler}
-                        showRatingOverlay={this.state.showRatingOverlay}
-                        ratingValue={this.state.rateValue}
-                        changeRatingValue={this.changeRatingValueHandler}
-                        updateRating={this.updateRatingHandler}
-                        showListsOverlay={this.state.showListsOverlay}
-                        toggleListsOverlay={this.toggleListsOverlayHandler}/>
+                    <InfoLayout>
+                        <InfoCard
+                            mediaID={this.state.id} 
+                            isAuth={this.props.isAuth}
+                            isGuest={this.props.isGuest}
+                            toggleMediaState={this.toggleMediaStateHandler}
+                            toggleRatingOverlay={this.toggleRatingOverlayHandler}
+                            showRatingOverlay={this.state.showRatingOverlay}
+                            ratingValue={this.state.rateValue}
+                            changeRatingValue={this.changeRatingValueHandler}
+                            updateRating={this.updateRatingHandler}
+                            showListsOverlay={this.state.showListsOverlay}
+                            toggleListsOverlay={this.toggleListsOverlayHandler}/>
+                    </InfoLayout>
                 </DataWrapper>
             );
         }
         return (
-            <div className={styles.Info}>
+            <div style={{ position: 'relative' }} className={styles.Info}>
                 {infoContent}
             </div>
         );

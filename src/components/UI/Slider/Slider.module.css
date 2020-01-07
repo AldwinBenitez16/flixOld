@@ -7,6 +7,7 @@
 .Slider h2 {
     margin: 0;
     padding: 10px 0;
+    margin-bottom: 20px;
 }
 
 .Slider:nth-child(2) {
@@ -41,7 +42,7 @@
 
 @media (min-width: 768px) {
     .Slider {
-        width: 85vw;
+        width: 70vw;
     } 
 };
 

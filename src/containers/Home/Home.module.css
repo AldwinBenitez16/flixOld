@@ -12,13 +12,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 75px);
+    height: calc(100vh - 150px);
 }
 
 .HomeSearch {
     width: 400px;
     margin-bottom: 350px;
-    padding: 0 !important;
+    padding: 5px !important;
+    background-color: transparent !important;
 }
 
 .HomeSearch form {
