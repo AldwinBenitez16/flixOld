@@ -35,11 +35,7 @@ class withData extends Component {
     render() {
         let newProps = {...this.state};
         let updatedComponent = React.cloneElement(this.props.children, newProps);
-        return(
-            <Fragment>
-                {updatedComponent}
-            </Fragment>
-        );
+        return updatedComponent;
     };
 };
 
