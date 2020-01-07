@@ -10,7 +10,7 @@
 .NavigationItem a {
     color: #FFFDE4;
     text-decoration: none; 
-    transition: color .2s ease-in; 
+    transition: color .2s ease-in;
 }
 
 .NavigationItem a:hover,

@@ -9,19 +9,16 @@ import NavigationItem from './NavigationItem/NavigationItem';
 import styles from './Navigation.module.css';
 
 const navigation = (props) => {
-    // if(props.isAuth || props.isGuest) {
-    //     loginNav = <NavigationItem path="/logout">Log out</NavigationItem>;
-    // }
-    let loginNav = (
-        <div className={styles.Mobile}>
-            <NavigationItem path="/login">Login</NavigationItem>
-        </div>
-    );
-    if(props.isAuth) {
-        loginNav = <NavigationItem path="/user">{props.IdData.username}</NavigationItem>;
+    let loginNav = <NavigationItem path="/login">Login</NavigationItem>;
+    let userNav = null;
+    if(props.isAuth || props.isGuest) {
+        loginNav = <NavigationItem path="/logout">Logout</NavigationItem>;
     }
+    if(props.isAuth) {
+        userNav = <NavigationItem path="/user">{props.IdData.username}</NavigationItem>;
+    }                                                                                   
     if(props.isGuest) {
-        loginNav = <NavigationItem path="/home" active="Guest">Guest</NavigationItem>;
+        userNav = <NavigationItem path="/home" active="Guest">Guest</NavigationItem>;
     }
     return(
         <nav className={props.navStyles}>
@@ -30,6 +27,7 @@ const navigation = (props) => {
                 <NavigationItem path="/movies">Movies</NavigationItem>
                 <NavigationItem path="/tvshows">TV<span className={styles.TV_Extend}>-Shows</span></NavigationItem>
                 <NavigationItem path="/explore">Explore</NavigationItem>
+                {userNav}
                 {loginNav}
             </ul>
         </nav>
