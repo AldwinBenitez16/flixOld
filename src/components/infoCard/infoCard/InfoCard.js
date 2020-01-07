@@ -1,83 +1,66 @@
 // Dependencies
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 // Components 
+import NavigationItem from '../../Header/Navigation/NavigationItem/NavigationItem';
 import Spinner from '../../UI/Spinner/Spinner';
 import InfoControls from './InfoControls/InfoControls';
 import RatingOverlay from './RatingOverlay/RatingOverlay';
 import ListOverlay from './ListOverlay/ListOverlay';
+import InfoData from './InfoData/InfoData';
 
 // CSS
 import styles from './InfoCard.module.css';
 
-const InfoCard = (props) => {
-    let infoSummary = <Spinner />;
-    if(!props.loading && props.data !== null) {
-        let genreList = props.data.genres.map(genre => {
-            return <li key={genre.id} >{genre.name}</li>
-        });
+import { ReactComponent as HomeIcon } from '../../../assets/images/svgs/home.svg';
 
-        let controls = null;
-        let ratingContent = null;
-        let listsContent = null;
-        let type = 'movie';
-        if(props.data.original_name) {
-            type = 'tv';
-        }
+class InfoCard extends Component {
+    
+    state = {
+        identifier: 'home'
+    }
 
-        if(props.isAuth || props.isGuest) {
-            if (props.showRatingOverlay) {
-                ratingContent = <RatingOverlay 
-                                    changed={props.changeRatingValue}
-                                    rateValue={props.ratingValue}
-                                    updateRating={props.updateRating}/>;
+    IdentifierHandler = (value) => {
+        this.setState({ identifier: value });
+    };
+
+    render() {
+        let infoSummary = <Spinner />;
+        if(!this.props.loading && this.props.data !== null) {
+            let infoDataContent = null;
+            if(this.state.identifier === 'home') {
+                infoDataContent = <InfoData data={this.props.data} />;
             }
-            if(props.showListsOverlay && !props.isGuest) {
-                listsContent = <ListOverlay mediaID={props.mediaID} mediaType={type}/>
-            }
-            controls = (
+            infoSummary = (
                 <Fragment>
-                    <InfoControls
-                        id={props.mediaID}
-                        toggleMediaState={props.toggleMediaState}
-                        toggleRatingOverlay={props.toggleRatingOverlay}
-                        toggleListsOverlay={props.toggleListsOverlay}
-                        updateRating={props.updateRating} />
-                    {ratingContent}
-                    {listsContent}
+                    <div className={styles.InfoControls}>
+                        <ul>
+                            <li>
+                                <button 
+                                    onClick={(e) => this.IdentifierHandler(e.target.id) } 
+                                    id="home" >
+                                    <HomeIcon />
+                                </button>
+                            </li>
+                            <li>
+                                <button 
+                                    onClick={(e) => this.IdentifierHandler(e.target.id) } 
+                                    id="functions" >
+
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={styles.InfoCard}>
+                        {infoDataContent}
+                    </div>
                 </Fragment>
             );
         }
-        infoSummary = (
-            <Fragment>
-                <img src={`https://image.tmdb.org/t/p/w500/${props.data.poster_path}`}
-                alt={props.data.original_title}/>
-                <div className={styles.InfoData}>
-                    <h2>{props.data.original_title}</h2>
-                    <h3>Overview</h3>
-                    <p className={styles.Overview}>{props.data.overview}</p>
-                    <div className={styles.Genres}>
-                        <h4>Genres: </h4>
-                        <ul>
-                            {genreList}
-                        </ul>
-                    </div>
-                    <div className={styles.InfoBox}>
-                        <p>Popularity: {props.data.popularity}</p>
-                        <p>Release: {props.data.release_date}</p>
-                        <p>Vote Average: {props.data.vote_average}</p>
-                        <p>Runtime: {props.data.runtime} mins</p>
-                    </div>
-                </div>
-                {controls}
-            </Fragment>
-        );
+    
+        return infoSummary;
     }
-    return (
-        <div className={styles.InfoCard}>
-            {infoSummary}
-        </div>
-    );
 };
 
 export default InfoCard;
