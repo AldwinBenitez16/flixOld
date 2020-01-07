@@ -1,21 +1,29 @@
 .Authentication {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: calc(100vh - 150px);
+    display: block;
+    width: 100%;
+    height: calc(100vh - 100px);
     box-sizing: border-box;
 }
 
 .Form {
-    width: 55%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    width: 80%;
+    max-width: 650px;
     background-color: #fff;
     box-shadow: 3px 3px 10px #637899;
     padding: 25px;
+    z-index: 8;
 }
 
 .Form h2 {
-    text-align: center;
+    margin: 0; 
+    color: #4632c2; 
+    margin-bottom: 10px;
 }
 
 .Inputs {
@@ -23,12 +31,12 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    margin: 40px auto 40px auto;
 }
 
 .Inputs div {
     display: flex;
     flex-direction: column;
+    padding: 10px 0;
 }
 
 .Inputs label {
@@ -40,11 +48,12 @@
 }
 
 .Inputs input {
+    height: 40px;
     box-sizing: border-box;
     display: inline-block;
     border: 1px solid #ccc;
     padding: 5px;
-    margin: 10px 0;
+    margin: 0;
 }
 
 .Form .Controls {
@@ -62,13 +71,28 @@
     min-width: fit-content;
 }
 
+.Container {
+    width: 100%;
+}
+
+.Loading {
+    height: calc(100vh - 75px);
+    width: 100%;
+    background-color: #002da1;
+    background-image: linear-gradient(to right, #608aad, #0048ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media(min-width: 750px) {
+
     .Form .Controls {
         width: 100%;
         margin: 0 auto;
     }
 
-    .Controls button:first-child {
+    .Controls button:nth-child(2) {
         margin-left: 0;
     }
     
@@ -76,6 +100,6 @@
         width: 25%;
         height: 30px;
         display: inline-block;
-        margin-left: 10px;
+        margin-right: 10px;
     }
 }

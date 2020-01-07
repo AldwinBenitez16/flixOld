@@ -1,5 +1,6 @@
 // Dependencies
 import React, { Component } from 'react';
+import axios, { apiKey } from '../../shared/Axios/axios';
 import { updateObject, checkValidity } from '../../shared/Utillity/Utillity';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -8,6 +9,8 @@ import * as actions from '../../store/actions/index';
 // Components
 import Button from '../UI/Button/Button';
 import FormElement from '../UI/FormElement/FormElement';
+import Spinner from '../UI/Spinner/Spinner';
+import Overlay from '../Home/Overlay/Overlay';
 
 // CSS
 import styles from './Authentication.module.css';
@@ -30,7 +33,8 @@ class Authentication extends Component {
                 minLength: 4
             }, false)
         },
-        formIsValid: false
+        formIsValid: false,
+        backdropPath: ""
     }
     
     createFormElementHandler(type, value, config, rules=null, valid=true, touched=false) {
@@ -75,6 +79,20 @@ class Authentication extends Component {
                 fetchToken();
             }
         }
+
+        axios.get(`/movie/now_playing?api_key=${apiKey}&language=en-US`)
+            .then(res => {
+                let counter = 0;
+                let backdrop = res.data.results[counter].backdrop_path;
+                while(!backdrop) {
+                    counter++;
+                    backdrop = res.data.results[counter].backdrop_path;
+                }
+                this.setState({ backdropPath: `https://image.tmdb.org/t/p/w1280/${backdrop}` });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     inputChangeHandler = (e, id) => {
@@ -110,6 +128,17 @@ class Authentication extends Component {
     };
 
     render() {
+        let backgroundStyles = {
+            backgroundImage: `url('${this.state.backdropPath}')`,
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'
+        };
+        let authenticationContent = (
+            <div className={styles.Loading}>
+                <Spinner />
+            </div>
+        );
         let redirect = null;
         if(this.props.isAuth) {
             redirect = <Redirect to='/user' />;
@@ -138,35 +167,44 @@ class Authentication extends Component {
                 changed={e => this.inputChangeHandler(e, elem.id)}/>
             ))
         );
-
-        return(
-            <div className={styles.Authentication}>
-                {redirect}
-                <div className={styles.Form}>
-                    <h2>Login</h2>
-                    <div className={styles.Inputs}>
-                        {loginForm}
-                    </div>
-                    <div className={styles.Controls}>
-                        <Button 
-                            addClass={[]}
-                            type="Success"
-                            action="Login"
-                            clicked={this.loginHandler}>Login</Button>
-                        <Button 
-                            addClass={[styles.Guest]}
-                            type="Success"
-                            action="Guest Login"
-                            clicked={this.guestLoginHandler}>Guest Login</Button>
-                        <Button 
-                            addClass={[]}
-                            type="Danger"
-                            action="Cancel"
-                            clicked={this.cancelLoginHandler}>Cancel</Button>
+        if(this.state.backdropPath.length > 0) { 
+            authenticationContent = (
+                <div style={{ position: 'relative' }}>
+                    <div style={backgroundStyles} className={styles.Authentication}>
+                        {redirect}
+                        <Overlay />
+                        <div className={styles.Form}>
+                            <div className={styles.Container}>
+                                <h2>Login</h2>
+                                <div className={styles.Inputs}>
+                                    {loginForm}
+                                </div>
+                                <div className={styles.Controls}>
+                                    <Button 
+                                        addClass={[]}
+                                        type="Success"
+                                        action="Login"
+                                        clicked={this.loginHandler}>Login</Button>
+                                    <hr></hr>
+                                    <Button 
+                                        addClass={[styles.Guest]}
+                                        type="Success"
+                                        action="Guest Login"
+                                        clicked={this.guestLoginHandler}>Guest Login</Button>
+                                    <Button 
+                                        addClass={[]}
+                                        type="Danger"
+                                        action="Cancel"
+                                        clicked={this.cancelLoginHandler}>Cancel</Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+
+        return authenticationContent;
     }
 };
 
