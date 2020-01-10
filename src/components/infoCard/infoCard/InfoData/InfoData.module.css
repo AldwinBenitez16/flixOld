@@ -2,17 +2,46 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     height: 80%;
     width: 100%;
     margin: 10px;
 }
 
+.InfoDataContainer h2,
+.InfoDataContainer h3 {
+    margin: 0;
+}
+
+.InfoDataContainer h2 {
+    color: #4632c2;
+}
+
+.InfoDataContainer h3 {
+    color: #c97793;
+}
+
+.InfoDataContainer hr {
+    width: 100%;
+    height: 2px;
+    border-top: 2px solid #4632c2;
+}
+
+.InfoDataContainer p {
+    font-size: 0.8rem;
+}
+
 .Genres {
     display: flex;
+    flex-direction: column;
     justify-content: left;
     align-items: center;
 }
+
+.Genres h3 {
+    margin: 0;
+    width: 100%;
+    padding: 10px;
+} 
 
 .Genres ul {
     display: flex;
@@ -25,40 +54,40 @@
 }
 
 .Genres li {
-    border: 1px solid #999;
-    border-radius: 5px;
+    color: #4632c2;
+    border: 1px solid #4632c2;
+    background-color: rgba(150, 140, 209, .3);
+    width: 100%;
     padding: 5px;
-    background-color: #ebeced;
-    box-shadow: 2px 2px 5px #637899;
-    margin-left: 25px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .InfoBox {
-    display: block;
+    display: none;
     box-sizing: border-box;
-    font-size: .8rem;
-    padding: 10px;
-    margin: 25px auto;
-    border: 1px solid #999;
-    background-color: #ebeced;
-    border-radius: 2px;
-    max-width: 250px;
-    box-shadow: 2px 2px 5px #637899;
+    padding: 5px;
+    color: #4632c2;
+    border: 1px solid #4632c2;
+    background-color: rgba(150, 140, 209, .3);
+    font-weight: bold;
+}
+
+.Label {
+    width: 125px;
+    display: inline-block;
 }
 
 .InfoBox p {
     margin: 0;
 }
 
-@media (min-width: 750px) {
-    .InfoDataContainer {
-        margin: 0 25px 0 10px;
-    }
-}
-
-@media(min-width: 768px) {
+@media(min-width: 411px) {
     .InfoBox {
-        margin: 25px;
-        margin-left: 0;
+        display: block;
+    }
+
+    .InfoDataContainer p {
+        font-size: 1rem;
     }
 }

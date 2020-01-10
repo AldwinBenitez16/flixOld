@@ -14,19 +14,20 @@ const infoData = (props) => {
             alt={props.data.original_title}/>
             <div className={styles.InfoDataContainer}>
                 <h2>{props.data.original_title ? props.data.original_title : props.data.original_name}</h2>
+                <hr></hr>
                 <h3>Overview</h3>
                 <p className={styles.Overview}>{props.data.overview}</p>
                 <div className={styles.Genres}>
-                    <h4>Genres: </h4>
+                    <h3>Genres: </h3>
                     <ul>
                         {genreList}
                     </ul>
                 </div>
                 <div className={styles.InfoBox}>
-                    <p>Popularity: {props.data.popularity}</p>
-                    <p>Release: {props.data.release_date}</p>
-                    <p>Vote Average: {props.data.vote_average}</p>
-                    <p>Runtime: {props.data.runtime} mins</p>
+                    <p><span className={styles.Label}>Popularity:</span> <span>{props.data.popularity}</span></p>
+                    <p><span className={styles.Label}>Release:</span> <span>{props.data.release_date}</span></p>
+                    <p><span className={styles.Label}>Vote Average:</span> <span>{props.data.vote_average}</span></p>
+                    <p><span className={styles.Label}>Runtime:</span> <span>{props.data.runtime} mins</span></p>
                 </div>
             </div>
         </Fragment>
