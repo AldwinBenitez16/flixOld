@@ -1,0 +1,28 @@
+.InfoControls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.UpdatedButton {
+    margin-right: 0;
+    border-radius: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+@media (min-width: 750px) {
+    .InfoControls {
+        flex-direction: column;
+        justify-content: center;
+        width: 40px;
+        height: 100%;
+    }
+
+    .UpdatedButton {
+        height: 100%;
+        padding-right: 25px;
+    }
+}
