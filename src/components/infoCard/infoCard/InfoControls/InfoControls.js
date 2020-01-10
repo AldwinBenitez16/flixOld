@@ -1,89 +1,60 @@
-// Dependencies
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-// Components
-import Button from '../../../UI/Button/Button';
+import RatingOverlay from './RatingOverlay/RatingOverlay'
+import NavigationItem from '../../../Header/Navigation/NavigationItem/NavigationItem';
+import ListOverlay from '../ListOverlay/ListOverlay';
 
-// CSS
 import styles from './InfoControls.module.css';
 
-// assets
-import { ReactComponent as Listdrop } from '../../../../assets/images/svgs/listsdrop.svg';
+import { ReactComponent as AddFavoriteIcon } from '../../../../assets/images/svgs/heart+.svg';
+import { ReactComponent as RemoveFavoriteIcon } from '../../../../assets/images/svgs/heart-.svg';
 
-import { ReactComponent as Heartadd } from '../../../../assets/images/svgs/heart+.svg';
-import { ReactComponent as Heartrem } from '../../../../assets/images/svgs/heart-.svg';
+import { ReactComponent as AddWatchIcon } from '../../../../assets/images/svgs/watch+.svg';
+import { ReactComponent as RemoveWatchIcon } from '../../../../assets/images/svgs/watch-.svg';
 
-import { ReactComponent as Watchadd } from '../../../../assets/images/svgs/watch+.svg';
-import { ReactComponent as Watchrem } from '../../../../assets/images/svgs/watch-.svg';
+const infoControls = (props) => {
 
-import { ReactComponent as Rateadd } from '../../../../assets/images/svgs/rate+.svg';
-import { ReactComponent as Raterem } from '../../../../assets/images/svgs/rate-.svg';
-
-const userControls = (props) => {
-    const { 
-        mediaState, 
-        id, 
-        updateRating, 
-        toggleRatingOverlay, 
-        toggleMediaState, 
-        toggleListsOverlay,
-        isGuest 
-    } = props;
-
-    let controlsContent = null;
-    if(mediaState) {
-        if(mediaState[`${id}`]) {
-            const media = mediaState[`${id}`];
-            controlsContent = (
-                <Fragment>
-                    <Button
-                        addClass={[styles.UpdatedButton]}
-                        type="Success"
-                        action="Add To Lists"
-                        clicked={toggleListsOverlay}><Listdrop /></Button>
-                    <Button
-                        addClass={[styles.UpdatedButton]}
-                        type="Success"
-                        action="Rate"
-                        clicked={() => media.rated ? updateRating("delete") : toggleRatingOverlay() }>{media.rated ? <Raterem /> : <Rateadd />}</Button>
-                    <Button
-                        addClass={[styles.UpdatedButton]}
-                        type="Success"
-                        action="Favorite"
-                        clicked={() => toggleMediaState('favorite')}>{media.favorite ? <Heartrem /> : <Heartadd />}</Button>
-                    <Button
-                        addClass={[styles.UpdatedButton]}
-                        type="Success"
-                        action="Watchlist"
-                        clicked={() => toggleMediaState('watchlist')}>{media.watchlist ? <Watchrem /> : <Watchadd />}</Button>
-                </Fragment>
-            );
-        if(isGuest) {
-            controlsContent = (
-                <Fragment>
-                    <Button
-                        addClass={[styles.UpdatedButton]}
-                        type="Success"
-                        action="Rate"
-                        clicked={() => media.rated ? updateRating("delete") : toggleRatingOverlay() }>{media.rated ? <Raterem /> : <Rateadd />}</Button>
-                </Fragment>
-            );
-        }
-        }
-    }
-    return (
-        <div className={styles.InfoControls}> 
-            {controlsContent} 
+    let infoControlsContent = (
+        <div className={styles.LoginCatch}>
+            <h2>Please Login To Access</h2>
+            <hr></hr>
+            <NavigationItem path="/login" >Login</NavigationItem>
         </div>
     );
+    if(props.auth.authenticated || props.auth.guestAuth) {
+        let title='User';
+        if(props.auth.authenticated) {
+            title = props.auth.sessionIdData.username;
+        }
+        if(props.auth.guestAuth) {
+            title = 'Guest';
+        }
+        infoControlsContent = (
+            <div className={styles.InfoControls}>
+                <h2>{title}</h2>
+                <div className={styles.UserControlsContainer}>
+                    <RatingOverlay />
+                    <div className={styles.UserMediaControls}>
+                        <button
+                            title="Add To Favorites" ><AddFavoriteIcon /></button>
+                        <button
+                            title="Add To Watch Later" ><AddWatchIcon /></button>
+                    </div>
+                </div>
+                <hr></hr>
+                <ListOverlay mediaID={props.mediaID} mediaType={props.type}/>
+            </div>
+        );
+    }
+
+    return infoControlsContent;
 };
 
 const mapStateToProps = state => {
     return {
-        mediaState: state.info.mediaState,
-        isGuest: state.auth.guestAuth
+        auth: state.auth
     };
 };
 
-export default connect(mapStateToProps)(userControls);
+export default connect(mapStateToProps)(infoControls);
