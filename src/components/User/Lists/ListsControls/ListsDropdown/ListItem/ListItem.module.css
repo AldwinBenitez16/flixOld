@@ -2,6 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+    color: #4632c2;
+    border: 1px solid #4632c2;
+    background-color: rgba(150, 140, 209, .3);
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .ListItem svg:first-child {
@@ -9,7 +16,12 @@
     margin-left: 10px;
 }
 
+.ListItem svg:last-child {
+    border-radius: none;
+}
+
 .ListItem svg {
+    fill: #4632c2;
     margin-left: 5px;
 }
 

@@ -1,5 +1,4 @@
 .ListsDropdown ul{
-    background-color: #608aad;
     margin: 0;
     padding: 20px;
     padding-bottom: 0;
@@ -14,12 +13,6 @@
     list-style: none;
     padding: 10px 20px;
     cursor: pointer;
-}
-
-.ListsDropdown li:last-child {
-    padding-bottom: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 .ListsDropdown li:hover {

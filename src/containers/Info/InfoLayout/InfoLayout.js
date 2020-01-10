@@ -19,11 +19,7 @@ class InfoLayout extends Component {
                 backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${this.props.data.backdrop_path}')`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
-                height: 'calc(100vh - 100px)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
+                backgroundSize: 'cover'
             };
             let newProps = {
                 ...this.props
@@ -35,7 +31,7 @@ class InfoLayout extends Component {
                 InfoLayoutContent = (
                     <Fragment>
                         <Overlay />
-                        <div style={backgroundStyles} >
+                        <div style={backgroundStyles} className={styles.InfoLayout} >
                             {updatedComponent}
                         </div>
                     </Fragment>

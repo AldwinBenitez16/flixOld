@@ -17,6 +17,8 @@ const listControls = (props) => {
     return (
         <div className={styles.ListControls}>
             <div className={styles.ListBar}>
+
+                
                 <ListDrop onClick={props.toggleShowLists}/>
                 <AddList onClick={props.toggleShowForm}/>
             </div>
