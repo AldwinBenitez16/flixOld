@@ -1,10 +1,12 @@
 .InfoControls {
-    height: 700px;
+    box-sizing: border-box;
+    padding: 0 25px;
+    width: 100%;
     z-index: 8;
-    margin-right: 10px;
 }
 
 .InfoControls ul {
+    display: flex;
     margin: 0;
     padding: 0;
 }
@@ -16,7 +18,8 @@
     box-shadow: 3px 3px 10px #637899;
     list-style-type: none;
     margin: 0;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 .InfoControls button {
@@ -43,13 +46,13 @@
     align-items: center;
     justify-content: space-around;
     box-sizing: border-box;
-    width: 400px;
+    width: calc(100% - 50px);
     height: 700px;
     background-color: #ededed;
     box-shadow: 3px 3px 10px #637899;
-    text-align: center;
     box-sizing: border-box;
-    padding: 25px;
+    padding: 0 25px;
+    margin: 0 25px;
     z-index: 8;
 }
 
@@ -62,16 +65,36 @@
     box-shadow: 5px 5px 15px #637899;
 }
 
-@media(min-width: 500px) {
-    .InfoCard img {
-        max-width: 280px;
+.InfoControlUpdate {
+    align-items: flex-start;
+    padding: 25px;
+}
+
+@media(min-width: 546px) {
+    .InfoCard {
+        margin: 0;
+        width: 400px;
+    }
+
+    .InfoControls {
+        height: 700px;
+        width: unset;
+        margin-right: 10px;
+        padding: 0;
+    }
+
+    .InfoControls ul {
+        flex-direction: column;
+    }
+
+    .InfoControls li {
+        margin-bottom: 10px;
+        margin-right: 0;
     }
 }
 
-@media(min-width: 768px) {
-    .InfoCard {
-        flex-wrap: nowrap;
-        width: 80%;
-        padding-right: 0;
+@media(min-width: 500px) {
+    .InfoCard img {
+        max-width: 280px;
     }
 }
