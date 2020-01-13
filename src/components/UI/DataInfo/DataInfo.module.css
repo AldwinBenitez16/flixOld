@@ -8,7 +8,7 @@
     background-color: #fff;
     box-shadow: 3px 3px 10px #637899;
     padding: 25px;
-    margin: 25px;
+    max-width: 950px;
 }
 
 .UserDataInfo {
@@ -30,6 +30,7 @@
 
 .DataInfo h2,
 .UserDataInfo h2 {
+    color: #4632c2;
     margin: 0;
     margin: 25px;
 }
@@ -42,9 +43,29 @@
 .DataInfo .Item,
 .UserDataInfo .Item {
     box-sizing: border-box;
-    width: calc(33% - 6px);
+    width: calc(50% - 6px);
     margin: 3px;
     cursor: pointer;
+}
+
+@media(min-width: 411px) {
+    .DataInfo .Item,
+    .UserDataInfo .Item {
+        box-sizing: border-box;
+        width: calc(33% - 6px);
+        margin: 3px;
+        cursor: pointer;
+    }
+}
+
+@media(min-width: 546px) {
+    .DataInfo .Item,
+    .UserDataInfo .Item {
+        box-sizing: border-box;
+        width: calc(25% - 6px);
+        margin: 3px;
+        cursor: pointer;
+    }
 }
 
 @media (min-width: 768px) {

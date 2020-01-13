@@ -6,7 +6,7 @@
 }
 
 .Rating svg {
-    fill: #4632c2;
+    fill: #c97793;
 }
 
 .RatingOverlay {
@@ -22,6 +22,10 @@
 .RatingOverlay svg {
     display: inline;
     fill: #ccc;
+}
+
+.Hide {
+    display: none !important;
 }
 
 @media(min-width: 546px) {

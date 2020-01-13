@@ -14,15 +14,20 @@ const paginationButtons = (props) => {
     for(let i = min; i < max; i++) {
         if(i < 0 || i >= props.max) {
             continue;
+        } else {
+            console.log(i+1 >= min+5);
+            if(i+1 >= min+5) {
+
+            }
+            pages.push(
+                <Button
+                    clicked={() => props.changePage(i+1, props.max)}
+                    key={i}
+                    addClass={[styles.UpdatedButtons]}
+                    type="Mini"
+                >{i+1}</Button>
+            );
         }
-        pages.push(
-            <Button
-                clicked={() => props.changePage(i+1, props.max)}
-                key={i}
-                addClass={[styles.UpdatedButtons]}
-                type="Mini"
-            >{i+1}</Button>
-        );
     }
 
     return (
