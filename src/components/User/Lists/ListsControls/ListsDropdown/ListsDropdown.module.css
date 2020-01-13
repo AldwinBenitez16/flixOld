@@ -13,10 +13,11 @@
     list-style: none;
     padding: 10px 20px;
     cursor: pointer;
+    transition: background-color .2s ease-in-out;
 }
 
 .ListsDropdown li:hover {
-    background-color: #4286f4;
+    background-color: rgba(150, 140, 209, .8);
 }
 
 .Hide {
@@ -30,14 +31,3 @@
 .Center {
     text-align: center;
 };
-
-@media(min-width: 750px) {
-    .ListsDropdown {
-        padding: 0;
-        padding-top: 45px;
-        background-color: #608aad;
-        border-radius: 10px;
-        transition: min-height 1s ease-in;
-        width: 100%;
-    }
-}

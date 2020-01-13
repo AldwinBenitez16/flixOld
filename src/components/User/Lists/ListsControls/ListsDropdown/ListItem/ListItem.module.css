@@ -21,8 +21,13 @@
 }
 
 .ListItem svg {
-    fill: #4632c2;
+    fill: rgba(70, 50, 194, .2);
     margin-left: 5px;
+    transition: fill .2s ease-in-out;
+}
+
+.ListItem svg:hover {
+    fill: rgba(70, 50, 194, 1);
 }
 
 .InfoSVG {
