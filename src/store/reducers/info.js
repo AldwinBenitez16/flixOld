@@ -144,7 +144,9 @@ const reducer = (state=initialState, action) => {
                     ...state.mediaState,
                     [action.mediaID]: {
                         ...state.mediaState[action.mediaID],
-                        ['rated']: parseInt(action.value)
+                        ['rated']: {
+                            value: parseInt(action.value)
+                        }
                     }
                 }
             };

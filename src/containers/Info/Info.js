@@ -47,7 +47,6 @@ class Info extends Component {
 
     toggleMediaStateHandler = (stateType) => {
         const { accountID, sessionData, mediaState, onUpdateMediaState, onAddStateMedia } = this.props;
-        console.log(this.state.id);
         onUpdateMediaState(
             accountID,
             sessionData.session_id,
@@ -61,15 +60,6 @@ class Info extends Component {
         }
     };
 
-    toggleRatingOverlayHandler = () => {
-        this.setState(prevState => {
-            return {
-                showRatingOverlay: !prevState.showRatingOverlay,
-                showListsOverlay: false
-            };
-        });
-    };
-
     toggleListsOverlayHandler = () => {
         this.setState(prevState => {
             return {
@@ -79,14 +69,8 @@ class Info extends Component {
         });
     };
 
-    changeRatingValueHandler = (e) => {
-        let value = e.target.value;
-        if(value > 10) {
-            value = 10;
-        } else if(value <= 0) {
-            value = 1;
-        }
-        this.setState({rateValue: value});
+    changeRatingValueHandler = (value) => {
+        this.setState({ rateValue: value });
     };
 
     updateRatingHandler = (type) => {
@@ -109,7 +93,11 @@ class Info extends Component {
     };
 
     render() {
-        let infoContent = <Spinner />;
+        let infoContent = (
+            <div className={styles.Loading}>
+                <Spinner />
+            </div>
+        );
         if(this.state.type && this.state.id) {
             infoContent = (
                 <DataWrapper path={`/${this.state.type}/${this.state.id}?api_key=${apiKey}&language=en-US`}>
@@ -119,9 +107,7 @@ class Info extends Component {
                             isAuth={this.props.isAuth}
                             isGuest={this.props.isGuest}
                             toggleMediaState={this.toggleMediaStateHandler}
-                            toggleRatingOverlay={this.toggleRatingOverlayHandler}
                             showRatingOverlay={this.state.showRatingOverlay}
-                            ratingValue={this.state.rateValue}
                             changeRatingValue={this.changeRatingValueHandler}
                             updateRating={this.updateRatingHandler}
                             showListsOverlay={this.state.showListsOverlay}

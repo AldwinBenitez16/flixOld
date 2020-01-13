@@ -271,7 +271,7 @@ export const updateRating = (type, id, value, sessionID, requestType, isGuest) =
         }
         axios(config)
             .then(res => {
-                console.log(requestType === 'post');
+                console.log(res.data.status_message);
                 if(requestType === 'post') {
                     dispatch(addRating(id, value));
                 } else if(requestType === 'delete'){
