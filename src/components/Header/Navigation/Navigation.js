@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 // Components
 import NavigationItem from './NavigationItem/NavigationItem';
 
-// CSS
-import styles from './Navigation.module.css';
-
 const navigation = (props) => {
     let loginNav = <NavigationItem path="/login">Login</NavigationItem>;
     let userNav = null;
@@ -25,7 +22,7 @@ const navigation = (props) => {
             <ul>
                 <NavigationItem path="/home">Search</NavigationItem>
                 <NavigationItem path="/movies">Movies</NavigationItem>
-                <NavigationItem path="/tvshows">TV<span className={styles.TV_Extend}>-Shows</span></NavigationItem>
+                <NavigationItem path="/tvshows">TV</NavigationItem>
                 <NavigationItem path="/explore">Explore</NavigationItem>
                 {userNav}
                 {loginNav}

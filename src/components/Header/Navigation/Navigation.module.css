@@ -1,9 +1,0 @@
-.TV_Extend {
-    display: none;
-}
-
-@media(min-width: 911px) {
-    .TV_Extend {
-        display: inline;
-    }
-}
