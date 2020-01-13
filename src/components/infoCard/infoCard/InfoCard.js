@@ -16,7 +16,7 @@ import { ReactComponent as UserIcon } from '../../../assets/images/svgs/user.svg
 class InfoCard extends Component {
     
     state = {
-        identifier: 'user'
+        identifier: 'home'
     }
 
     IdentifierHandler = (value) => {
@@ -24,7 +24,11 @@ class InfoCard extends Component {
     };
 
     render() {
-        let infoSummary = <Spinner />;
+        let infoSummary = (
+            <div className={styles.Loading}>
+                <Spinner />
+            </div>
+        );
         if(!this.props.loading && this.props.data !== null) {
             let infoDataContent = null;
             if(this.state.identifier === 'home') {
@@ -37,7 +41,12 @@ class InfoCard extends Component {
             if(this.state.identifier === 'user') {
                 infoDataContent = (
                     <div className={[styles.InfoControlUpdate, styles.InfoCard].join(' ')}>
-                        <InfoControls mediaID={this.props.data.id} type={this.props.data.original_title ? 'movie' : 'tv'} />
+                        <InfoControls 
+                            toggleMedia={this.props.toggleMediaState}
+                            updateRating={this.props.updateRating}
+                            changeRatingValue={this.props.changeRatingValue}
+                            mediaID={this.props.data.id} 
+                            type={this.props.data.original_title ? 'movie' : 'tv'} />
                     </div>
                 );
             }

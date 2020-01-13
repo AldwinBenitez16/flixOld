@@ -1,10 +1,10 @@
 .NavigationItem {
     box-sizing: border-box;
     display: block;
-    font-size: 1.7rem !important;
+    font-size: 1.3rem !important;
     font-weight: 600;
     margin-right: 10px;
-    margin-top: 14px;
+    margin-top: 16px;
 }
 
 .NavigationItem a {
@@ -19,3 +19,8 @@
     color: #c7416f;
 }
 
+@media (min-width: 1000px) {
+    .NavigationItem {
+        font-size: 1.8rem !important;
+    }
+}

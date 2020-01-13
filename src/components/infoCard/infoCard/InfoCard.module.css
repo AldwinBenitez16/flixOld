@@ -93,8 +93,33 @@
     }
 }
 
+.Loading {
+    height: calc(100vh - 75px);
+    width: 100%;
+    background-color: #002da1;
+    background-image: linear-gradient(to right, #608aad, #0048ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media(min-width: 500px) {
     .InfoCard img {
         max-width: 280px;
+    }
+}
+
+@media(min-width: 1000px) {
+    .InfoCard img {
+        display: block;
+    }
+
+    .InfoCard {
+        flex-direction: column;
+        width: 750px;    
+    }
+
+    .InfoControlUpdate {
+        width: 400px;
     }
 }

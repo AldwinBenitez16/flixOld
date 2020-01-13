@@ -30,22 +30,33 @@ const infoControls = (props) => {
         if(props.auth.guestAuth) {
             title = 'Guest';
         }
-        infoControlsContent = (
-            <div className={styles.InfoControls}>
-                <h2>{title}</h2>
-                <div className={styles.UserControlsContainer}>
-                    <RatingOverlay />
-                    <div className={styles.UserMediaControls}>
-                        <button
-                            title="Add To Favorites" ><AddFavoriteIcon /></button>
-                        <button
-                            title="Add To Watch Later" ><AddWatchIcon /></button>
+        
+        if(props.mediaState !== null) {
+            const media = props.mediaState[`${props.mediaID}`];
+            if(media) {
+                infoControlsContent = (
+                    <div className={styles.InfoControls}>
+                        <h2>{title}</h2>
+                        <div className={styles.UserControlsContainer}>
+                            <RatingOverlay 
+                                changeRatingValue={props.changeRatingValue}
+                                updateRating={props.updateRating} 
+                                id={props.mediaID} />
+                            <div className={styles.UserMediaControls}>
+                                <button
+                                    onClick={() => props.toggleMedia('favorite')}
+                                    title="Add To Favorites" >{media.favorite ? <RemoveFavoriteIcon /> : <AddFavoriteIcon />}</button>
+                                <button
+                                    onClick={() => props.toggleMedia('watchlist')}
+                                    title="Add To Watch Later" >{media.watchlist ? <RemoveWatchIcon /> : <AddWatchIcon />}</button>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <ListOverlay mediaID={props.mediaID} mediaType={props.type}/>
                     </div>
-                </div>
-                <hr></hr>
-                <ListOverlay mediaID={props.mediaID} mediaType={props.type}/>
-            </div>
-        );
+                );
+            }
+        }
     }
 
     return infoControlsContent;
@@ -53,7 +64,9 @@ const infoControls = (props) => {
 
 const mapStateToProps = state => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        mediaState: state.info.mediaState,
+        isGuest: state.auth.guestAuth
     };
 };
 
