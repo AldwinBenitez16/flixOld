@@ -1,0 +1,22 @@
+.Hide {
+    opacity: 0;
+}
+
+.Show {
+    opacity: 1;
+}
+
+.StatusDropdown {
+    position: absolute;
+    width: calc(100% - 50px);
+    left: 25px;
+    top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: rgba(70, 50, 194, .7);
+    color: white;
+    border-radius: 0;
+    transition: opacity .2s ease-in;
+}

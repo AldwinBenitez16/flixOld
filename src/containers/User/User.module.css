@@ -10,9 +10,6 @@
 @media(min-width: 750px) {
     .User {
         width: 70vw;
-        margin: 25px auto;
-        background-color: #fff;
-        box-shadow: 3px 3px 10px #637899;
     }
 }
 

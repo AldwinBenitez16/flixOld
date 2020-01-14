@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios, { apiKey } from '../../shared/Axios/axios';
+import authAxios from '../../shared/Axios/authAxios';
 
 const fetchTokenStart = () => {
     return {
@@ -83,17 +84,17 @@ export const fetchSessionIdFinal = (token, username) => {
 export const fetchSessionId = (token, username, password) => {
     return dispatch => {
         const loginData = {
-            username: "Snaimmail",
-            password: "itsokay",
+            username,
+            password,
             request_token: token
         };
-        axios({
+        authAxios({
             url: `/authentication/token/validate_with_login?api_key=${apiKey}`, 
             method: 'post',
             data: loginData
         })
             .then(res => {
-                dispatch(fetchSessionIdFinal(token, "Snaimmail"));
+                dispatch(fetchSessionIdFinal(token, username));
             })
             .catch(error => {
                 dispatch(fetchSessionIdFail(error));

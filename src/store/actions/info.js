@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios, { apiKey } from '../../shared/Axios/axios'
+import userAxios from '../../shared/Axios/userAxios';
 
 // Sets Loading To True/False
 const Start = () => {
@@ -51,7 +52,7 @@ const fetchAccountListsSuccess = (data) => {
 export const fetchAccountLists = (accountID, sessionID) => {
     return dispatch => {
         dispatch(Start());
-        axios.get(`/account/${accountID}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionID}&page=1`)
+        userAxios.get(`/account/${accountID}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionID}&page=1`)
             .then(res => {
                 res.data.results.map(list => {
                     axios.get(`/list/${list.id}?api_key=${apiKey}&language=en-US`)
@@ -85,7 +86,7 @@ const clearListSuccess = (id) => {
 export const clearList = (listID, sessionID) => {
     return dispatch => {
         dispatch(Start());
-        axios.post(`/list/${listID}/clear?api_key=${apiKey}&session_id=${sessionID}&confirm=true`)
+        userAxios.post(`/list/${listID}/clear?api_key=${apiKey}&session_id=${sessionID}&confirm=true`)
             .then(res => {
                 dispatch(clearListSuccess(listID));
             })
@@ -106,7 +107,7 @@ const deleteListSuccess = (id) => {
 export const deleteList = (id, sessionID) => {
     return dispatch => {
         dispatch(Start());
-        axios({
+        userAxios({
             url: `/list/${id}?api_key=${apiKey}&session_id=${sessionID}`,
             method: 'delete'
         })
@@ -134,7 +135,7 @@ const addMediaSuccess = (id, data) => {
 
 export const addMedia = (mediaType, mediaID, listID, sessionID) => {
     return dispatch => {
-        axios({
+        userAxios({
             url: `/list/${listID}/add_item?api_key=${apiKey}&session_id=${sessionID}`,
             method: 'post',
             data: {
@@ -168,7 +169,7 @@ export const removeMediaSuccess = (id, mediaID) => {
 
 export const removeMedia = (mediaID, listID, sessionID) => {
     return dispatch => {
-        axios({
+        userAxios({
             url: `/list/${listID}/remove_item?api_key=${apiKey}&session_id=${sessionID}`,
             method: 'post',
             data: {
@@ -269,7 +270,7 @@ export const updateRating = (type, id, value, sessionID, requestType, isGuest) =
                 method: 'delete',
             };
         }
-        axios(config)
+        userAxios(config)
             .then(res => {
                 console.log(res.data.status_message);
                 if(requestType === 'post') {
@@ -299,7 +300,7 @@ const updateMediaStateSuccess = (mediaID, mediaState) => {
 export const updateMediaState = (accountID, sessionID, mediaType, mediaID, stateType, stateValue) => {
     return dispatch => {
         dispatch(Start());
-        axios({
+        userAxios({
             url: `/account/${accountID}/${stateType}?api_key=${apiKey}&session_id=${sessionID}`,
             data: {
                 media_type: mediaType,
