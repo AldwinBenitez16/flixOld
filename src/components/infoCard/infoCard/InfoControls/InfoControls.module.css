@@ -4,14 +4,16 @@
 }
 
 .LoginCatch h2,
-.InfoControls h2 {
+.InfoControls h2,
+.GuestLogin h2 {
     color: #4632c2;
     text-align: center;
     margin: 0;
 }
 
 .LoginCatch hr,
-.InfoControls hr {
+.InfoControls hr,
+.GuestLogin hr {
     width: 100%;
     height: 2px;
     border-top: 2px solid #4632c2;
@@ -50,6 +52,27 @@
 
 .UserMediaControls button:hover {
     fill: #c7416f;
+}
+
+.GuestLogin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.GuestLogin h2 {
+    margin-bottom: 25px;
+}
+
+.GuestLogin hr {
+    margin-top: 25px;
+}
+
+.GuestLogin a {
+    color: #c97793;
 }
 
 @media(min-width: 546px) {

@@ -1,6 +1,7 @@
 // Dependencies
 import React, { Component } from 'react';
 import axios, { apiKey } from '../../shared/Axios/axios';
+import authAxios from '../../shared/Axios/authAxios';
 import { updateObject, checkValidity } from '../../shared/Utillity/Utillity';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -10,7 +11,8 @@ import * as actions from '../../store/actions/index';
 import Button from '../UI/Button/Button';
 import FormElement from '../UI/FormElement/FormElement';
 import Spinner from '../UI/Spinner/Spinner';
-import Overlay from '../Home/Overlay/Overlay';
+import Overlay from '../UI/Overlay/Overlay';
+import StatusDropdown from '../../hoc/StatusDropdown/StatusDropdown';
 
 // CSS
 import styles from './Authentication.module.css';
@@ -174,6 +176,7 @@ class Authentication extends Component {
                         {redirect}
                         <Overlay />
                         <div className={styles.Form}>
+                            <StatusDropdown axios={authAxios} />
                             <div className={styles.Container}>
                                 <h2>Login</h2>
                                 <div className={styles.Inputs}>

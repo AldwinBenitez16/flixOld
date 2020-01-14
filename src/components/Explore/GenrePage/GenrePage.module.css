@@ -6,3 +6,13 @@
     width: 100%;
     padding: 25px;
 }
+
+.Loading {
+    height: calc(100vh - 75px);
+    width: 100%;
+    background-color: #002da1;
+    background-image: linear-gradient(to right, #608aad, #0048ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -42,7 +42,11 @@ class GenrePage extends Component {
     }
 
     render() {
-        let list = <Spinner />;
+        let list = (
+            <div className={styles.Loading}>
+                <Spinner />
+            </div>
+        );
         if(this.state.id && this.state.type && this.state.page) {
             list = (
                 <DataWrapper path={`/discover/${this.state.type}?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${this.state.page}&with_genres=${this.state.id}`}>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import userAxios from '../../../../shared/Axios/userAxios';
 
 import RatingOverlay from './RatingOverlay/RatingOverlay'
 import NavigationItem from '../../../Header/Navigation/NavigationItem/NavigationItem';
 import ListOverlay from '../ListOverlay/ListOverlay';
+import StatusDropdown from '../../../../hoc/StatusDropdown/StatusDropdown';
 
 import styles from './InfoControls.module.css';
 
@@ -26,37 +28,52 @@ const infoControls = (props) => {
         let title='User';
         if(props.auth.authenticated) {
             title = props.auth.sessionIdData.username;
+            if(props.mediaState !== null) {
+                const media = props.mediaState[`${props.mediaID}`];
+                if(media) {
+                    infoControlsContent = (
+                        <div className={styles.InfoControls}>
+                            <StatusDropdown axios={userAxios} />
+                            <h2>{title}</h2>
+                            <div className={styles.UserControlsContainer}>
+                                <RatingOverlay 
+                                    changeRatingValue={props.changeRatingValue}
+                                    updateRating={props.updateRating} 
+                                    id={props.mediaID} />
+                                <div className={styles.UserMediaControls}>
+                                    <button
+                                        onClick={() => props.toggleMedia('favorite')}
+                                        title="Add To Favorites" >{media.favorite ? <RemoveFavoriteIcon /> : <AddFavoriteIcon />}</button>
+                                    <button
+                                        onClick={() => props.toggleMedia('watchlist')}
+                                        title="Add To Watch Later" >{media.watchlist ? <RemoveWatchIcon /> : <AddWatchIcon />}</button>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <ListOverlay mediaID={props.mediaID} mediaType={props.type}/>
+                        </div>
+                    );
+                }
+            }
         }
         if(props.auth.guestAuth) {
             title = 'Guest';
-        }
-        
-        if(props.mediaState !== null) {
-            const media = props.mediaState[`${props.mediaID}`];
-            if(media) {
+            if(props.mediaState !== null) {
                 infoControlsContent = (
-                    <div className={styles.InfoControls}>
+                    <div className={styles.GuestLogin}>
+                        <StatusDropdown axios={userAxios} />
                         <h2>{title}</h2>
-                        <div className={styles.UserControlsContainer}>
-                            <RatingOverlay 
+                        <RatingOverlay 
                                 changeRatingValue={props.changeRatingValue}
                                 updateRating={props.updateRating} 
                                 id={props.mediaID} />
-                            <div className={styles.UserMediaControls}>
-                                <button
-                                    onClick={() => props.toggleMedia('favorite')}
-                                    title="Add To Favorites" >{media.favorite ? <RemoveFavoriteIcon /> : <AddFavoriteIcon />}</button>
-                                <button
-                                    onClick={() => props.toggleMedia('watchlist')}
-                                    title="Add To Watch Later" >{media.watchlist ? <RemoveWatchIcon /> : <AddWatchIcon />}</button>
-                            </div>
-                        </div>
                         <hr></hr>
-                        <ListOverlay mediaID={props.mediaID} mediaType={props.type}/>
+                        <NavigationItem path="/login" >Login</NavigationItem>
                     </div>
                 );
             }
         }
+        
     }
 
     return infoControlsContent;
