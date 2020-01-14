@@ -14,14 +14,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #608aad;
+    background-color: #4632c2;
     padding: 20px;
-    border-radius: 50px;
     width: calc(100% - 50px);
 }
 
 .ListBar svg {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     cursor: pointer;
+    fill: white;
+    transition: fill .2s ease-in-out
+}
+
+.ListBar svg:hover {
+    fill: #c97793;
 }

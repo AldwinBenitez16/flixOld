@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Overlay from '../../../components/Home/Overlay/Overlay';
+import Overlay from '../../../components/UI/Overlay/Overlay';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 
 import styles from './InfoLayout.module.css';

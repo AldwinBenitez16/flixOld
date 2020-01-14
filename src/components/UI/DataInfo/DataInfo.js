@@ -11,7 +11,11 @@ import Spinner from '../Spinner/Spinner';
 import styles from './DataInfo.module.css';
 
 const dataInfo = (props) => {
-    let dataItems = <Spinner />;
+    let dataItems = (
+        <div className={styles.Loading}>
+            <Spinner />
+        </div>
+    );
     let pagination= null;
     let dataStyles = styles.DataInfo;
     let dataTitle = styles.DataTitle;
@@ -23,13 +27,16 @@ const dataInfo = (props) => {
     if(props.stylesType === 'user') {
         dataStyles = styles.UserDataInfo;
     }
-
     if(!props.loading && props.data !== null) {
         let dataItemsArray = props.data.results;
+        let mediaType = 'movie';
         dataItems = dataItemsArray.map(curr => {
+            if(!curr.original_title) {
+                mediaType='tv';
+            }
             return (
                 <div 
-                    onClick={() => props.viewInfo(props.type, ternary(curr.original_title, curr.original_name), curr.id)}
+                    onClick={() => props.viewInfo(mediaType, ternary(curr.original_title, curr.original_name), curr.id)}
                     key={curr.id} 
                     className={styles.Item}>
                     <img 

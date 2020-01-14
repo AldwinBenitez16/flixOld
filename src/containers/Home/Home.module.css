@@ -2,11 +2,6 @@
     display: block;
 }
 
-.BlueContainer {
-    background-color: transparent;
-    padding: 25px;
-}
-
 .SearchContainer {
     position: relative;
     display: flex;
@@ -61,16 +56,6 @@
     min-height: 500px;
     padding: 25px;
     font-size: 1.5rem;
-}
-
-.Loading {
-    height: calc(100vh - 75px);
-    width: 100%;
-    background-color: #002da1;
-    background-image: linear-gradient(to right, #608aad, #0048ff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 @media (min-width: 768px) {

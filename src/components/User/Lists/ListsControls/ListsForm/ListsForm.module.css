@@ -5,10 +5,11 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    padding-top: 45px;
-    background-color: #608aad;
-    border-radius: 10px;
+    margin-top: 50px;
     width: 100%;
+    color: #4632c2;
+    border: 1px solid #4632c2;
+    background-color: rgba(150, 140, 209, .3);
 }
 
 .ListsForm input,
@@ -16,7 +17,6 @@
     box-sizing: border-box;
     width: 80%;
     border: none;
-    border-radius: 3px;
     padding: 10px;
     margin: 5px 0;
 } 
