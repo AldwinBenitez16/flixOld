@@ -11,7 +11,6 @@
         margin: 0 auto;
         height: 400px;
         overflow: hidden;
-        box-shadow: 3px 3px 10px #637899;
         margin-top: 10px;
     }
 
@@ -42,12 +41,17 @@
         max-width: 75%;
         height: 100%;
         padding: 20px;
-        background-color: rgba(138, 183, 255, .6);
-        border: 1px solid #608aad;
+        background-color: rgba(202, 202, 202, .8);
+        border: 1px solid #cacaca;
         position: absolute;
         top: 0;
         left: 0;
         z-index: 55;
+    }
+
+    .Overlay h2 {
+        margin: 0;
+        color: #4632c2;
     }
     
     .Spinner {

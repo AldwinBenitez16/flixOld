@@ -21,7 +21,11 @@ class Lists extends Component {
     toggleShowListsHandler = () => {
         this.setState(prevState => {
             return {
-                showLists: !prevState.showLists
+                showLists: !prevState.showLists,
+                form: {
+                    ...prevState.form,
+                    show: false
+                },
             };
         });
     }
@@ -32,7 +36,8 @@ class Lists extends Component {
                 form: {
                     ...prevState.form,
                     show: !prevState.form.show
-                }
+                },
+                showLists: false
             };
         });
     };

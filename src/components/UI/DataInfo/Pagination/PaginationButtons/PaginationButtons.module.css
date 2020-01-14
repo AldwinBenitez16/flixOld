@@ -1,5 +1,5 @@
 .ButtonExtends {
-
+    display: none;
 }
 
 .UpdatedButtons {
@@ -16,5 +16,11 @@
 @media(min-width: 411px) {
     .UpdatedButtons {
         width: 25px;
+    }
+}
+
+@media(min-width: 546px) {
+    .ButtonExtends {
+        display: initial;
     }
 }
